@@ -1,0 +1,8 @@
+# Auracle runs on Cloudflare Workers.
+# All keys are set as Secrets in the Cloudflare dashboard, never in this file:
+# DISCORD_APPLICATION_ID, DISCORD_PUBLIC_KEY, DISCORD_TOKEN, REGISTER_KEY
+
+name = "auracle"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+keep_vars = true
