@@ -33,9 +33,10 @@ export const ui = {
     return { type: 17, accent_color: accentColor, components };
   },
 
-  button({ id, label, emoji, style = ButtonStyle.PRIMARY }) {
+  button({ id, label, emoji, style = ButtonStyle.PRIMARY, disabled = false }) {
     const b = { type: 2, style, label, custom_id: id };
     if (emoji) b.emoji = { name: emoji };
+    if (disabled) b.disabled = true;
     return b;
   },
 
@@ -43,12 +44,23 @@ export const ui = {
     return { type: 1, components: buttons };
   },
 
-  // type 4 = reply to the command with a new message
+  // type 4 = reply to a slash command with a new message
   message(components, { ephemeral = true } = {}) {
     return {
       type: 4,
       data: {
         flags: FLAGS.COMPONENTS_V2 | (ephemeral ? FLAGS.EPHEMERAL : 0),
+        components,
+      },
+    };
+  },
+
+  // type 7 = a button was clicked: replace the same message (no spam in the channel)
+  update(components) {
+    return {
+      type: 7,
+      data: {
+        flags: FLAGS.COMPONENTS_V2,
         components,
       },
     };
