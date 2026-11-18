@@ -2,6 +2,11 @@
 // Each item: [text, domain, facet (1-6), keyed (+1 plus / -1 minus)].
 // Domains: N Neuroticism, E Extraversion, O Openness, A Agreeableness, C Conscientiousness.
 // Answers are scored 1 to 5. Minus-keyed items are reversed (6 - answer).
+//
+// Auracle change: the two items about voting (Liberalism facet) are reworded so they make
+// sense in every country, keeping the same meaning and keying:
+//   "Tend to vote for liberal political candidates" -> "Tend to support progressive ideas"
+//   "Tend to vote for conservative political candidates" -> "Tend to support traditional values"
 
 export const IPIP120 = [
   ['Worry about things', 'N', 1, 1],
@@ -31,7 +36,7 @@ export const IPIP120 = [
   ['Am always prepared', 'C', 5, 1],
   ['Panic easily', 'N', 6, 1],
   ['Radiate joy', 'E', 6, 1],
-  ['Tend to vote for liberal political candidates', 'O', 6, 1],
+  ['Tend to support progressive ideas', 'O', 6, 1],
   ['Sympathize with the homeless', 'A', 6, 1],
   ['Jump into things without thinking', 'C', 6, -1],
   ['Fear for the worst', 'N', 1, 1],
@@ -91,7 +96,7 @@ export const IPIP120 = [
   ['Waste my time', 'C', 5, -1],
   ["Feel that I'm unable to deal with things", 'N', 6, 1],
   ['Love life', 'E', 6, 1],
-  ['Tend to vote for conservative political candidates', 'O', 6, -1],
+  ['Tend to support traditional values', 'O', 6, -1],
   ["Am not interested in other people's problems", 'A', 6, -1],
   ['Rush into things', 'C', 6, -1],
   ['Get stressed out easily', 'N', 1, 1],
