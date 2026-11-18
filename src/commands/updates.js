@@ -5,10 +5,11 @@ import { updatesTexts as U } from '../texts/en-updates.js';
 
 const S = ui.ButtonStyle;
 
+// Button ids: up:tab:new, up:tab:soon (tabs) and up:page:N (arrows). Every id on a screen is unique.
 function tabs(active) {
   return ui.row(
-    ui.button({ id: 'up:new:0', label: U.newTab, emoji: '📜', style: active === 'new' ? S.PRIMARY : S.SECONDARY }),
-    ui.button({ id: 'up:soon', label: U.soonTab, emoji: '🔮', style: active === 'soon' ? S.PRIMARY : S.SECONDARY }),
+    ui.button({ id: 'up:tab:new', label: U.newTab, emoji: '📜', style: active === 'new' ? S.PRIMARY : S.SECONDARY }),
+    ui.button({ id: 'up:tab:soon', label: U.soonTab, emoji: '🔮', style: active === 'soon' ? S.PRIMARY : S.SECONDARY }),
   );
 }
 
@@ -22,11 +23,11 @@ function newsScreen(page) {
     ui.container(ui.COLORS.auracle, [
       ui.text(`${U.newTitle}\n-# ${U.page(p + 1, total)}`),
       ui.separator(),
-      ui.text(`**${v.name}**${v.date ? ` · ${v.date}` : ''}\n${items}`),
+      ui.text(`**${v.name}**\n${items}`),
       ui.separator(),
       ui.row(
-        ui.button({ id: `up:new:${p - 1}`, label: U.newer, emoji: '◀️', style: S.SECONDARY, disabled: p === 0 }),
-        ui.button({ id: `up:new:${p + 1}`, label: U.older, emoji: '▶️', style: S.SECONDARY, disabled: p >= total - 1 }),
+        ui.button({ id: `up:page:${Math.max(0, p - 1)}`, label: U.newer, emoji: '◀️', style: S.SECONDARY, disabled: p === 0 }),
+        ui.button({ id: `up:page:${Math.min(total - 1, p + 1)}:o`, label: U.older, emoji: '▶️', style: S.SECONDARY, disabled: p >= total - 1 }),
       ),
       tabs('new'),
       ui.text(U.footer),
@@ -51,7 +52,8 @@ export function updatesCommand() {
 }
 
 export function updatesComponent(interaction) {
-  const [, action, page] = interaction.data.custom_id.split(':');
-  if (action === 'soon') return ui.update(soonScreen());
-  return ui.update(newsScreen(Number(page) || 0));
+  const [, action, value] = interaction.data.custom_id.split(':');
+  if (action === 'tab' && value === 'soon') return ui.update(soonScreen());
+  if (action === 'page') return ui.update(newsScreen(Number(value) || 0));
+  return ui.update(newsScreen(0));
 }
