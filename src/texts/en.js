@@ -46,8 +46,8 @@ export const texts = {
         "Auracle reveals your personality through the **Big Five**, one of psychology's most trusted models. " +
         'Your answers uncover your five core traits, and with them, your **hero class**: one of 16, across four guilds.\n\n' +
         '🔒 Your results stay private unless you choose to share them.\n\n' +
-        '🌱 For now, Auracle is a personality test with a profile card. But it dreams bigger: ' +
-        'a social companion for Discord, inclusive, safe, and truly yours to customize.\n\n' +
+        "🌱 Auracle starts with this trial, but it's more than a test: " +
+        'a social companion for Discord, inclusive, safe, and soon truly yours to customize.\n\n' +
         '🛠️ Still a work in progress, tested by a small circle of servers. ' +
         'Spotted a bug or have an idea? Use **📬 Feedback** in `/auracle`. Lost? `/auracle` gathers everything, and the **📖 Codex** explains how it all works, with support resources if you ever need them.\n\n' +
         '-# Crafted with care by Zenckoo ✨',

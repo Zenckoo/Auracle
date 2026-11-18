@@ -14,8 +14,8 @@ export const codexTexts = {
       emoji: '🔮',
       name: 'What is Auracle?',
       body:
-        'Auracle is a personality trial for Discord. You answer statements about yourself, and Auracle reveals your **five core traits**, your **30 facets**, and a **hero class** among 16, across four guilds.\n\n' +
-        'It is made to help you know yourself a little better, compare with friends, and have fun together.\n\n' +
+        'Auracle is a social companion for Discord. It starts with a personality trial: you answer statements about yourself, and Auracle reveals your **five core traits**, your **30 facets**, and a **hero class** among 16, across four guilds.\n\n' +
+        "Then it's all about you and your community: compare with friends, see your server's guilds, and soon, make your card truly yours.\n\n" +
         '⚠️ **Not a diagnosis.** Auracle is not a psychological or medical assessment. Your class is a fun estimate, never a label.',
       links: [],
     },
