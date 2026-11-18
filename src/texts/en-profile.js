@@ -1,11 +1,11 @@
-// English texts for /profile.
+// English texts for /profile (as validated in the plan).
 
 export const profileTexts = {
   cardLabel: (name) => `-# ${name}'s traveler card`,
   awakened: (timestamp) => `-# Awakened <t:${timestamp}:D>`,
-  privateNote: '-# 🔒 Only you can see this card. Make it public with /privacy.',
-  notAwakenedSelf: "### 🌫️ No class yet\nYou haven't taken the trial, traveler. Begin your journey with `/awaken`.",
-  notAwakenedOther: (name) => `### 🌫️ No class yet\n${name} hasn't taken the trial yet.`,
-  privateOther: (name) => `### 🔒 A hidden path\n${name} keeps their class a secret.`,
+  privateNote: '-# 🔒 Your card is private. Only you can see it.',
+  notAwakenedSelf: "### 🌫️ No class yet\nYou haven't faced the trial yet, traveler. Begin your journey with `/awaken`.",
+  notAwakenedOther: () => '### 🌫️ Still unknown\nThis traveler has not yet faced the trial. Their class remains unknown.',
+  privateOther: () => "### 🔒 A hidden path\nThis traveler's class remains a mystery...",
   bot: '### 🤖 No soul to reveal\nBots cannot take the trial... yet.',
 };

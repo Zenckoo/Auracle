@@ -24,6 +24,18 @@ export const commandDefinitions = [
     ],
   },
   {
+    name: 'privacy',
+    description: 'Choose what you share with others',
+    type: 1,
+    contexts: [0],
+  },
+  {
+    name: 'forget',
+    description: 'Erase all your data',
+    type: 1,
+    contexts: [0],
+  },
+  {
     name: 'help',
     description: "Open the Traveler's Guide",
     type: 1,
