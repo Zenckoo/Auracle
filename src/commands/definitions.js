@@ -1,7 +1,8 @@
-// The list of slash commands Discord shows to users.
+// The slash commands Discord shows to members.
+// contexts: [0] means the command only works inside a server.
 // After changing this file, open the /register link again so Discord learns the new list.
 
-export const commands = [
+export const commandDefinitions = [
   {
     name: 'awaken',
     description: 'Begin your trial and discover your class',
