@@ -1,6 +1,7 @@
-// Turns the 120 answers into trait scores, facet scores, percentiles and a four-letter type.
+// Turns the answers (120 or 300) into trait scores, facet scores, percentiles and a four-letter type.
 
-import { IPIP120, FACETS } from '../data/ipip120.js';
+import { FACETS } from '../data/ipip120.js';
+import { trialItems } from '../data/trials.js';
 import { DOMAIN_CUTS, FACET_NORMS } from '../data/norms.js';
 
 export const DOMAIN_ORDER = ['O', 'C', 'E', 'A', 'N'];
@@ -37,11 +38,21 @@ function facetPercentile(domain, facetIndex, raw) {
   return clampPercentile(normalCdf((raw - mean) / sd) * 100);
 }
 
-export function computeScores(answers) {
+// Works for both trials. Domain scores use a 0-100 scale (share of the maximum),
+// and facet scores are brought back to the 0-16 scale of the reference table before the percentile.
+// For the Grand Trial (10 items per facet), this uses the same reference group as the Standard Trial:
+// a close estimate until Auracle has its own local norms.
+export function computeScores(answers, version = 'standard') {
+  const items = trialItems(version);
   const facetSums = {};
-  for (const d of DOMAIN_ORDER) facetSums[d] = [0, 0, 0, 0, 0, 0];
+  const facetCounts = {};
+  for (const d of DOMAIN_ORDER) {
+    facetSums[d] = [0, 0, 0, 0, 0, 0];
+    facetCounts[d] = [0, 0, 0, 0, 0, 0];
+  }
 
-  IPIP120.forEach(([, domain, facet, keyed], i) => {
+  items.forEach(([, domain, facet, keyed], i) => {
+    facetCounts[domain][facet - 1] += 1;
     const answer = answers[i];
     if (!answer) return;
     const points = keyed > 0 ? answer - 1 : 5 - answer; // 0 to 4
@@ -51,10 +62,14 @@ export function computeScores(answers) {
   const domains = {};
   const facets = {};
   for (const d of DOMAIN_ORDER) {
-    const total = facetSums[d].reduce((a, b) => a + b, 0); // 0 to 96
-    const score = Math.round((total / 96) * 100);
+    const total = facetSums[d].reduce((a, b) => a + b, 0);
+    const max = facetCounts[d].reduce((a, b) => a + b, 0) * 4;
+    const score = Math.round((total / max) * 100);
     domains[d] = { score, percentile: domainPercentile(d, score) };
-    facets[d] = facetSums[d].map((raw, i) => ({ raw, percentile: facetPercentile(d, i, raw) }));
+    facets[d] = facetSums[d].map((raw, i) => {
+      const onReferenceScale = (raw * 16) / (facetCounts[d][i] * 4);
+      return { raw, percentile: facetPercentile(d, i, onReferenceScale) };
+    });
   }
 
   return { domains, facets };
