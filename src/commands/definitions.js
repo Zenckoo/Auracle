@@ -4,6 +4,12 @@
 
 export const commandDefinitions = [
   {
+    name: 'auracle',
+    description: 'Open the menu (no need to type commands)',
+    type: 1,
+    contexts: [0],
+  },
+  {
     name: 'awaken',
     description: 'Begin your trial and discover your class',
     type: 1,

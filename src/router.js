@@ -7,10 +7,12 @@ import { privacyCommand, privacyComponent } from './commands/privacy.js';
 import { forgetCommand, forgetComponent } from './commands/forget.js';
 import { updatesCommand } from './commands/updates.js';
 import { feedbackCommand, feedbackComponent, feedbackModal } from './commands/feedback.js';
+import { hubCommand, hubComponent } from './commands/hub.js';
 import { ui } from './core/ui.js';
 import { texts } from './texts/en.js';
 
 const commandHandlers = {
+  auracle: hubCommand,
   help: helpCommand,
   awaken: awakenCommand,
   profile: profileCommand,
@@ -22,6 +24,7 @@ const commandHandlers = {
 
 // Buttons are named "prefix:action:...". The prefix tells which feature owns them.
 const componentHandlers = {
+  hub: hubComponent,
   aw: awakenComponent,
   pv: privacyComponent,
   fg: forgetComponent,
