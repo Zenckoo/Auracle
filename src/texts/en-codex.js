@@ -89,7 +89,7 @@ export const codexTexts = {
       emoji: '🌈',
       name: 'Everyone belongs here',
       body:
-        'Your personality is about how you tend to think, feel and act. It has nothing to do with your gender, who you love, your skin, your faith, your body, your age or where you come from. Auracle never asks about any of these.\n\n' +
+        'Your personality is about how you tend to think, feel and act. It has nothing to do with your gender, who you love, your skin, your faith, your body, your age or where you come from. The trial never asks about any of these, and they never change your results. If one day you add something about yourself to your card, it will always be your choice, and only yours.\n\n' +
         'No class, no guild and no score is better than another. Being quiet, sensitive or messy is not a flaw: it is a way of being.\n\n' +
         '🚫 **Auracle must never be used to judge, mock or exclude anyone.** Treating someone unfairly because of who they are is discrimination, and it has no place here.\n\n' +
         '🛡️ If someone targets you on Discord, you can block them, tell the moderators of your server, and report it to Discord.',
