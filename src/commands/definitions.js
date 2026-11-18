@@ -74,6 +74,12 @@ export const commandDefinitions = [
     contexts: [0],
   },
   {
+    name: 'codex',
+    description: 'How Auracle works, with sources and links',
+    type: 1,
+    contexts: [0],
+  },
+  {
     name: 'help',
     description: "Open the Traveler's Guide",
     type: 1,

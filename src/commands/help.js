@@ -4,6 +4,7 @@ import { ui } from '../core/ui.js';
 import { texts } from '../texts/en.js';
 import { hubTexts } from '../texts/en-hub.js';
 import { socialHelp } from '../texts/en-social.js';
+import { codexTexts } from '../texts/en-codex.js';
 
 export function helpCommand() {
   const t = texts.help;
@@ -11,6 +12,7 @@ export function helpCommand() {
   for (const c of t.commands) {
     entries.push(c);
     if (c.name === '`/profile`') entries.push(...socialHelp);
+    if (c.name === '`/feedback`') entries.push(codexTexts.helpEntry);
   }
   const list = entries.map((c) => `${c.name} : ${c.description}`).join('\n');
 

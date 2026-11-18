@@ -10,6 +10,7 @@ import { feedbackCommand, feedbackComponent, feedbackModal } from './commands/fe
 import { hubCommand, hubComponent } from './commands/hub.js';
 import { compareCommand } from './commands/compare.js';
 import { guildsCommand } from './commands/guilds.js';
+import { codexCommand, codexComponent } from './commands/codex.js';
 import { ui } from './core/ui.js';
 import { texts } from './texts/en.js';
 
@@ -24,6 +25,7 @@ const commandHandlers = {
   forget: forgetCommand,
   updates: updatesCommand,
   feedback: feedbackCommand,
+  codex: codexCommand,
 };
 
 // Buttons are named "prefix:action:...". The prefix tells which feature owns them.
@@ -34,6 +36,7 @@ const componentHandlers = {
   fg: forgetComponent,
   fb: feedbackComponent,
   up: updatesComponent,
+  cx: codexComponent,
 };
 
 // Forms (modals), same naming.

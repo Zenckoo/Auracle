@@ -12,6 +12,8 @@ import { updatesCommand } from './updates.js';
 import { feedbackCommand } from './feedback.js';
 import { compareCommand } from './compare.js';
 import { guildsCommand } from './guilds.js';
+import { codexCommand } from './codex.js';
+import { codexTexts } from '../texts/en-codex.js';
 
 const S = ui.ButtonStyle;
 
@@ -34,6 +36,7 @@ export function hubCommand() {
         ui.button({ id: 'hub:updates', label: H.updates, emoji: '📜', style: S.SECONDARY }),
         ui.button({ id: 'hub:feedback', label: H.feedback, emoji: '📬', style: S.SECONDARY }),
         ui.button({ id: 'hub:help', label: H.help, emoji: '❔', style: S.SECONDARY }),
+        ui.button({ id: 'hub:codex', label: codexTexts.hubButton, emoji: '📖', style: S.SECONDARY }),
         ui.button({ id: 'hub:forget', label: H.forget, emoji: '🧹', style: S.DANGER }),
       ),
       userSelect('hub:view', H.viewPlaceholder),
@@ -66,6 +69,8 @@ export async function hubComponent(interaction, env, later) {
       return feedbackCommand(asCommand, env, later);
     case 'help':
       return helpCommand(asCommand, env, later);
+    case 'codex':
+      return codexCommand(asCommand, env, later);
     case 'forget':
       return forgetCommand(asCommand, env, later);
     case 'view':

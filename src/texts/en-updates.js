@@ -12,6 +12,13 @@ export const updatesTexts = {
   page: (n, total) => `Page ${n} / ${total}`,
   versions: [
     {
+      name: 'v1.4',
+      items: [
+        '📖 `/codex`: a small book explaining how Auracle works, the Big Five, the trials, your letters, the guilds, your data, with links to the sources',
+        'The Codex is also in the `/auracle` menu',
+      ],
+    },
+    {
       name: 'v1.3',
       items: [
         '📚 The **Grand Trial**: 300 questions, 10 per facet, for the deepest journey',
