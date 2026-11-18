@@ -8,6 +8,8 @@ import { forgetCommand, forgetComponent } from './commands/forget.js';
 import { updatesCommand } from './commands/updates.js';
 import { feedbackCommand, feedbackComponent, feedbackModal } from './commands/feedback.js';
 import { hubCommand, hubComponent } from './commands/hub.js';
+import { compareCommand } from './commands/compare.js';
+import { guildsCommand } from './commands/guilds.js';
 import { ui } from './core/ui.js';
 import { texts } from './texts/en.js';
 
@@ -16,6 +18,8 @@ const commandHandlers = {
   help: helpCommand,
   awaken: awakenCommand,
   profile: profileCommand,
+  compare: compareCommand,
+  guilds: guildsCommand,
   privacy: privacyCommand,
   forget: forgetCommand,
   updates: updatesCommand,

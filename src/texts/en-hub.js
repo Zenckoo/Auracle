@@ -5,12 +5,14 @@ export const hubTexts = {
   body: 'Welcome, traveler. What do you seek?\n-# No need to type commands: just pick an option below.',
   awaken: 'Awaken',
   card: 'My card',
+  guilds: 'Guilds',
   privacy: 'Privacy',
   updates: 'Updates',
   feedback: 'Feedback',
   help: 'Help',
   forget: 'Forget',
-  viewPlaceholder: "View a traveler's card",
+  viewPlaceholder: "🪪 View a traveler's card",
+  comparePlaceholder: '🤝 Compare with a traveler',
   // Line added at the top of /help.
   helpEntry: { name: '`/auracle`', description: 'Open the menu (no need to type commands)' },
 };

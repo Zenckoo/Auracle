@@ -36,6 +36,7 @@ export async function forgetComponent(interaction, env) {
   if (action === 'erase') {
     await store.deleteProfile(env, userId);
     await store.deleteTrial(env, userId);
+    await store.deleteMembers(env, userId);
     return ui.update(box(F.erased));
   }
   return ui.update(box(F.kept));

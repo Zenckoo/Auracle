@@ -64,3 +64,30 @@ export async function setPublic(env, userId, isPublic) {
 export async function deleteProfile(env, userId) {
   await env.DB.prepare('DELETE FROM profiles WHERE user_id = ?').bind(userId).run();
 }
+
+// ---------- Servers (for /guilds) ----------
+
+// Remembers that this traveler used Auracle on this server (only the two ids).
+export async function recordMember(env, userId, guildId) {
+  await env.DB.prepare(
+    `INSERT INTO members (user_id, guild_id, seen_at) VALUES (?, ?, ?)
+     ON CONFLICT(user_id, guild_id) DO UPDATE SET seen_at = excluded.seen_at`,
+  )
+    .bind(userId, guildId, Date.now())
+    .run();
+}
+
+export async function deleteMembers(env, userId) {
+  await env.DB.prepare('DELETE FROM members WHERE user_id = ?').bind(userId).run();
+}
+
+// Types of the public cards of travelers seen on this server.
+export async function publicTypesInGuild(env, guildId) {
+  const { results } = await env.DB.prepare(
+    `SELECT p.type_code FROM profiles p JOIN members m ON m.user_id = p.user_id
+     WHERE m.guild_id = ? AND p.is_public = 1`,
+  )
+    .bind(guildId)
+    .all();
+  return results.map((r) => r.type_code);
+}

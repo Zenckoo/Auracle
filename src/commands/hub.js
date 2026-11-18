@@ -1,5 +1,5 @@
 // /auracle: a menu with buttons for every feature, so nobody has to type commands.
-// Each button opens its answer as a new private message; the menu stays open.
+// Each button opens its answer as a new message; the menu stays open.
 
 import { ui } from '../core/ui.js';
 import { hubTexts as H } from '../texts/en-hub.js';
@@ -10,8 +10,14 @@ import { privacyCommand } from './privacy.js';
 import { forgetCommand } from './forget.js';
 import { updatesCommand } from './updates.js';
 import { feedbackCommand } from './feedback.js';
+import { compareCommand } from './compare.js';
+import { guildsCommand } from './guilds.js';
 
 const S = ui.ButtonStyle;
+
+function userSelect(id, placeholder) {
+  return { type: 1, components: [{ type: 5, custom_id: id, placeholder, min_values: 1, max_values: 1 }] };
+}
 
 export function hubCommand() {
   return ui.message([
@@ -21,6 +27,7 @@ export function hubCommand() {
       ui.row(
         ui.button({ id: 'hub:awaken', label: H.awaken, emoji: '✨', style: S.PRIMARY }),
         ui.button({ id: 'hub:card', label: H.card, emoji: '🪪', style: S.PRIMARY }),
+        ui.button({ id: 'hub:guilds', label: H.guilds, emoji: '🏰', style: S.SECONDARY }),
         ui.button({ id: 'hub:privacy', label: H.privacy, emoji: '🔒', style: S.SECONDARY }),
       ),
       ui.row(
@@ -29,9 +36,15 @@ export function hubCommand() {
         ui.button({ id: 'hub:help', label: H.help, emoji: '❔', style: S.SECONDARY }),
         ui.button({ id: 'hub:forget', label: H.forget, emoji: '🧹', style: S.DANGER }),
       ),
-      { type: 1, components: [{ type: 5, custom_id: 'hub:view', placeholder: H.viewPlaceholder, min_values: 1, max_values: 1 }] },
+      userSelect('hub:view', H.viewPlaceholder),
+      userSelect('hub:compare', H.comparePlaceholder),
     ]),
   ]);
+}
+
+function withMember(interaction) {
+  const targetId = interaction.data.values?.[0];
+  return { ...interaction, data: { ...interaction.data, options: [{ name: 'member', type: 6, value: targetId }] } };
 }
 
 export async function hubComponent(interaction, env, later) {
@@ -43,6 +56,8 @@ export async function hubComponent(interaction, env, later) {
       return awakenCommand(asCommand, env, later);
     case 'card':
       return profileCommand(asCommand, env, later);
+    case 'guilds':
+      return guildsCommand(asCommand, env, later);
     case 'privacy':
       return privacyCommand(asCommand, env, later);
     case 'updates':
@@ -53,14 +68,10 @@ export async function hubComponent(interaction, env, later) {
       return helpCommand(asCommand, env, later);
     case 'forget':
       return forgetCommand(asCommand, env, later);
-    case 'view': {
-      const targetId = interaction.data.values?.[0];
-      return profileCommand(
-        { ...interaction, data: { ...interaction.data, options: [{ name: 'member', type: 6, value: targetId }] } },
-        env,
-        later,
-      );
-    }
+    case 'view':
+      return profileCommand(withMember(interaction), env, later);
+    case 'compare':
+      return compareCommand(withMember(interaction), env, later);
     default:
       return hubCommand();
   }

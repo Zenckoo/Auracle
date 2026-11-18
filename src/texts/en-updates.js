@@ -4,6 +4,14 @@ export const updatesTexts = {
   newTitle: "### 📜 What's new",
   versions: [
     {
+      name: 'Version 1.1',
+      items: [
+        '`/compare`: see how well you match with another traveler',
+        '`/guilds`: how the guilds are spread across the server',
+        '`/auracle`: one menu for everything, no need to type commands',
+      ],
+    },
+    {
       name: 'Version 1.0',
       items: [
         'The **Standard Trial**: 120 questions to reveal your hero class',
@@ -18,8 +26,6 @@ export const updatesTexts = {
   soon: [
     'The **Grand Trial**: 300 questions for the deepest journey',
     '🗝️ **Hidden secrets**: the facet that surprises the most',
-    '`/compare`: see how well you match with someone',
-    '`/guilds`: how the guilds are spread across the server',
     'Profile banners',
     'More languages: French, German and Japanese',
   ],

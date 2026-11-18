@@ -30,6 +30,26 @@ export const commandDefinitions = [
     ],
   },
   {
+    name: 'compare',
+    description: 'See how well you match with someone',
+    type: 1,
+    contexts: [0],
+    options: [
+      {
+        type: 6,
+        name: 'member',
+        description: 'The traveler to compare with',
+        required: true,
+      },
+    ],
+  },
+  {
+    name: 'guilds',
+    description: 'See how the guilds are spread across the server',
+    type: 1,
+    contexts: [0],
+  },
+  {
     name: 'privacy',
     description: 'Choose what you share with others',
     type: 1,

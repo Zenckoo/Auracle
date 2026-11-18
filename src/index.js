@@ -4,6 +4,7 @@
 import { verifyDiscordRequest } from './discord/verify.js';
 import { registerCommands } from './discord/register.js';
 import { handleCommand, handleComponent, handleModal } from './router.js';
+import { recordMember } from './core/store.js';
 
 const InteractionType = { PING: 1, APPLICATION_COMMAND: 2, MESSAGE_COMPONENT: 3, MODAL_SUBMIT: 5 };
 
@@ -37,6 +38,12 @@ export default {
 
       if (interaction.type === InteractionType.PING) {
         return json({ type: 1 });
+      }
+
+      // Remember which server this traveler uses Auracle on (for /guilds).
+      const userId = interaction.member?.user?.id;
+      if (interaction.guild_id && userId) {
+        later(recordMember(env, userId, interaction.guild_id).catch(() => {}));
       }
 
       if (interaction.type === InteractionType.APPLICATION_COMMAND) {
