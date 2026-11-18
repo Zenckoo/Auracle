@@ -19,13 +19,13 @@ function unknown() {
   return ui.message([ui.container(ui.COLORS.auracle, [ui.text(texts.common.unknownCommand)])]);
 }
 
-export async function handleCommand(interaction, env) {
+export async function handleCommand(interaction, env, later) {
   const handler = commandHandlers[interaction.data.name];
-  return handler ? handler(interaction, env) : unknown();
+  return handler ? handler(interaction, env, later) : unknown();
 }
 
-export async function handleComponent(interaction, env) {
+export async function handleComponent(interaction, env, later) {
   const prefix = interaction.data.custom_id.split(':')[0];
   const handler = componentHandlers[prefix];
-  return handler ? handler(interaction, env) : unknown();
+  return handler ? handler(interaction, env, later) : unknown();
 }

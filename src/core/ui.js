@@ -1,5 +1,5 @@
 // Helpers to build Discord Components V2 messages.
-// Only uses what Discord really supports: containers, text, separators, buttons.
+// Only uses what Discord really supports: containers, sections, thumbnails, text, separators, buttons.
 
 const FLAGS = {
   EPHEMERAL: 1 << 6,
@@ -14,7 +14,7 @@ const COLORS = {
   wanderers: 0xe0533d,
 };
 
-const ButtonStyle = { PRIMARY: 1, SECONDARY: 2, SUCCESS: 3, DANGER: 4 };
+const ButtonStyle = { PRIMARY: 1, SECONDARY: 2, SUCCESS: 3, DANGER: 4, LINK: 5 };
 
 export const ui = {
   FLAGS,
@@ -33,10 +33,25 @@ export const ui = {
     return { type: 17, accent_color: accentColor, components };
   },
 
+  // Text on the left, a small image on the right.
+  section(texts, imageUrl) {
+    return {
+      type: 9,
+      components: texts.map((t) => ({ type: 10, content: t })),
+      accessory: { type: 11, media: { url: imageUrl } },
+    };
+  },
+
   button({ id, label, emoji, style = ButtonStyle.PRIMARY, disabled = false }) {
     const b = { type: 2, style, label, custom_id: id };
     if (emoji) b.emoji = { name: emoji };
     if (disabled) b.disabled = true;
+    return b;
+  },
+
+  linkButton({ url, label, emoji }) {
+    const b = { type: 2, style: ButtonStyle.LINK, label, url };
+    if (emoji) b.emoji = { name: emoji };
     return b;
   },
 
@@ -64,5 +79,23 @@ export const ui = {
         components,
       },
     };
+  },
+
+  // A second message sent just after answering (for example the Public / Private choice).
+  async followUp(interaction, components, { ephemeral = true } = {}) {
+    await fetch(`https://discord.com/api/v10/webhooks/${interaction.application_id}/${interaction.token}`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        flags: FLAGS.COMPONENTS_V2 | (ephemeral ? FLAGS.EPHEMERAL : 0),
+        components,
+      }),
+    });
+  },
+
+  avatarUrl(user) {
+    if (user?.avatar) return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=256`;
+    const index = Number((BigInt(user?.id ?? '0') >> 22n) % 6n);
+    return `https://cdn.discordapp.com/embed/avatars/${index}.png`;
   },
 };

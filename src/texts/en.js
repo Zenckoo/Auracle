@@ -87,14 +87,12 @@ export const texts = {
         '*The final answer echoes through the halls...*\n' +
         'Now, let us see who you truly are.',
       button: 'Reveal my class',
-      soon: '-# The reveal is still being forged... come back very soon, traveler.',
     },
 
     complete: {
       text: '### 🏰 Your journey is complete, traveler.\nWhat do you seek?',
       results: 'View my results',
       newTrial: 'Begin a new trial',
-      soon: '-# Your results are still being forged... come back very soon, traveler.',
     },
 
     warning: {
@@ -105,5 +103,68 @@ export const texts = {
     },
 
     lost: 'Your trial could not be found, traveler. Use `/awaken` to begin again.',
+  },
+
+  results: {
+    revealIntro: '*The mists part... your true nature is revealed.*',
+    calmWaters: '🌊 Calm waters',
+    restlessFlame: '🔥 Restless flame',
+    closeLetter: (pair, alternate) => `-# Your ${pair} balance is close: you may feel like an ${alternate} some days.`,
+    estimate: '-# Your type is an estimate based on your Big Five results.',
+    seeTraits: 'See my traits',
+    seeFacets: 'See facets',
+    backToClass: 'Back to class',
+    backToTraits: 'Traits',
+    facetsLabel: 'Facets',
+    traitsTitle: '### 📊 Your traits',
+    higherThan: (pct) => `Higher than ${pct}% of travelers`,
+
+    gentleWord:
+      '🌙 **A quiet word, traveler.** Your answers suggest you may carry a lot of worry or heaviness lately. ' +
+      'This is not a diagnosis, just a reflection of your answers. If it feels heavy, talking to someone you trust, ' +
+      "or a professional, can really help. You don't have to carry it alone.",
+    helpButton: 'Find a helpline',
+
+    traitNames: { O: 'Openness', C: 'Conscientiousness', E: 'Extraversion', A: 'Agreeableness', N: 'Neuroticism' },
+    traitEmojis: { O: '🎨', C: '📋', E: '🎉', A: '🤝', N: '🌪️' },
+    traitPhrases: {
+      O: {
+        low: "Feet on the ground: you trust what works and don't chase every shiny new idea.",
+        average: 'Curious but practical: new ideas are welcome, as long as they make sense.',
+        high: 'Head in the stars: endless ideas, endless questions... and maybe too many unfinished projects.',
+      },
+      C: {
+        low: 'Go with the flow: plans are more like suggestions... and deadlines, gentle rumors.',
+        average: "Balanced adventurer: organized when it matters, flexible when it doesn't.",
+        high: 'Master of order: lists, plans, and goals... you probably have a list of your lists.',
+      },
+      E: {
+        low: 'Quiet flame: you recharge in calm and solitude... and canceled plans feel like a gift.',
+        average: 'Social chameleon: happy at the party, just as happy at home with a good book.',
+        high: 'Spark of the party: people give you energy... and silence makes you a little nervous.',
+      },
+      A: {
+        low: "Honest blade: you say what you think and don't sugarcoat the truth... diplomacy is optional.",
+        average: "Fair companion: kind when it counts, firm when it's needed.",
+        high: 'Golden heart: you care deeply and always help others... even when you should say no.',
+      },
+      N: {
+        low: 'Calm waters: you stay steady when storms come.',
+        average: 'Changing tides: some storms shake you, but you always find your way back to shore.',
+        high: 'Restless flame: you feel deeply and always push to grow.',
+      },
+    },
+
+    privacy: {
+      question:
+        '### 🪪 Your profile card\n' +
+        'Shall your class be known to all, or kept a secret?\n' +
+        '-# Public cards can be seen by anyone with /profile. Your facets always stay private.',
+      public: 'Public',
+      private: 'Private',
+      changeLater: '-# You can change this anytime with /privacy.',
+      nowPublic: '### 🌍 Your class is now known to all\n-# You can change this anytime with /privacy.',
+      nowPrivate: '### 🔒 Your class stays a secret\n-# You can change this anytime with /privacy.',
+    },
   },
 };

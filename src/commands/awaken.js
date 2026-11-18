@@ -1,22 +1,25 @@
-// /awaken: the trial. Part 1 = intro screens, questions, back, pause, resume.
+// /awaken: the trial, from the welcome screen to the results.
 // Every answer is saved at once, so closing the message never loses anything.
 
 import { ui } from '../core/ui.js';
 import { texts } from '../texts/en.js';
-import { IPIP120 } from '../data/ipip120.js';
+import { IPIP120, FACETS } from '../data/ipip120.js';
+import { CLASSES, GUILDS, article } from '../data/classes.js';
 import * as store from '../core/store.js';
+import * as scoring from '../core/scoring.js';
 
 const T = texts.awaken;
+const R = texts.results;
 const TOTAL = IPIP120.length;
 const BLUE = ui.COLORS.auracle;
 const ANSWER_EMOJIS = ['❌', '➖', '⚖️', '✔️', '✅'];
 
-function userIdOf(interaction) {
-  return interaction.member?.user?.id ?? interaction.user?.id;
+function userOf(interaction) {
+  return interaction.member?.user ?? interaction.user;
 }
 
-function box(parts) {
-  return [ui.container(BLUE, parts)];
+function box(parts, color = BLUE) {
+  return [ui.container(color, parts)];
 }
 
 function progressBar(index) {
@@ -24,7 +27,11 @@ function progressBar(index) {
   return '▰'.repeat(filled) + '▱'.repeat(10 - filled) + ` ${Math.round((index / TOTAL) * 100)}%`;
 }
 
-// ---------- Screens ----------
+function guildColor(typeCode) {
+  return ui.COLORS[GUILDS[CLASSES[typeCode].guild].colorKey];
+}
+
+// ---------- Trial screens ----------
 
 function welcomeScreen() {
   return box([
@@ -79,10 +86,6 @@ function questionScreen(trial) {
   ]);
 }
 
-function pauseScreen() {
-  return box([ui.text(T.pause)]);
-}
-
 function resumeScreen(trial) {
   const position = Math.min(trial.current_index + 1, TOTAL);
   return box([
@@ -95,15 +98,14 @@ function resumeScreen(trial) {
   ]);
 }
 
-function endScreen(note) {
-  const parts = [
+function endScreen() {
+  return box([
     ui.text(`📜 **${T.question.versionName}** · ${TOTAL} / ${TOTAL}\n${progressBar(TOTAL)}`),
     ui.separator(),
     ui.text(T.end.text),
-  ];
-  if (note) parts.push(ui.text(note));
-  parts.push(ui.separator(), ui.row(ui.button({ id: 'aw:reveal', label: T.end.button, emoji: '✨' })));
-  return box(parts);
+    ui.separator(),
+    ui.row(ui.button({ id: 'aw:reveal', label: T.end.button, emoji: '✨' })),
+  ]);
 }
 
 function completeScreen() {
@@ -128,17 +130,133 @@ function warningScreen() {
   ]);
 }
 
-function simpleScreen(text) {
-  return box([ui.text(text)]);
+function simpleScreen(text, color = BLUE) {
+  return box([ui.text(text)], color);
+}
+
+// ---------- Result screens ----------
+
+function revealScreen(profile, user) {
+  const type = profile.type_code;
+  const cls = CLASSES[type];
+  const guild = GUILDS[cls.guild];
+  const scores = profile.scores;
+  const flame = scores.domains.N.percentile >= 50 ? R.restlessFlame : R.calmWaters;
+
+  const parts = [
+    ui.text(R.revealIntro),
+    ui.separator(),
+    ui.section(
+      [
+        `-# Behold, ${article(cls.name)}`,
+        `## ${cls.emoji} ${cls.name}\n${cls.subtitle}`,
+        `**${type}** · ${guild.emoji} ${guild.name} · ${flame}`,
+      ],
+      ui.avatarUrl(user),
+    ),
+  ];
+
+  const close = scoring.closeLetters(scores, type);
+  if (close.length) {
+    parts.push(ui.text(close.map((c) => R.closeLetter(c.pair, c.alternate)).join('\n')));
+  }
+
+  parts.push(ui.separator(), ui.text(cls.description));
+
+  if (scoring.needsGentleWord(scores)) {
+    parts.push(ui.separator(), ui.text(R.gentleWord), ui.row(ui.linkButton({ url: 'https://findahelpline.com', label: R.helpButton, emoji: '🌙' })));
+  }
+
+  parts.push(
+    ui.separator(),
+    ui.text(R.estimate),
+    ui.row(
+      ui.button({ id: 'aw:traits', label: R.seeTraits, emoji: '📊' }),
+      ui.button({ id: 'aw:facets:O', label: R.seeFacets, emoji: '🔍', style: ui.ButtonStyle.SECONDARY }),
+    ),
+  );
+
+  return box(parts, guildColor(type));
+}
+
+function traitsScreen(profile) {
+  const scores = profile.scores;
+  const parts = [ui.text(R.traitsTitle)];
+
+  for (const d of scoring.DOMAIN_ORDER) {
+    const pct = scores.domains[d].percentile;
+    const level = scoring.traitLevel(pct);
+    parts.push(
+      ui.separator(),
+      ui.text(`**${R.traitEmojis[d]} ${R.traitNames[d]}**\n${scoring.bar(pct)}\n-# ${R.higherThan(pct)}\n${R.traitPhrases[d][level]}`),
+    );
+  }
+
+  parts.push(
+    ui.separator(),
+    ui.row(
+      ui.button({ id: 'aw:results', label: R.backToClass, emoji: '◀️', style: ui.ButtonStyle.SECONDARY }),
+      ui.button({ id: 'aw:facets:O', label: R.seeFacets, emoji: '🔍' }),
+    ),
+  );
+
+  return box(parts, guildColor(profile.type_code));
+}
+
+function facetsScreen(profile, domain) {
+  const order = scoring.DOMAIN_ORDER;
+  const position = order.indexOf(domain);
+  const scores = profile.scores;
+  const pct = scores.domains[domain].percentile;
+
+  const lines = scores.facets[domain].map(
+    (f, i) => `**${FACETS[domain][i]}**\n${scoring.bar(f.percentile)}\n-# ${R.higherThan(f.percentile)}`,
+  );
+
+  const prev = order[(position + order.length - 1) % order.length];
+  const next = order[(position + 1) % order.length];
+
+  return box(
+    [
+      ui.text(`-# ${R.facetsLabel} · ${position + 1} / ${order.length}\n### ${R.traitEmojis[domain]} ${R.traitNames[domain]}\n-# ${R.higherThan(pct)}`),
+      ui.separator(),
+      ui.text(lines.join('\n\n')),
+      ui.separator(),
+      ui.row(
+        ui.button({ id: `aw:facets:${prev}`, label: R.traitNames[prev], emoji: '◀️', style: ui.ButtonStyle.SECONDARY }),
+        ui.button({ id: `aw:facets:${next}`, label: R.traitNames[next], emoji: '▶️', style: ui.ButtonStyle.SECONDARY }),
+        ui.button({ id: 'aw:traits', label: R.backToTraits, emoji: '📊' }),
+      ),
+    ],
+    guildColor(profile.type_code),
+  );
+}
+
+function privacyChoiceScreen(typeCode) {
+  return box(
+    [
+      ui.text(R.privacy.question),
+      ui.separator(),
+      ui.row(
+        ui.button({ id: 'aw:pub', label: R.privacy.public, emoji: '🌍' }),
+        ui.button({ id: 'aw:priv', label: R.privacy.private, emoji: '🔒', style: ui.ButtonStyle.SECONDARY }),
+      ),
+      ui.text(R.privacy.changeLater),
+    ],
+    guildColor(typeCode),
+  );
 }
 
 // ---------- /awaken ----------
 
 export async function awakenCommand(interaction, env) {
-  const userId = userIdOf(interaction);
+  const userId = userOf(interaction).id;
 
   const trial = await store.getTrial(env, userId);
-  if (trial) return ui.message(resumeScreen(trial));
+  if (trial) {
+    if (trial.current_index >= TOTAL) return ui.message(endScreen());
+    return ui.message(resumeScreen(trial));
+  }
 
   const profile = await store.getProfile(env, userId);
   if (profile) return ui.message(completeScreen());
@@ -148,8 +266,9 @@ export async function awakenCommand(interaction, env) {
 
 // ---------- Buttons ----------
 
-export async function awakenComponent(interaction, env) {
-  const userId = userIdOf(interaction);
+export async function awakenComponent(interaction, env, later) {
+  const user = userOf(interaction);
+  const userId = user.id;
   const [, action, ...args] = interaction.data.custom_id.split(':');
 
   switch (action) {
@@ -196,7 +315,7 @@ export async function awakenComponent(interaction, env) {
     }
 
     case 'pause':
-      return ui.update(pauseScreen());
+      return ui.update(simpleScreen(T.pause));
 
     case 'resume': {
       const trial = await store.getTrial(env, userId);
@@ -205,11 +324,53 @@ export async function awakenComponent(interaction, env) {
       return ui.update(questionScreen(trial));
     }
 
-    case 'reveal':
-      return ui.update(endScreen(T.end.soon));
+    case 'reveal': {
+      const trial = await store.getTrial(env, userId);
 
-    case 'results':
-      return ui.update(simpleScreen(T.complete.soon));
+      // Already revealed (double click): show the saved result.
+      if (!trial || trial.current_index < TOTAL) {
+        const profile = await store.getProfile(env, userId);
+        if (profile) return ui.update(revealScreen(profile, user));
+        return ui.update(simpleScreen(T.lost));
+      }
+
+      const scores = scoring.computeScores(trial.answers);
+      const typeCode = scoring.computeType(scores);
+      await store.completeTrial(env, trial, scores, typeCode);
+
+      // Just after the reveal, a second small message asks Public or Private.
+      later(ui.followUp(interaction, privacyChoiceScreen(typeCode)));
+
+      return ui.update(revealScreen({ type_code: typeCode, scores }, user));
+    }
+
+    case 'results': {
+      const profile = await store.getProfile(env, userId);
+      if (!profile) return ui.update(simpleScreen(T.lost));
+      return ui.update(revealScreen(profile, user));
+    }
+
+    case 'traits': {
+      const profile = await store.getProfile(env, userId);
+      if (!profile) return ui.update(simpleScreen(T.lost));
+      return ui.update(traitsScreen(profile));
+    }
+
+    case 'facets': {
+      const profile = await store.getProfile(env, userId);
+      if (!profile) return ui.update(simpleScreen(T.lost));
+      const domain = scoring.DOMAIN_ORDER.includes(args[0]) ? args[0] : 'O';
+      return ui.update(facetsScreen(profile, domain));
+    }
+
+    case 'pub':
+    case 'priv': {
+      const profile = await store.getProfile(env, userId);
+      if (!profile) return ui.update(simpleScreen(T.lost));
+      const isPublic = action === 'pub';
+      await store.setPublic(env, userId, isPublic);
+      return ui.update(simpleScreen(isPublic ? R.privacy.nowPublic : R.privacy.nowPrivate, guildColor(profile.type_code)));
+    }
 
     case 'newtrial':
       return ui.update(warningScreen());

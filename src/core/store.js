@@ -43,6 +43,24 @@ export async function getProfile(env, userId) {
   return { ...row, answers: JSON.parse(row.answers), scores: JSON.parse(row.scores) };
 }
 
+// A finished trial becomes a profile (private by default), and the trial is removed.
+export async function completeTrial(env, trial, scores, typeCode) {
+  const now = Date.now();
+  await env.DB.batch([
+    env.DB.prepare(
+      `INSERT OR REPLACE INTO profiles (user_id, version, answers, scores, type_code, class_key, is_public, completed_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, 0, ?, ?)`,
+    ).bind(trial.user_id, trial.version, JSON.stringify(trial.answers), JSON.stringify(scores), typeCode, typeCode, now, now),
+    env.DB.prepare('DELETE FROM trials WHERE user_id = ?').bind(trial.user_id),
+  ]);
+}
+
+export async function setPublic(env, userId, isPublic) {
+  await env.DB.prepare('UPDATE profiles SET is_public = ?, updated_at = ? WHERE user_id = ?')
+    .bind(isPublic ? 1 : 0, Date.now(), userId)
+    .run();
+}
+
 export async function deleteProfile(env, userId) {
   await env.DB.prepare('DELETE FROM profiles WHERE user_id = ?').bind(userId).run();
 }

@@ -15,7 +15,7 @@ function json(data, status = 200) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
     if (request.method === 'GET' && url.pathname === '/') {
@@ -32,16 +32,19 @@ export default {
         return new Response('Bad request signature.', { status: 401 });
       }
 
+      // later(task) runs something just after the answer is sent (follow-up messages).
+      const later = (task) => ctx.waitUntil(task);
+
       if (interaction.type === InteractionType.PING) {
         return json({ type: 1 });
       }
 
       if (interaction.type === InteractionType.APPLICATION_COMMAND) {
-        return json(await handleCommand(interaction, env));
+        return json(await handleCommand(interaction, env, later));
       }
 
       if (interaction.type === InteractionType.MESSAGE_COMPONENT) {
-        return json(await handleComponent(interaction, env));
+        return json(await handleComponent(interaction, env, later));
       }
 
       return json({ error: 'Unknown interaction type' }, 400);
