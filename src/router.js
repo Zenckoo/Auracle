@@ -2,12 +2,14 @@
 
 import { helpCommand } from './commands/help.js';
 import { awakenCommand, awakenComponent } from './commands/awaken.js';
+import { profileCommand } from './commands/profile.js';
 import { ui } from './core/ui.js';
 import { texts } from './texts/en.js';
 
 const commandHandlers = {
   help: helpCommand,
   awaken: awakenCommand,
+  profile: profileCommand,
 };
 
 // Buttons are named "prefix:action:...". The prefix tells which feature owns them.
