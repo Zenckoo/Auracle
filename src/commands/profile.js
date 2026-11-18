@@ -5,6 +5,7 @@ import { ui } from '../core/ui.js';
 import { texts } from '../texts/en.js';
 import { profileTexts as P } from '../texts/en-profile.js';
 import { secretTexts as SX } from '../texts/en-secrets.js';
+import { trialTexts as TT } from '../texts/en-trials.js';
 import { CLASSES, GUILDS } from '../data/classes.js';
 import * as store from '../core/store.js';
 import * as scoring from '../core/scoring.js';
@@ -35,7 +36,7 @@ function card(profile, user, name, isOwnPrivate) {
     traits += `\n\n${SX.cardLine(s.name, s.facetPct)}`;
   }
 
-  const footer = [P.awakened(Math.floor(profile.completed_at / 1000)), R.estimate];
+  const footer = [`${TT.badge(profile.version)} · ${P.awakened(Math.floor(profile.completed_at / 1000)).replace('-# ', '')}`, R.estimate];
   if (isOwnPrivate) footer.push(P.privateNote);
 
   return [

@@ -4,14 +4,15 @@
 import { ui } from '../core/ui.js';
 import { texts } from '../texts/en.js';
 import { secretTexts as SX } from '../texts/en-secrets.js';
-import { IPIP120, FACETS } from '../data/ipip120.js';
+import { trialTexts as TT } from '../texts/en-trials.js';
+import { FACETS } from '../data/ipip120.js';
+import { trialItems } from '../data/trials.js';
 import { CLASSES, GUILDS, article } from '../data/classes.js';
 import * as store from '../core/store.js';
 import * as scoring from '../core/scoring.js';
 
 const T = texts.awaken;
 const R = texts.results;
-const TOTAL = IPIP120.length;
 const BLUE = ui.COLORS.auracle;
 const ANSWER_EMOJIS = ['❌', '➖', '⚖️', '✔️', '✅'];
 // Result pages after "See facets": the Hidden secrets page first, then one page per trait.
@@ -25,9 +26,24 @@ function box(parts, color = BLUE) {
   return [ui.container(color, parts)];
 }
 
-function progressBar(index) {
-  const filled = Math.round((index / TOTAL) * 10);
-  return '▰'.repeat(filled) + '▱'.repeat(10 - filled) + ` ${Math.round((index / TOTAL) * 100)}%`;
+function totalOf(trial) {
+  return trialItems(trial.version).length;
+}
+
+function progressBar(index, total) {
+  const filled = Math.round((index / total) * 10);
+  return '▰'.repeat(filled) + '▱'.repeat(10 - filled) + ` ${Math.round((index / total) * 100)}%`;
+}
+
+// Messages at 25%, 50% and 75% of the trial, whatever its length.
+function milestone(index, total) {
+  const marks = [0.25, 0.5, 0.75].map((f) => Math.round(total * f));
+  const position = marks.indexOf(index);
+  return position >= 0 ? T.question.milestones[[30, 60, 90][position]] : null;
+}
+
+function trialName(version) {
+  return `${TT.emojis[version] ?? TT.emojis.standard} **${TT.names[version] ?? TT.names.standard}**`;
 }
 
 function guildColor(typeCode) {
@@ -64,17 +80,33 @@ function disclaimerScreen() {
     ui.text(T.disclaimer.title),
     ui.text(T.disclaimer.body),
     ui.separator(),
-    ui.row(ui.button({ id: 'aw:start', label: T.disclaimer.button, emoji: '✅' })),
+    ui.row(ui.button({ id: 'aw:choose', label: T.disclaimer.button, emoji: '✅' })),
+  ]);
+}
+
+function chooseScreen() {
+  return box([
+    ui.text(TT.choose.title),
+    ui.separator(),
+    ui.text(TT.choose.standard),
+    ui.text(TT.choose.grand),
+    ui.text(TT.choose.note),
+    ui.separator(),
+    ui.row(
+      ui.button({ id: 'aw:start:standard', label: TT.names.standard, emoji: TT.emojis.standard }),
+      ui.button({ id: 'aw:start:grand', label: TT.names.grand, emoji: TT.emojis.grand, style: ui.ButtonStyle.SECONDARY }),
+    ),
   ]);
 }
 
 function questionScreen(trial) {
   const index = trial.current_index;
-  const [statement] = IPIP120[index];
-  const milestone = T.question.milestones[index];
+  const total = totalOf(trial);
+  const [statement] = trialItems(trial.version)[index];
+  const mark = milestone(index, total);
 
-  let header = `📜 **${T.question.versionName}** · ${index + 1} / ${TOTAL}\n${progressBar(index)}`;
-  if (milestone) header += `\n${milestone}`;
+  let header = `${trialName(trial.version)} · ${index + 1} / ${total}\n${progressBar(index, total)}`;
+  if (mark) header += `\n${mark}`;
 
   const answers = T.question.answers.map((label, i) =>
     ui.button({ id: `aw:ans:${index}:${i + 1}`, label, emoji: ANSWER_EMOJIS[i] }),
@@ -94,9 +126,10 @@ function questionScreen(trial) {
 }
 
 function resumeScreen(trial) {
-  const position = Math.min(trial.current_index + 1, TOTAL);
+  const total = totalOf(trial);
+  const position = Math.min(trial.current_index + 1, total);
   return box([
-    ui.text(T.resume.text(position, TOTAL)),
+    ui.text(`${T.resume.text(position, total)}\n-# ${TT.names[trial.version] ?? TT.names.standard}`),
     ui.separator(),
     ui.row(
       ui.button({ id: 'aw:resume', label: T.resume.resume, emoji: '▶️' }),
@@ -105,9 +138,10 @@ function resumeScreen(trial) {
   ]);
 }
 
-function endScreen() {
+function endScreen(trial) {
+  const total = totalOf(trial);
   return box([
-    ui.text(`📜 **${T.question.versionName}** · ${TOTAL} / ${TOTAL}\n${progressBar(TOTAL)}`),
+    ui.text(`${trialName(trial.version)} · ${total} / ${total}\n${progressBar(total, total)}`),
     ui.separator(),
     ui.text(T.end.text),
     ui.separator(),
@@ -299,7 +333,7 @@ export async function awakenCommand(interaction, env) {
 
   const trial = await store.getTrial(env, userId);
   if (trial) {
-    if (trial.current_index >= TOTAL) return ui.message(endScreen());
+    if (trial.current_index >= totalOf(trial)) return ui.message(endScreen(trial));
     return ui.message(resumeScreen(trial));
   }
 
@@ -323,9 +357,18 @@ export async function awakenComponent(interaction, env, later) {
     case 'disclaimer':
       return ui.update(disclaimerScreen());
 
-    case 'start':
+    case 'choose':
+      return ui.update(chooseScreen());
+
+    case 'start': {
+      const version = args[0] === 'grand' ? 'grand' : 'standard';
+      const trial = await store.startTrial(env, userId, version);
+      return ui.update(questionScreen(trial));
+    }
+
     case 'restart': {
-      const trial = await store.startTrial(env, userId);
+      const old = await store.getTrial(env, userId);
+      const trial = await store.startTrial(env, userId, old?.version === 'grand' ? 'grand' : 'standard');
       return ui.update(questionScreen(trial));
     }
 
@@ -334,7 +377,7 @@ export async function awakenComponent(interaction, env, later) {
       const value = Number(args[1]);
       const trial = await store.getTrial(env, userId);
       if (!trial) return ui.update(simpleScreen(T.lost));
-      if (trial.current_index >= TOTAL) return ui.update(endScreen());
+      if (trial.current_index >= totalOf(trial)) return ui.update(endScreen(trial));
 
       // A late or double click on an old question: just show the current one again.
       if (index !== trial.current_index || value < 1 || value > 5) {
@@ -345,7 +388,7 @@ export async function awakenComponent(interaction, env, later) {
       trial.current_index = index + 1;
       await store.saveTrial(env, trial);
 
-      if (trial.current_index >= TOTAL) return ui.update(endScreen());
+      if (trial.current_index >= totalOf(trial)) return ui.update(endScreen(trial));
       return ui.update(questionScreen(trial));
     }
 
@@ -365,7 +408,7 @@ export async function awakenComponent(interaction, env, later) {
     case 'resume': {
       const trial = await store.getTrial(env, userId);
       if (!trial) return ui.update(simpleScreen(T.lost));
-      if (trial.current_index >= TOTAL) return ui.update(endScreen());
+      if (trial.current_index >= totalOf(trial)) return ui.update(endScreen(trial));
       return ui.update(questionScreen(trial));
     }
 
@@ -373,13 +416,13 @@ export async function awakenComponent(interaction, env, later) {
       const trial = await store.getTrial(env, userId);
 
       // Already revealed (double click): show the saved result.
-      if (!trial || trial.current_index < TOTAL) {
+      if (!trial || trial.current_index < totalOf(trial)) {
         const profile = await store.getProfile(env, userId);
         if (profile) return ui.update(revealScreen(profile, user));
         return ui.update(simpleScreen(T.lost));
       }
 
-      const scores = scoring.computeScores(trial.answers);
+      const scores = scoring.computeScores(trial.answers, trial.version);
       const typeCode = scoring.computeType(scores);
       await store.completeTrial(env, trial, scores, typeCode);
 

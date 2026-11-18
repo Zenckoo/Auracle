@@ -12,6 +12,14 @@ export const updatesTexts = {
   page: (n, total) => `Page ${n} / ${total}`,
   versions: [
     {
+      name: 'v1.3',
+      items: [
+        '📚 The **Grand Trial**: 300 questions, 10 per facet, for the deepest journey',
+        'Choose your path before you begin: Standard Trial or Grand Trial',
+        'Your card now shows which trial you took',
+      ],
+    },
+    {
       name: 'v1.2',
       items: [
         '🗝️ **Hidden secrets**: the facets that stand out the most from their trait, on a new page before your facets',
@@ -40,7 +48,6 @@ export const updatesTexts = {
     },
   ],
   soon: [
-    'The **Grand Trial**: 300 questions for the deepest journey',
     'Profile banners',
     'More languages: French, German and Japanese',
   ],
