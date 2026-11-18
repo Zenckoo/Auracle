@@ -86,12 +86,48 @@ export const codexTexts = {
       links: [],
     },
     {
+      emoji: '🌈',
+      name: 'Everyone belongs here',
+      body:
+        'Your personality is about how you tend to think, feel and act. It has nothing to do with your gender, who you love, your skin, your faith, your body, your age or where you come from. Auracle never asks about any of these.\n\n' +
+        'No class, no guild and no score is better than another. Being quiet, sensitive or messy is not a flaw: it is a way of being.\n\n' +
+        '🚫 **Auracle must never be used to judge, mock or exclude anyone.** Treating someone unfairly because of who they are is discrimination, and it has no place here.\n\n' +
+        '🛡️ If someone targets you on Discord, you can block them, tell the moderators of your server, and report it to Discord.',
+      links: [
+        { label: 'How to report on Discord', url: 'https://discord.com/safety/360044103651-reporting-abusive-behavior-to-discord' },
+        { label: 'Discord rules on hate', url: 'https://discord.com/safety/hateful-conduct-policy-explainer' },
+      ],
+    },
+    {
+      emoji: '🏳️‍🌈',
+      name: 'LGBTQ+ support',
+      body:
+        'Whoever you are and whoever you love, you are valid, and you deserve to feel safe. 💜\n\n' +
+        'If you are questioning, coming out, or going through a hard time, these places can help:\n' +
+        '🌈 **TrevorSpace**: a safe online community for LGBTQ+ young people aged 13 to 24, all around the world\n' +
+        '📞 **Switchboard International**: a list of LGBTQ+ support lines in many countries\n' +
+        '🏳️‍⚧️ **Trans Lifeline**: resources for trans people, in many countries\n\n' +
+        '-# Only share what you want, with whom you want. Your story belongs to you.',
+      links: [
+        { label: 'TrevorSpace', url: 'https://www.trevorspace.org' },
+        { label: 'Switchboard International', url: 'https://international.switchboard.lgbt/' },
+        { label: 'Trans Lifeline', url: 'https://translifeline.org/resource_category/international/' },
+      ],
+    },
+    {
       emoji: '🌙',
       name: 'If things feel heavy',
       body:
-        'A personality trial can stir up feelings. If your answers or your results feel heavy, you are not alone: talking to someone you trust, or to a professional, can really help.\n\n' +
+        'A personality trial can stir up feelings, and life can feel heavy sometimes. You are not alone, and asking for help is a sign of strength.\n\n' +
+        '💬 Talking to someone you trust, or to a professional, can really help.\n' +
+        '📞 **Find a Helpline** lists free and confidential lines in your country, by phone, text or chat.\n' +
+        '🤝 **Befrienders Worldwide** offers emotional support to anyone in distress.\n\n' +
+        '🚨 **If you are in danger right now, call your local emergency number.**\n\n' +
         'If you are under 18, keep your results private and talk to a trusted adult if anything worries you. 💜',
-      links: [{ label: 'Find a helpline', url: 'https://findahelpline.com' }],
+      links: [
+        { label: 'Find a Helpline', url: 'https://findahelpline.com' },
+        { label: 'Befrienders Worldwide', url: 'https://www.befrienders.org' },
+      ],
     },
     {
       emoji: '✨',
