@@ -6,3 +6,8 @@ name = "auracle"
 main = "src/index.js"
 compatibility_date = "2026-11-01"
 keep_vars = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "auracle-db"
+database_id = "f09ab038-9b6e-471a-af52-506c72d58f2d"
