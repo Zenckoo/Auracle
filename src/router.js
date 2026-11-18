@@ -5,6 +5,7 @@ import { awakenCommand, awakenComponent } from './commands/awaken.js';
 import { profileCommand } from './commands/profile.js';
 import { privacyCommand, privacyComponent } from './commands/privacy.js';
 import { forgetCommand, forgetComponent } from './commands/forget.js';
+import { updatesCommand } from './commands/updates.js';
 import { ui } from './core/ui.js';
 import { texts } from './texts/en.js';
 
@@ -14,6 +15,7 @@ const commandHandlers = {
   profile: profileCommand,
   privacy: privacyCommand,
   forget: forgetCommand,
+  updates: updatesCommand,
 };
 
 // Buttons are named "prefix:action:...". The prefix tells which feature owns them.

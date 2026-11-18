@@ -36,6 +36,12 @@ export const commandDefinitions = [
     contexts: [0],
   },
   {
+    name: 'updates',
+    description: "See what's new and what's coming",
+    type: 1,
+    contexts: [0],
+  },
+  {
     name: 'help',
     description: "Open the Traveler's Guide",
     type: 1,
