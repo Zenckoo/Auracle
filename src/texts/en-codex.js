@@ -7,7 +7,7 @@ export const codexTexts = {
   next: 'Next',
   jump: 'Jump to a page',
   footer: '-# Questions or ideas? Share them with `/feedback`.',
-  helpEntry: { name: '`/codex`', description: 'How Auracle works, with sources and links' },
+  helpEntry: { name: '`/codex`', description: 'How Auracle works, sources, and where to find support' },
   hubButton: 'Codex',
   pages: [
     {

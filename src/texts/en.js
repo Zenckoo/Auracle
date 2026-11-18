@@ -38,7 +38,7 @@ export const texts = {
         '🌱 For now, Auracle is a personality test with a profile card. But it dreams bigger: ' +
         'a social companion for Discord, inclusive, safe, and truly yours to customize.\n\n' +
         '🛠️ Still a work in progress, with Dye Casa as its first testing ground. ' +
-        'Spotted a bug or have an idea? Use `/feedback`. Lost? `/help` shows every command, and `/codex` explains how everything works.\n\n' +
+        'Spotted a bug or have an idea? Use `/feedback`. Lost? `/help` shows every command, and `/codex` explains how everything works, with support resources if you ever need them.\n\n' +
         '-# Crafted with care by Zenckoo ✨',
       button: 'Continue',
     },
