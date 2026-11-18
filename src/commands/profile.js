@@ -3,11 +3,11 @@
 
 import { ui } from '../core/ui.js';
 import { texts } from '../texts/en.js';
+import { profileTexts as P } from '../texts/en-profile.js';
 import { CLASSES, GUILDS } from '../data/classes.js';
 import * as store from '../core/store.js';
 import * as scoring from '../core/scoring.js';
 
-const P = texts.profile;
 const R = texts.results;
 
 function note(text) {
