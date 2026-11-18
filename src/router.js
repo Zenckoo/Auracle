@@ -5,7 +5,7 @@ import { awakenCommand, awakenComponent } from './commands/awaken.js';
 import { profileCommand } from './commands/profile.js';
 import { privacyCommand, privacyComponent } from './commands/privacy.js';
 import { forgetCommand, forgetComponent } from './commands/forget.js';
-import { updatesCommand } from './commands/updates.js';
+import { updatesCommand, updatesComponent } from './commands/updates.js';
 import { feedbackCommand, feedbackComponent, feedbackModal } from './commands/feedback.js';
 import { hubCommand, hubComponent } from './commands/hub.js';
 import { compareCommand } from './commands/compare.js';
@@ -33,6 +33,7 @@ const componentHandlers = {
   pv: privacyComponent,
   fg: forgetComponent,
   fb: feedbackComponent,
+  up: updatesComponent,
 };
 
 // Forms (modals), same naming.

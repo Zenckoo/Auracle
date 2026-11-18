@@ -1,8 +1,15 @@
-// English texts for /updates. Add a new block at the top of "versions" for each release
+// English texts for /updates. Add a new block at the TOP of "versions" for each release
 // (v1.0.1 small fix, v1.1 new feature, v2.0 big change), and remove it from "soon".
+// Each version gets its own page in What's new, newest first.
 
 export const updatesTexts = {
   newTitle: "### 📜 What's new",
+  soonTitle: '### 🔮 Coming soon',
+  newTab: "What's new",
+  soonTab: 'Coming soon',
+  newer: 'Newer',
+  older: 'Older',
+  page: (n, total) => `Page ${n} / ${total}`,
   versions: [
     {
       name: 'v1.1',
@@ -24,7 +31,6 @@ export const updatesTexts = {
       ],
     },
   ],
-  soonTitle: '### 🔮 Coming soon',
   soon: [
     'The **Grand Trial**: 300 questions for the deepest journey',
     '🗝️ **Hidden secrets**: the facet that surprises the most',
