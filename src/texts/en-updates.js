@@ -16,7 +16,7 @@ export const updatesTexts = {
       items: [
         '📖 `/codex`: a small book explaining how Auracle works, the Big Five, the trials, your letters, the guilds, your data, with links to the sources',
         'The Codex is also in the `/auracle` menu',
-        '🌈 New Codex pages: **Everyone belongs here**, **LGBTQ+ support** and a bigger **If things feel heavy**, with trusted links',
+        '🌈 New Codex pages: **Understanding your results**, **Everyone belongs here**, **LGBTQ+ support**, a bigger **If things feel heavy**, and **For server staff**, with trusted links',
       ],
     },
     {

@@ -75,6 +75,17 @@ export const codexTexts = {
       links: [{ label: 'Reference data', url: 'https://jobcannon.io/research/ipip-neo-120' }],
     },
     {
+      emoji: '🌱',
+      name: 'Understanding your results',
+      body:
+        'Your results are a snapshot, not a sentence. Personality slowly changes through life, and your mood on the day can shape your answers too.\n\n' +
+        '📉 **A low score is never a flaw.** Low Extraversion means you recharge in calm, not that you are worse with people. Every level of every trait has its own strengths.\n\n' +
+        '🔁 **You can take the trial again** anytime with `/awaken`. If your new class feels different, that is part of the journey.\n\n' +
+        '🪞 **You know yourself best.** If something does not sound like you, trust yourself over the trial.\n\n' +
+        '-# Your class is a fun way to talk about who you are, never a box to stay in.',
+      links: [],
+    },
+    {
       emoji: '🔒',
       name: 'Your data',
       body:
@@ -128,6 +139,18 @@ export const codexTexts = {
         { label: 'Find a Helpline', url: 'https://findahelpline.com' },
         { label: 'Befrienders Worldwide', url: 'https://www.befrienders.org' },
       ],
+    },
+    {
+      emoji: '🛡️',
+      name: 'For server staff',
+      body:
+        'Thinking of adding Auracle to your server? Here is what you should know:\n\n' +
+        '⚙️ **What it does:** Auracle only answers its own commands. It never reads your channels, never sends messages on its own, and needs no admin or moderation permission.\n\n' +
+        '👀 **What members see:** `/compare`, `/guilds` and public cards are posted in the channel. Everything else stays private to the member.\n\n' +
+        '🔒 **What it keeps:** a member\'s answers and results, and which servers they used Auracle on (only for `/guilds`). Members can erase it all with `/forget`. Private cards are never shown to others or counted.\n\n' +
+        '🚫 **What it is not:** a diagnosis, a moderation tool, or a way to sort, rank or select members. Please never use results to judge anyone.\n\n' +
+        '💬 **A problem or a question?** Use `/feedback`: messages go straight to Zenckoo.',
+      links: [],
     },
     {
       emoji: '✨',
