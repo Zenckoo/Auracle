@@ -12,6 +12,14 @@ export const updatesTexts = {
   page: (n, total) => `Page ${n} / ${total}`,
   versions: [
     {
+      name: 'v1.2',
+      items: [
+        '🗝️ **Hidden secrets**: the facets that stand out the most from their trait, on a new page before your facets',
+        'Choose to show your top secret on your card, or keep it hidden',
+        '`/privacy` now has a second setting for your hidden secret',
+      ],
+    },
+    {
       name: 'v1.1',
       items: [
         '`/compare`: see how well you match with another traveler',
@@ -33,7 +41,6 @@ export const updatesTexts = {
   ],
   soon: [
     'The **Grand Trial**: 300 questions for the deepest journey',
-    '🗝️ **Hidden secrets**: the facet that surprises the most',
     'Profile banners',
     'More languages: French, German and Japanese',
   ],

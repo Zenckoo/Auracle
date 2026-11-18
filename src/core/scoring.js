@@ -1,6 +1,6 @@
 // Turns the 120 answers into trait scores, facet scores, percentiles and a four-letter type.
 
-import { IPIP120 } from '../data/ipip120.js';
+import { IPIP120, FACETS } from '../data/ipip120.js';
 import { DOMAIN_CUTS, FACET_NORMS } from '../data/norms.js';
 
 export const DOMAIN_ORDER = ['O', 'C', 'E', 'A', 'N'];
@@ -84,6 +84,18 @@ export function closeLetters(scores, type) {
     }
   }
   return close;
+}
+
+// Hidden secrets: the facets furthest from their own trait, biggest gap first.
+export function hiddenSecrets(scores, count = 3) {
+  const all = [];
+  for (const d of DOMAIN_ORDER) {
+    const traitPct = scores.domains[d].percentile;
+    scores.facets[d].forEach((f, i) => {
+      all.push({ domain: d, index: i, name: FACETS[d][i], facetPct: f.percentile, traitPct, gap: Math.abs(f.percentile - traitPct) });
+    });
+  }
+  return all.sort((a, b) => b.gap - a.gap).slice(0, count);
 }
 
 export function traitLevel(percentile) {

@@ -3,6 +3,7 @@
 
 import { ui } from '../core/ui.js';
 import { texts } from '../texts/en.js';
+import { secretTexts as SX } from '../texts/en-secrets.js';
 import { IPIP120, FACETS } from '../data/ipip120.js';
 import { CLASSES, GUILDS, article } from '../data/classes.js';
 import * as store from '../core/store.js';
@@ -13,6 +14,8 @@ const R = texts.results;
 const TOTAL = IPIP120.length;
 const BLUE = ui.COLORS.auracle;
 const ANSWER_EMOJIS = ['❌', '➖', '⚖️', '✔️', '✅'];
+// Result pages after "See facets": the Hidden secrets page first, then one page per trait.
+const PAGES = ['S', ...scoring.DOMAIN_ORDER];
 
 function userOf(interaction) {
   return interaction.member?.user ?? interaction.user;
@@ -29,6 +32,10 @@ function progressBar(index) {
 
 function guildColor(typeCode) {
   return ui.COLORS[GUILDS[CLASSES[typeCode].guild].colorKey];
+}
+
+function pageName(page) {
+  return page === 'S' ? SX.pageLabel : R.traitNames[page];
 }
 
 // ---------- Trial screens ----------
@@ -172,7 +179,7 @@ function revealScreen(profile, user) {
     ui.text(R.estimate),
     ui.row(
       ui.button({ id: 'aw:traits', label: R.seeTraits, emoji: '📊' }),
-      ui.button({ id: 'aw:facets:O', label: R.seeFacets, emoji: '🔍', style: ui.ButtonStyle.SECONDARY }),
+      ui.button({ id: 'aw:facets:S', label: R.seeFacets, emoji: '🔍', style: ui.ButtonStyle.SECONDARY }),
     ),
   );
 
@@ -196,16 +203,44 @@ function traitsScreen(profile) {
     ui.separator(),
     ui.row(
       ui.button({ id: 'aw:results', label: R.backToClass, emoji: '◀️', style: ui.ButtonStyle.SECONDARY }),
-      ui.button({ id: 'aw:facets:O', label: R.seeFacets, emoji: '🔍' }),
+      ui.button({ id: 'aw:facets:S', label: R.seeFacets, emoji: '🔍' }),
     ),
   );
 
   return box(parts, guildColor(profile.type_code));
 }
 
+function pageNav(page) {
+  const position = PAGES.indexOf(page);
+  const prev = PAGES[(position + PAGES.length - 1) % PAGES.length];
+  const next = PAGES[(position + 1) % PAGES.length];
+  return ui.row(
+    ui.button({ id: `aw:facets:${prev}`, label: pageName(prev), emoji: '◀️', style: ui.ButtonStyle.SECONDARY }),
+    ui.button({ id: `aw:facets:${next}`, label: pageName(next), emoji: '▶️', style: ui.ButtonStyle.SECONDARY }),
+    ui.button({ id: 'aw:traits', label: R.backToTraits, emoji: '📊' }),
+  );
+}
+
+function secretsScreen(profile) {
+  const secrets = scoring.hiddenSecrets(profile.scores, 3);
+  const lines = secrets.map((s) =>
+    `${SX.line(R.traitEmojis[s.domain], s.name, s.facetPct, R.traitNames[s.domain], s.traitPct)}\n${scoring.bar(s.facetPct)}`,
+  );
+  return box(
+    [
+      ui.text(`-# ${R.facetsLabel} · 1 / ${PAGES.length}\n${SX.title}\n${SX.intro}`),
+      ui.separator(),
+      ui.text(lines.join('\n\n')),
+      ui.separator(),
+      pageNav('S'),
+    ],
+    guildColor(profile.type_code),
+  );
+}
+
 function facetsScreen(profile, domain) {
-  const order = scoring.DOMAIN_ORDER;
-  const position = order.indexOf(domain);
+  if (domain === 'S') return secretsScreen(profile);
+  const position = PAGES.indexOf(domain);
   const scores = profile.scores;
   const pct = scores.domains[domain].percentile;
 
@@ -213,20 +248,13 @@ function facetsScreen(profile, domain) {
     (f, i) => `**${FACETS[domain][i]}**\n${scoring.bar(f.percentile)}\n-# ${R.higherThan(f.percentile)}`,
   );
 
-  const prev = order[(position + order.length - 1) % order.length];
-  const next = order[(position + 1) % order.length];
-
   return box(
     [
-      ui.text(`-# ${R.facetsLabel} · ${position + 1} / ${order.length}\n### ${R.traitEmojis[domain]} ${R.traitNames[domain]}\n-# ${R.higherThan(pct)}`),
+      ui.text(`-# ${R.facetsLabel} · ${position + 1} / ${PAGES.length}\n### ${R.traitEmojis[domain]} ${R.traitNames[domain]}\n-# ${R.higherThan(pct)}`),
       ui.separator(),
       ui.text(lines.join('\n\n')),
       ui.separator(),
-      ui.row(
-        ui.button({ id: `aw:facets:${prev}`, label: R.traitNames[prev], emoji: '◀️', style: ui.ButtonStyle.SECONDARY }),
-        ui.button({ id: `aw:facets:${next}`, label: R.traitNames[next], emoji: '▶️', style: ui.ButtonStyle.SECONDARY }),
-        ui.button({ id: 'aw:traits', label: R.backToTraits, emoji: '📊' }),
-      ),
+      pageNav(domain),
     ],
     guildColor(profile.type_code),
   );
@@ -244,6 +272,23 @@ function privacyChoiceScreen(typeCode) {
       ui.text(R.privacy.changeLater),
     ],
     guildColor(typeCode),
+  );
+}
+
+// After the card choice: the hidden secret, and Show it / Keep it hidden.
+function secretChoiceScreen(profile, cardText) {
+  const [s] = scoring.hiddenSecrets(profile.scores, 1);
+  return box(
+    [
+      ui.text(cardText),
+      ui.separator(),
+      ui.text(SX.question(s.name, s.facetPct, R.traitNames[s.domain], s.traitPct)),
+      ui.row(
+        ui.button({ id: 'aw:sec:show', label: SX.show, emoji: '🗝️' }),
+        ui.button({ id: 'aw:sec:hide', label: SX.hide, emoji: '🤫', style: ui.ButtonStyle.SECONDARY }),
+      ),
+    ],
+    guildColor(profile.type_code),
   );
 }
 
@@ -359,8 +404,8 @@ export async function awakenComponent(interaction, env, later) {
     case 'facets': {
       const profile = await store.getProfile(env, userId);
       if (!profile) return ui.update(simpleScreen(T.lost));
-      const domain = scoring.DOMAIN_ORDER.includes(args[0]) ? args[0] : 'O';
-      return ui.update(facetsScreen(profile, domain));
+      const page = PAGES.includes(args[0]) ? args[0] : 'S';
+      return ui.update(facetsScreen(profile, page));
     }
 
     case 'pub':
@@ -369,7 +414,15 @@ export async function awakenComponent(interaction, env, later) {
       if (!profile) return ui.update(simpleScreen(T.lost));
       const isPublic = action === 'pub';
       await store.setPublic(env, userId, isPublic);
-      return ui.update(simpleScreen(isPublic ? R.privacy.nowPublic : R.privacy.nowPrivate, guildColor(profile.type_code)));
+      return ui.update(secretChoiceScreen(profile, isPublic ? R.privacy.nowPublic : R.privacy.nowPrivate));
+    }
+
+    case 'sec': {
+      const profile = await store.getProfile(env, userId);
+      if (!profile) return ui.update(simpleScreen(T.lost));
+      const isShown = args[0] === 'show';
+      await store.setSecretPublic(env, userId, isShown);
+      return ui.update(simpleScreen(isShown ? SX.shown : SX.hidden, guildColor(profile.type_code)));
     }
 
     case 'newtrial':

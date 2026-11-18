@@ -1,9 +1,10 @@
 // /profile: shows a traveler card. Alone: your own card. With @member: their card, only if public.
-// Facets are never shown here, they always stay private.
+// Facets are never shown here; only the hidden secret, if its owner chose to show it.
 
 import { ui } from '../core/ui.js';
 import { texts } from '../texts/en.js';
 import { profileTexts as P } from '../texts/en-profile.js';
+import { secretTexts as SX } from '../texts/en-secrets.js';
 import { CLASSES, GUILDS } from '../data/classes.js';
 import * as store from '../core/store.js';
 import * as scoring from '../core/scoring.js';
@@ -25,9 +26,14 @@ function card(profile, user, name, isOwnPrivate) {
   const scores = profile.scores;
   const flame = scores.domains.N.percentile >= 50 ? R.restlessFlame : R.calmWaters;
 
-  const traits = scoring.DOMAIN_ORDER.map(
+  let traits = scoring.DOMAIN_ORDER.map(
     (d) => `${R.traitEmojis[d]} ${scoring.bar(scores.domains[d].percentile)} ${R.traitNames[d]}`,
   ).join('\n');
+
+  if (profile.secret_public === 1) {
+    const [s] = scoring.hiddenSecrets(scores, 1);
+    traits += `\n\n${SX.cardLine(s.name, s.facetPct)}`;
+  }
 
   const footer = [P.awakened(Math.floor(profile.completed_at / 1000)), R.estimate];
   if (isOwnPrivate) footer.push(P.privateNote);
