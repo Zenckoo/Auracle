@@ -7,14 +7,25 @@ export const texts = {
 
   help: {
     title: "### 📜 The Traveler's Guide",
+    commandsTitle: '**Commands**',
     commands: [
+      { name: '`/auracle`', description: 'Open the menu: everything is in there' },
       { name: '`/awaken`', description: 'Begin your trial and discover your class' },
       { name: '`/profile`', description: "View your profile card, or a traveler's with @member" },
-      { name: '`/privacy`', description: 'Choose what you share with others' },
       { name: '`/forget`', description: 'Erase all your data' },
-      { name: '`/updates`', description: "See what's new and what's coming" },
-      { name: '`/feedback`', description: 'Report a bug or suggest an idea' },
-      { name: '`/help`', description: 'Open this guide' },
+    ],
+    menuTitle: '**In the `/auracle` menu**',
+    menu: [
+      '✨ **Awaken**: begin your trial',
+      '🪪 **My card**: view your profile card',
+      '🏰 **Guilds**: how the guilds are spread across the server',
+      '🔒 **Privacy**: choose what you share with others',
+      "📜 **Updates**: see what's new and what's coming",
+      '📬 **Feedback**: report a bug or suggest an idea',
+      '❔ **Help**: open this guide',
+      '📖 **Codex**: how Auracle works, sources, and where to find support',
+      '🧹 **Forget**: erase all your data',
+      "🪪 / 🤝 The two menus below: view a traveler's card, or compare with them",
     ],
     footer: '-# Your results are private unless you choose otherwise.',
   },
@@ -38,7 +49,7 @@ export const texts = {
         '🌱 For now, Auracle is a personality test with a profile card. But it dreams bigger: ' +
         'a social companion for Discord, inclusive, safe, and truly yours to customize.\n\n' +
         '🛠️ Still a work in progress, with Dye Casa as its first testing ground. ' +
-        'Spotted a bug or have an idea? Use `/feedback`. Lost? `/help` shows every command, and `/codex` explains how everything works, with support resources if you ever need them.\n\n' +
+        'Spotted a bug or have an idea? Use **📬 Feedback** in `/auracle`. Lost? `/auracle` gathers everything, and the **📖 Codex** explains how it all works, with support resources if you ever need them.\n\n' +
         '-# Crafted with care by Zenckoo ✨',
       button: 'Continue',
     },
@@ -48,7 +59,7 @@ export const texts = {
       body:
         '🔮 **Not a diagnosis.** This trial is based on the Big Five, but your class and four-letter type are a fun estimate, not a label or an official assessment.\n\n' +
         '💡 **Trust your instinct.** Answer with your first thought. If a word is unclear, choose *In between*.\n\n' +
-        '💾 **Your data.** Unfinished trials are erased after 30 days. Finished profiles are kept until you use `/forget`. Change what others see anytime with `/privacy`.\n\n' +
+        '💾 **Your data.** Unfinished trials are erased after 30 days. Finished profiles are kept until you use `/forget`. Change what others see anytime with 🔒 Privacy in `/auracle`.\n\n' +
         "🤝 **Respect.** The rules of this server apply to Auracle too: no mocking, no discrimination, no using someone's results against them.\n\n" +
         "🤖 **Built with AI assistance.** Auracle embraces today's tools: parts of its code and texts are created with the help of AI. Its art and illustrations, however, will always be made by human hands, never by AI.\n\n" +
         '🔞 **Discretion is advised.** If you are under 18, keep your results private and talk to a trusted adult if anything feels heavy.\n\n' +
@@ -162,9 +173,9 @@ export const texts = {
         '-# Public cards can be seen by anyone with /profile. Your facets always stay private.',
       public: 'Public',
       private: 'Private',
-      changeLater: '-# You can change this anytime with /privacy.',
-      nowPublic: '### 🌍 Your class is now known to all\n-# You can change this anytime with /privacy.',
-      nowPrivate: '### 🔒 Your class stays a secret\n-# You can change this anytime with /privacy.',
+      changeLater: '-# You can change this anytime with 🔒 Privacy in `/auracle`.',
+      nowPublic: '### 🌍 Your class is now known to all\n-# You can change this anytime with 🔒 Privacy in `/auracle`.',
+      nowPrivate: '### 🔒 Your class stays a secret\n-# You can change this anytime with 🔒 Privacy in `/auracle`.',
     },
   },
 };

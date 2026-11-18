@@ -13,8 +13,8 @@ export const secretTexts = {
     'Shall this secret appear on your card?',
   show: 'Show it',
   hide: 'Keep it hidden',
-  shown: '### 🗝️ Your secret now shines on your card\n-# You can change this anytime with /privacy.',
-  hidden: '### 🤫 Your secret stays hidden\n-# You can change this anytime with /privacy.',
+  shown: '### 🗝️ Your secret now shines on your card\n-# You can change this anytime with 🔒 Privacy in `/auracle`.',
+  hidden: '### 🤫 Your secret stays hidden\n-# You can change this anytime with 🔒 Privacy in `/auracle`.',
   cardLine: (facet, pct) => `🗝️ Hidden secret: **${facet}** · higher than ${pct}% of travelers`,
   privacyLine: (shown) => `Hidden secret: **${shown ? '🗝️ Shown' : '🤫 Hidden'}**`,
 };

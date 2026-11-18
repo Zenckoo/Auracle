@@ -1,5 +1,6 @@
 // The slash commands Discord shows to members.
 // contexts: [0] means the command only works inside a server.
+// Only 4 commands: everything else lives in the /auracle menu (buttons).
 // After changing this file, open the /register link again so Discord learns the new list.
 
 export const commandDefinitions = [
@@ -30,58 +31,8 @@ export const commandDefinitions = [
     ],
   },
   {
-    name: 'compare',
-    description: 'See how well you match with someone',
-    type: 1,
-    contexts: [0],
-    options: [
-      {
-        type: 6,
-        name: 'member',
-        description: 'The traveler to compare with',
-        required: true,
-      },
-    ],
-  },
-  {
-    name: 'guilds',
-    description: 'See how the guilds are spread across the server',
-    type: 1,
-    contexts: [0],
-  },
-  {
-    name: 'privacy',
-    description: 'Choose what you share with others',
-    type: 1,
-    contexts: [0],
-  },
-  {
     name: 'forget',
     description: 'Erase all your data',
-    type: 1,
-    contexts: [0],
-  },
-  {
-    name: 'updates',
-    description: "See what's new and what's coming",
-    type: 1,
-    contexts: [0],
-  },
-  {
-    name: 'feedback',
-    description: 'Report a bug or suggest an idea',
-    type: 1,
-    contexts: [0],
-  },
-  {
-    name: 'codex',
-    description: 'How Auracle works, sources, and where to find support',
-    type: 1,
-    contexts: [0],
-  },
-  {
-    name: 'help',
-    description: "Open the Traveler's Guide",
     type: 1,
     contexts: [0],
   },

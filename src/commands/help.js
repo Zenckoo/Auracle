@@ -1,26 +1,20 @@
-// /help: the Traveler's Guide.
+// The Traveler's Guide (Help button in /auracle): the 4 commands and the menu buttons.
 
 import { ui } from '../core/ui.js';
 import { texts } from '../texts/en.js';
-import { hubTexts } from '../texts/en-hub.js';
-import { socialHelp } from '../texts/en-social.js';
-import { codexTexts } from '../texts/en-codex.js';
 
 export function helpCommand() {
   const t = texts.help;
-  const entries = [hubTexts.helpEntry];
-  for (const c of t.commands) {
-    entries.push(c);
-    if (c.name === '`/profile`') entries.push(...socialHelp);
-    if (c.name === '`/feedback`') entries.push(codexTexts.helpEntry);
-  }
-  const list = entries.map((c) => `${c.name} : ${c.description}`).join('\n');
+  const commands = t.commands.map((c) => `${c.name} : ${c.description}`).join('\n');
+  const menu = t.menu.join('\n');
 
   return ui.message([
     ui.container(ui.COLORS.auracle, [
       ui.text(t.title),
       ui.separator(),
-      ui.text(list),
+      ui.text(`${t.commandsTitle}\n${commands}`),
+      ui.separator(),
+      ui.text(`${t.menuTitle}\n${menu}`),
       ui.separator(),
       ui.text(t.footer),
     ]),

@@ -6,7 +6,7 @@ export const codexTexts = {
   previous: 'Previous',
   next: 'Next',
   jump: 'Jump to a page',
-  footer: '-# Questions or ideas? Share them with `/feedback`.',
+  footer: '-# Questions or ideas? Share them with 📬 Feedback in `/auracle`.',
   helpEntry: { name: '`/codex`', description: 'How Auracle works, sources, and where to find support' },
   hubButton: 'Codex',
   pages: [
@@ -70,7 +70,7 @@ export const codexTexts = {
         'Auracle only keeps what it needs:\n' +
         '- Your answers and results, until you use `/forget`\n' +
         '- Unfinished trials, erased 30 days after your last answer\n' +
-        '- Which server you used Auracle on, only for `/guilds`\n\n' +
+        '- Which server you used Auracle on, only for 🏰 Guilds\n\n' +
         'Your card and your hidden secret are **private by default**. Your facets are never shown to others. `/forget` erases everything, anytime.',
       links: [],
     },
@@ -168,10 +168,10 @@ export const codexTexts = {
       body:
         'Thinking of adding Auracle to your server? Here is what you should know:\n\n' +
         '⚙️ **What it does:** Auracle only answers its own commands. It never reads your channels, never sends messages on its own, and needs no admin or moderation permission.\n\n' +
-        '👀 **What members see:** `/compare`, `/guilds` and public cards are posted in the channel. Everything else stays private to the member.\n\n' +
-        '🔒 **What it keeps:** a member\'s answers and results, and which servers they used Auracle on (only for `/guilds`). Members can erase it all with `/forget`. Private cards are never shown to others or counted.\n\n' +
+        '👀 **What members see:** **Compare**, **Guilds** and public cards are posted in the channel. Everything else stays private to the member.\n\n' +
+        '🔒 **What it keeps:** a member\'s answers and results, and which servers they used Auracle on (only for Guilds). Members can erase it all with `/forget`. Private cards are never shown to others or counted.\n\n' +
         '🚫 **What it is not:** a diagnosis, a moderation tool, or a way to sort, rank or select members. Please never use results to judge anyone.\n\n' +
-        '💬 **A problem or a question?** Use `/feedback`: messages go straight to Zenckoo.',
+        '💬 **A problem or a question?** Use 📬 Feedback in `/auracle`: messages go straight to Zenckoo.',
       links: [],
     },
     {
@@ -180,7 +180,7 @@ export const codexTexts = {
       body:
         'Auracle is crafted with care by **Zenckoo**, and still a work in progress.\n\n' +
         '🤖 Parts of its code and texts are created with the help of AI. Its art and illustrations will always be made by human hands, never by AI. More in **Auracle and AI**.\n\n' +
-        "💡 Spotted a bug or have an idea? Use `/feedback`. Curious about what's coming? Try `/updates`.",
+        "💡 Spotted a bug or have an idea? Use **📬 Feedback** in `/auracle`. Curious about what's coming? Check **📜 Updates**.",
       links: [],
     },
   ],

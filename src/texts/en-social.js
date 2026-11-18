@@ -10,7 +10,7 @@ export const compareTexts = {
   notAligned:
     '### 🌌 The stars cannot align...\n' +
     'Both travelers must reveal their class to be compared.\n' +
-    '-# Cards can be made public with /privacy.',
+    '-# Cards can be made public with 🔒 Privacy in `/auracle`.',
   self: '### 🪞 A perfect match\nComparing yourself to yourself? A perfect match, I suppose.',
   duos: {
     'dreamers+dreamers': "Two Dreamers together? Endless deep talks until 3 AM... but nobody knows what's for dinner.",

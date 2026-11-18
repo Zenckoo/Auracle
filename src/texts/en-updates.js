@@ -12,6 +12,14 @@ export const updatesTexts = {
   page: (n, total) => `Page ${n} / ${total}`,
   versions: [
     {
+      name: 'v1.5',
+      items: [
+        '🧭 Everything now lives in the `/auracle` menu: fewer commands, more buttons',
+        'Only four commands remain: `/auracle`, `/awaken`, `/profile` and `/forget`',
+        'The Help guide now shows every button of the menu',
+      ],
+    },
+    {
       name: 'v1.4',
       items: [
         '📖 `/codex`: a small book explaining how Auracle works, the Big Five, the trials, your letters, the guilds, your data, with links to the sources',
@@ -60,5 +68,5 @@ export const updatesTexts = {
     'Profile banners',
     'More languages: French, German and Japanese',
   ],
-  footer: '-# Have an idea? Share it with `/feedback`.',
+  footer: '-# Have an idea? Share it with 📬 Feedback in `/auracle`.',
 };
