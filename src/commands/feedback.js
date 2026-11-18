@@ -1,0 +1,94 @@
+// /feedback: two buttons, a small form, and the message goes to the HQ channel.
+
+import { ui } from '../core/ui.js';
+import { config } from '../config.js';
+import { feedbackTexts as F } from '../texts/en-feedback.js';
+
+const KINDS = { bug: F.bug, idea: F.idea };
+
+function userOf(interaction) {
+  return interaction.member?.user ?? interaction.user;
+}
+
+function box(text, extra = []) {
+  return [ui.container(ui.COLORS.auracle, [ui.text(text), ...extra])];
+}
+
+export function feedbackCommand() {
+  return ui.message(
+    box(F.question, [
+      ui.separator(),
+      ui.row(
+        ui.button({ id: 'fb:bug', label: F.bugButton, emoji: '🐞', style: ui.ButtonStyle.SECONDARY }),
+        ui.button({ id: 'fb:idea', label: F.ideaButton, emoji: '💡' }),
+      ),
+    ]),
+  );
+}
+
+// Button clicked: open the small form (a Discord "modal").
+export function feedbackComponent(interaction) {
+  const kind = interaction.data.custom_id.split(':')[1];
+  const t = KINDS[kind] ?? F.idea;
+  return {
+    type: 9,
+    data: {
+      custom_id: `fb:${kind in KINDS ? kind : 'idea'}`,
+      title: t.title,
+      components: [
+        {
+          type: 1,
+          components: [
+            {
+              type: 4,
+              custom_id: 'text',
+              style: 2,
+              label: t.label,
+              placeholder: t.placeholder,
+              min_length: 5,
+              max_length: 1500,
+              required: true,
+            },
+          ],
+        },
+      ],
+    },
+  };
+}
+
+function findValue(components) {
+  for (const c of components ?? []) {
+    if (c.custom_id === 'text' && typeof c.value === 'string') return c.value;
+    const inner = findValue(c.components ?? (c.component ? [c.component] : []));
+    if (inner) return inner;
+  }
+  return null;
+}
+
+// Form sent: post it in the HQ channel, then thank the traveler.
+export async function feedbackModal(interaction, env) {
+  const kind = interaction.data.custom_id.split(':')[1];
+  const t = KINDS[kind] ?? F.idea;
+  const user = userOf(interaction);
+  const name = user.global_name || user.username;
+  const text = (findValue(interaction.data.components) ?? '').trim();
+
+  const response = await fetch(`https://discord.com/api/v10/channels/${config.feedbackChannelId}/messages`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', authorization: `Bot ${env.DISCORD_TOKEN}` },
+    body: JSON.stringify({
+      flags: ui.FLAGS.COMPONENTS_V2,
+      allowed_mentions: { parse: [] },
+      components: [
+        ui.container(kind === 'bug' ? ui.COLORS.wanderers : ui.COLORS.auracle, [
+          ui.text(t.heading),
+          ui.text(text || '-'),
+          ui.separator(),
+          ui.text(F.from(user.id, name)),
+        ]),
+      ],
+    }),
+  });
+
+  return ui.update(box(response.ok ? F.thanks : F.failed));
+}

@@ -3,9 +3,9 @@
 
 import { verifyDiscordRequest } from './discord/verify.js';
 import { registerCommands } from './discord/register.js';
-import { handleCommand, handleComponent } from './router.js';
+import { handleCommand, handleComponent, handleModal } from './router.js';
 
-const InteractionType = { PING: 1, APPLICATION_COMMAND: 2, MESSAGE_COMPONENT: 3 };
+const InteractionType = { PING: 1, APPLICATION_COMMAND: 2, MESSAGE_COMPONENT: 3, MODAL_SUBMIT: 5 };
 
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
@@ -45,6 +45,10 @@ export default {
 
       if (interaction.type === InteractionType.MESSAGE_COMPONENT) {
         return json(await handleComponent(interaction, env, later));
+      }
+
+      if (interaction.type === InteractionType.MODAL_SUBMIT) {
+        return json(await handleModal(interaction, env, later));
       }
 
       return json({ error: 'Unknown interaction type' }, 400);
