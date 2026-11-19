@@ -494,6 +494,13 @@ export async function deleteBannerLog(env, userId) {
   await env.DB.prepare('DELETE FROM banner_log WHERE user_id = ?').bind(userId).run();
 }
 
+// ---- 🗂️ Organize card ----
+
+// layout: "about,tastes,-blessings,traits" ("-" = hidden), or null for the default order.
+export async function setCardLayout(env, userId, layout) {
+  await env.DB.prepare('UPDATE profiles SET card_layout = ?, updated_at = ? WHERE user_id = ?').bind(layout, Date.now(), userId).run();
+}
+
 // ---- My data (right of access and portability) ----
 
 // Everything Auracle keeps about this traveler, in one object.
@@ -563,6 +570,7 @@ export async function exportData(env, userId) {
       },
       receives_blessings: profile.blessings_off !== 1,
       banner: profile.banner ? { file: profile.banner, uploaded_at: date(profile.banner_at) } : null,
+      card_layout: profile.card_layout ?? null,
       accent_color: profile.accent == null ? null : '#' + profile.accent.toString(16).padStart(6, '0').toUpperCase(),
       completed_at: date(profile.completed_at),
       updated_at: date(profile.updated_at),

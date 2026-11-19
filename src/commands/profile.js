@@ -22,6 +22,7 @@ import { badgeLine } from '../data/badges.js';
 import { blessButton, blessingLines } from './blessings.js';
 import { blessingTexts as BL } from '../texts/en-blessings.js';
 import { bannerUrl, bannerGallery } from '../core/banners.js';
+import { cardLayout } from '../data/layout.js';
 
 const R = texts.results;
 
@@ -85,6 +86,10 @@ function card(profile, user, name, isOwnPrivate, reportable = false, extra = {})
   // 🖼️ The banner, on top of the card.
   const banner = bannerUrl(profile);
 
+  // 🗂️ The 4 movable parts, in the order the traveler chose (hidden ones are left out).
+  const blocks = { about, tastes, blessings, traits: [ui.separator(), ui.text(traits)] };
+  const middle = cardLayout(profile).filter((p) => !p.hidden).flatMap((p) => blocks[p.key]);
+
   return [
     ui.container(hasAccent ? profile.accent : ui.COLORS[guild.colorKey], [
       ...(banner ? [bannerGallery(banner)] : []),
@@ -92,11 +97,7 @@ function card(profile, user, name, isOwnPrivate, reportable = false, extra = {})
         [P.cardLabel(name), heading, [`**${type}** · ${guildLabel}`, mood, identity].filter(Boolean).join('\n')],
         ui.avatarUrl(user),
       ),
-      ...about,
-      ...tastes,
-      ...blessings,
-      ui.separator(),
-      ui.text(traits),
+      ...middle,
       ui.separator(),
       ui.text(footerText),
       ...(reportable ? [ui.row(blessButton(user.id), reportButton(user.id))] : []),
