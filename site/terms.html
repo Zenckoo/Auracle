@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terms of Service · Auracle</title>
+<meta name="description" content="The simple rules for using Auracle, kindly and safely.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night: #0e1328;
+    --night-2: #151c3a;
+    --night-3: #1d2650;
+    --ink: #f3efe2;
+    --soft: #c9cdea;
+    --muted: #8f97c4;
+    --line: rgba(201, 205, 234, 0.16);
+    --accent: #4c6fff;
+    --dreamers: #9b87f5;
+    --scholars: #1fa67a;
+    --guardians: #e0a526;
+    --wanderers: #e0533d;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: 'Inter', system-ui, sans-serif; font-size: 16px; line-height: 1.65; color: var(--soft); background: var(--night); }
+  h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; color: var(--ink); line-height: 1.2; }
+  a { color: inherit; }
+  b { color: var(--ink); font-weight: 500; }
+  code { font-family: ui-monospace, monospace; font-size: .9em; background: var(--night-3); padding: 1px 6px; border-radius: 5px; color: var(--ink); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+  /* Stars, drawn in code */
+  .sky { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .star { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; opacity: .5; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%, 100% { opacity: .2; } 50% { opacity: .8; } }
+  @media (prefers-reduced-motion: reduce) { .star { animation: none; } }
+  header, main, footer { position: relative; z-index: 1; }
+
+  .home { display: inline-block; margin-top: 22px; font-size: 14px; color: var(--muted); text-decoration: none; }
+  .home:hover { color: var(--ink); }
+  .hero { text-align: center; padding: 36px 0 28px; }
+  .hero h1 { font-size: clamp(38px, 10vw, 60px); margin: 0 0 6px; }
+  .hero p { margin: 0 auto; max-width: 520px; }
+
+  .updated { font-size: 13px; color: var(--muted); margin-top: 10px !important; }
+  .contents { background: var(--night-2); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; margin-bottom: 28px; }
+  .contents h2 { font-size: 22px; margin: 0 0 10px; }
+  .contents ol { margin: 0; padding-left: 22px; columns: 2 220px; column-gap: 24px; }
+  .contents li { margin: 3px 0; break-inside: avoid; }
+  .contents a { text-decoration: none; }
+  .contents a:hover { color: var(--ink); text-decoration: underline; }
+
+  .page { background: var(--night-2); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 6px; padding: 18px 22px; margin-bottom: 18px; scroll-margin-top: 16px; }
+  .page .num { font-size: 12px; color: var(--muted); margin: 0; }
+  .page h2 { font-size: 26px; margin: 4px 0 12px; }
+  .page p { margin: 0 0 10px; }
+  .page ul { margin: 0 0 10px; padding-left: 20px; }
+  .page .small { font-size: 13px; color: var(--muted); }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 4px; }
+  .link { display: inline-block; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,.03); color: var(--ink); text-decoration: none; font-size: 14px; }
+  .link:hover { border-color: var(--accent); }
+  .top { display: inline-block; margin-top: 8px; font-size: 13px; color: var(--muted); text-decoration: none; }
+  .top:hover { color: var(--ink); }
+
+  /* Guilds */
+  .guilds { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); margin-bottom: 6px; }
+  .guild { background: var(--night-3); border: 1px solid var(--line); border-top: 4px solid var(--c); border-radius: 0 0 12px 12px; padding: 14px 16px; }
+  .guild h3 { font-size: 20px; margin: 0 0 8px; }
+  .guild h3 .dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; background: var(--c); margin-right: 8px; vertical-align: 2px; }
+  .guild ul { list-style: none; padding: 0; margin: 0; font-size: 15px; }
+  .guild li { padding: 4px 0; border-top: 1px solid var(--line); }
+  .guild li:first-child { border-top: none; }
+  .guild li span { color: var(--muted); font-size: 13px; }
+
+  footer { border-top: 1px solid var(--line); padding: 36px 0 48px; margin-top: 28px; text-align: center; font-size: 14px; color: var(--muted); }
+  footer nav { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px; }
+  footer nav a { color: var(--soft); text-decoration: none; }
+  footer nav a:hover { color: var(--ink); text-decoration: underline; }
+  .sign { font-family: 'Marcellus', serif; color: var(--soft); }
+</style>
+</head>
+<body>
+<div class="sky" id="sky" aria-hidden="true"></div>
+
+<header class="wrap">
+  <a class="home" href="/">← Back to Auracle</a>
+  <div class="hero">
+    <h1>📜 Terms of Service</h1>
+    <p>The simple rules for using Auracle, kindly and safely. By using Auracle on Discord or on this website, you agree to them.</p>
+    <p class="updated">Last updated: November 19, 2026</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <nav class="contents" id="contents">
+    <h2>Contents</h2>
+    <ol>
+        <li><a href="#what-auracle-is">🔮 What Auracle is</a></li>
+        <li><a href="#respect">🤝 Respect</a></li>
+        <li><a href="#not-allowed">🚫 Not allowed on cards</a></li>
+        <li><a href="#reports">🛡️ Reports</a></li>
+        <li><a href="#no-guarantee">🛠️ No guarantee</a></li>
+        <li><a href="#changes">📜 Changes to these rules</a></li>
+        <li><a href="#contact">📬 Contact</a></li>
+    </ol>
+  </nav>
+
+    <article class="page" id="what-auracle-is">
+      <p class="num">Part 1 / 7</p>
+      <h2>🔮 What Auracle is</h2>
+      <p>Auracle is a free social companion for Discord, made by Zenckoo. It starts with a personality trial based on the Big Five, then lets you share a card with your community.</p>
+      <ul>
+        <li><b>A fun estimate, never a diagnosis.</b> Auracle is not a psychological, medical or professional assessment.</li>
+        <li><b>Never a tool to judge people.</b> Results must not be used to hire, select, rank or exclude anyone.</li>
+        <li><b>Discord's age rules apply:</b> you must be old enough to have a Discord account in your country.</li>
+      </ul>
+      <a class="top" href="#contents">↑ Back to contents</a>
+    </article>
+
+    <article class="page" id="respect">
+      <p class="num">Part 2 / 7</p>
+      <h2>🤝 Respect</h2>
+      <ul>
+        <li>No mocking someone for their class, their traits or their card.</li>
+        <li>No discrimination, ever: not for gender, who someone loves, skin, faith, body, age, origins, or anything else.</li>
+        <li>Never use someone's results against them.</li>
+        <li>The rules of each server, Discord's Terms of Service and Discord's Community Guidelines apply to Auracle too.</li>
+      </ul>
+      <div class="links"><a class="link" href="https://discord.com/terms" target="_blank" rel="noopener">🔗 Discord Terms of Service</a><a class="link" href="https://discord.com/guidelines" target="_blank" rel="noopener">🔗 Discord Community Guidelines</a></div>
+      <a class="top" href="#contents">↑ Back to contents</a>
+    </article>
+
+    <article class="page" id="not-allowed">
+      <p class="num">Part 3 / 7</p>
+      <h2>🚫 Not allowed on cards</h2>
+      <p>Card customization is coming soon. Whatever you add to your card (banner, phrase, vibe, kind words left on other cards...) must never include:</p>
+      <ul>
+        <li>NSFW or sexual content;</li>
+        <li>shocking or violent content;</li>
+        <li>hate, harassment or insults;</li>
+        <li>someone else's private information;</li>
+        <li>spam or advertising.</li>
+      </ul>
+      <p>Auracle is <b>never</b> a dating app: using it to find a date or for anything sexual is not allowed.</p>
+      <a class="top" href="#contents">↑ Back to contents</a>
+    </article>
+
+    <article class="page" id="reports">
+      <p class="num">Part 4 / 7</p>
+      <h2>🛡️ Reports</h2>
+      <p>With card customization, every card will have a <b>Report</b> button. Reports go straight to Zenckoo, who reviews each one personally. Until then, you can report a problem with <b>📬 Feedback</b> in <code>/auracle</code>.</p>
+      <p>If these rules are broken, the content can be removed, customization can be blocked, and for serious or repeated cases, access to Auracle can be removed.</p>
+      <p class="small">For anything unsafe on Discord itself, you can also block the person, tell your server's moderators, and report it to Discord.</p>
+      <a class="top" href="#contents">↑ Back to contents</a>
+    </article>
+
+    <article class="page" id="no-guarantee">
+      <p class="num">Part 5 / 7</p>
+      <h2>🛠️ No guarantee</h2>
+      <p>Auracle is a free project, made with care, and still a work in progress. It is offered as it is:</p>
+      <ul>
+        <li>bugs can happen, and features can change, pause or end;</li>
+        <li>Auracle can be offline sometimes;</li>
+        <li>what you choose to make public can be seen by others, so share only what you are comfortable with.</li>
+      </ul>
+      <a class="top" href="#contents">↑ Back to contents</a>
+    </article>
+
+    <article class="page" id="changes">
+      <p class="num">Part 6 / 7</p>
+      <h2>📜 Changes to these rules</h2>
+      <p>If these rules change, Auracle will tell you in 📜 Updates, and the date at the top of this page will change. Using Auracle after a change means you accept the new rules.</p>
+      <a class="top" href="#contents">↑ Back to contents</a>
+    </article>
+
+    <article class="page" id="contact">
+      <p class="num">Part 7 / 7</p>
+      <h2>📬 Contact</h2>
+      <p>A question about these rules? Use <b>📬 Feedback</b> in <code>/auracle</code>: your message goes straight to Zenckoo. A contact email is coming soon.</p>
+      <p class="small">How Auracle handles your data is explained in the <a href="/privacy">🔒 Privacy Policy</a>.</p>
+      <a class="top" href="#contents">↑ Back to contents</a>
+    </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <nav>
+      <a href="/">🔮 Home</a>
+      <a href="/codex">📖 Codex</a>
+      <a href="/privacy">🔒 Privacy Policy</a>
+      <a href="/terms">📜 Terms of Service</a>
+    </nav>
+    <p class="sign">Crafted with care by Zenckoo ✨</p>
+  </div>
+</footer>
+
+<script>
+  // Stars, placed at random by code.
+  const sky = document.getElementById('sky');
+  for (let i = 0; i < 70; i++) {
+    const s = document.createElement('span');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.animationDelay = (Math.random() * 4).toFixed(2) + 's';
+    if (Math.random() < 0.15) { s.style.width = s.style.height = '3px'; }
+    sky.appendChild(s);
+  }
+</script>
+</body>
+</html>
