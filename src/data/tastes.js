@@ -11,7 +11,7 @@ export const TASTE_FIELDS = [
   { key: 'games', emoji: '🎮', label: 'Favorite games', placeholder: 'Stardew Valley, Zelda...' },
   { key: 'shows', emoji: '📺', label: 'Favorite anime or series', placeholder: 'Frieren, Arcane...' },
   { key: 'music', emoji: '🎧', label: 'Favorite music (artists or styles)', placeholder: 'Lo-fi, Hozier...' },
-  { key: 'characters', emoji: '🧙', label: 'Favorite characters', placeholder: 'Gandalf, Totoro...' },
+  { key: 'characters', emoji: '⭐', label: 'Favorite people (real or fictional)', placeholder: 'Gandalf, Hayao Miyazaki, Totoro...' },
   { key: 'ask_about', emoji: '💡', label: 'Ask me about...', placeholder: 'Tea, drawing, space...' },
 ];
 
