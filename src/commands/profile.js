@@ -9,6 +9,7 @@ import { trialTexts as TT } from '../texts/en-trials.js';
 import { CLASSES, GUILDS } from '../data/classes.js';
 import * as store from '../core/store.js';
 import * as scoring from '../core/scoring.js';
+import { reportButton } from './report.js';
 
 const R = texts.results;
 
@@ -20,7 +21,8 @@ function displayName(user, member) {
   return member?.nick || user.global_name || user.username;
 }
 
-function card(profile, user, name, isOwnPrivate) {
+// reportable: someone else's card, so it gets a 🚩 Report button.
+function card(profile, user, name, isOwnPrivate, reportable = false) {
   const type = profile.type_code;
   const cls = CLASSES[type];
   const guild = GUILDS[cls.guild];
@@ -49,6 +51,7 @@ function card(profile, user, name, isOwnPrivate) {
       ui.text(traits),
       ui.separator(),
       ui.text(footer.join('\n')),
+      ...(reportable ? [ui.row(reportButton(user.id))] : []),
     ]),
   ];
 }
@@ -77,5 +80,5 @@ export async function profileCommand(interaction, env) {
   if (!profile) return note(P.notAwakenedOther(name));
   if (profile.is_public !== 1) return note(P.privateOther(name));
 
-  return ui.message(card(profile, target, name, false), { ephemeral: false });
+  return ui.message(card(profile, target, name, false, true), { ephemeral: false });
 }

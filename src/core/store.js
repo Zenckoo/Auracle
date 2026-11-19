@@ -179,14 +179,35 @@ export async function logFeedback(env, userId) {
   await env.DB.prepare('INSERT INTO feedback_log (user_id, sent_at) VALUES (?, ?)').bind(userId, Date.now()).run();
 }
 
+// ---- Reports (anti-spam: 5 reports every 24 hours, one per card) ----
+
+export async function reportCount(env, userId) {
+  const row = await env.DB.prepare('SELECT COUNT(*) AS n FROM report_log WHERE user_id = ? AND sent_at > ?')
+    .bind(userId, Date.now() - DAY)
+    .first();
+  return row?.n ?? 0;
+}
+
+export async function reportedRecently(env, userId, targetId) {
+  const row = await env.DB.prepare('SELECT 1 AS x FROM report_log WHERE user_id = ? AND target_id = ? AND sent_at > ?')
+    .bind(userId, targetId, Date.now() - DAY)
+    .first();
+  return !!row;
+}
+
+export async function logReport(env, userId, targetId) {
+  await env.DB.prepare('INSERT INTO report_log (user_id, target_id, sent_at) VALUES (?, ?, ?)').bind(userId, targetId, Date.now()).run();
+}
+
 // ---- Nightly cleanup ----
 
-// Erases unfinished trials after 30 days, Feedback counters after 24 hours, and ended blocks.
+// Erases unfinished trials after 30 days, Feedback and report counters after 24 hours, and ended blocks.
 export async function cleanup(env) {
   const now = Date.now();
   await env.DB.batch([
     env.DB.prepare('DELETE FROM trials WHERE updated_at < ?').bind(now - THIRTY_DAYS),
     env.DB.prepare('DELETE FROM feedback_log WHERE sent_at < ?').bind(now - DAY),
+    env.DB.prepare('DELETE FROM report_log WHERE sent_at < ?').bind(now - DAY),
     env.DB.prepare('DELETE FROM bans WHERE until <= ?').bind(now),
   ]);
 }
@@ -195,12 +216,13 @@ export async function cleanup(env) {
 
 // Everything Auracle keeps about this traveler, in one object.
 export async function exportData(env, userId) {
-  const [profile, trial, servers, ban, feedback] = await Promise.all([
+  const [profile, trial, servers, ban, feedback, reports] = await Promise.all([
     env.DB.prepare('SELECT * FROM profiles WHERE user_id = ?').bind(userId).first(),
     env.DB.prepare('SELECT * FROM trials WHERE user_id = ?').bind(userId).first(),
     env.DB.prepare('SELECT guild_id, seen_at FROM members WHERE user_id = ?').bind(userId).all(),
     env.DB.prepare('SELECT * FROM bans WHERE user_id = ?').bind(userId).first(),
     env.DB.prepare('SELECT sent_at FROM feedback_log WHERE user_id = ?').bind(userId).all(),
+    env.DB.prepare('SELECT sent_at FROM report_log WHERE user_id = ?').bind(userId).all(),
   ]);
   const date = (ms) => (ms ? new Date(ms).toISOString() : null);
   const parse = (text) => {
@@ -229,6 +251,7 @@ export async function exportData(env, userId) {
     },
     servers: (servers.results ?? []).map((s) => ({ server_id: s.guild_id, last_used_at: date(s.seen_at) })),
     feedback_sent_last_24_hours: (feedback.results ?? []).map((f) => date(f.sent_at)),
+    reports_sent_last_24_hours: (reports.results ?? []).map((r) => date(r.sent_at)),
     block: ban && { reason: ban.reason, from: date(ban.banned_at), until: date(ban.until) },
   };
 }

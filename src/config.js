@@ -4,6 +4,9 @@ export const config = {
   // Channel on the HQ server where Feedback messages arrive.
   feedbackChannelId: '1572412877212754041',
 
+  // Private moderation channel on the HQ server where 🚩 Reports arrive.
+  reportChannelId: '1572822029713809468',
+
   applicationId: '1572397022370078860',
 };
 
