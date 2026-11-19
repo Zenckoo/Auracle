@@ -42,21 +42,43 @@ function screen(profile, sealed = false) {
       ui.button({ id: 'pv:rwear', label: P.wear, emoji: '🏰', style: wearsRole ? S.SUCCESS : S.SECONDARY }),
       ui.button({ id: 'pv:rhide', label: P.noWear, emoji: '🚫', style: wearsRole ? S.SECONDARY : S.SUCCESS }),
     ),
+    ui.separator(),
+    ui.text(P.dataLine),
+    ui.row(ui.button({ id: 'pv:export', label: P.dataButton, emoji: '📦', style: S.SECONDARY })),
   );
   return [ui.container(color(profile), parts)];
 }
 
+// No class yet: Auracle may still keep an unfinished trial or servers, so My data stays available.
+function noProfileScreen() {
+  return [
+    ui.container(ui.COLORS.auracle, [
+      ui.text(profileTexts.notAwakenedSelf),
+      ui.separator(),
+      ui.text(P.dataLine),
+      ui.row(ui.button({ id: 'pv:export', label: P.dataButton, emoji: '📦', style: S.SECONDARY })),
+    ]),
+  ];
+}
+
 export async function privacyCommand(interaction, env) {
   const profile = await store.getProfile(env, userOf(interaction).id);
-  if (!profile) return ui.message([ui.container(ui.COLORS.auracle, [ui.text(profileTexts.notAwakenedSelf)])]);
+  if (!profile) return ui.message(noProfileScreen());
   return ui.message(screen(profile));
 }
 
 export async function privacyComponent(interaction, env, later) {
   const userId = userOf(interaction).id;
   const action = interaction.data.custom_id.split(':')[1];
+  // My data: works even without a finished trial (an unfinished trial or servers can still be kept).
+  if (action === 'export') {
+    const data = await store.exportData(env, userId);
+    if (later) later(ui.followUpFile(interaction, P.dataFile, 'auracle-my-data.json', JSON.stringify(data, null, 2)).catch(() => {}));
+    return ui.message([ui.container(ui.COLORS.auracle, [ui.text(P.dataSending)])]);
+  }
+
   const profile = await store.getProfile(env, userId);
-  if (!profile) return ui.update([ui.container(ui.COLORS.auracle, [ui.text(profileTexts.notAwakenedSelf)])]);
+  if (!profile) return ui.update(noProfileScreen());
 
   if (action === 'pub' || action === 'priv') {
     const isPublic = action === 'pub';

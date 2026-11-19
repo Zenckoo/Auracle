@@ -11,3 +11,7 @@ keep_vars = true
 binding = "DB"
 database_name = "auracle-db"
 database_id = "f09ab038-9b6e-471a-af52-506c72d58f2d"
+
+# Every night at 03:17 UTC: cleanup of old data (see scheduled() in src/index.js).
+[triggers]
+crons = ["17 3 * * *"]

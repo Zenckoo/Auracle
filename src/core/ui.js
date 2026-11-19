@@ -93,6 +93,21 @@ export const ui = {
     });
   },
 
+  // A private follow-up message with a file attached (for example the My data export).
+  async followUpFile(interaction, content, filename, text) {
+    const form = new FormData();
+    form.append('payload_json', JSON.stringify({
+      content,
+      flags: FLAGS.EPHEMERAL,
+      allowed_mentions: { parse: [] },
+      attachments: [{ id: 0, filename }],
+    }));
+    form.append('files[0]', new Blob([text], { type: 'application/json' }), filename);
+    await fetch(`https://discord.com/api/v10/webhooks/${interaction.application_id}/${interaction.token}`, {
+      method: 'POST',
+      body: form,
+    });
+  },
   avatarUrl(user) {
     if (user?.avatar) return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=256`;
     const index = Number((BigInt(user?.id ?? '0') >> 22n) % 6n);

@@ -11,6 +11,12 @@ export const privacyTexts = {
   wear: 'Wear it',
   noWear: "Don't wear it",
   roleNote: '-# Only on servers where staff turned on guild roles, and only while your card is public.',
+  dataLine: '**📦 Your data**\n-# Get a file with everything Auracle keeps about you.',
+  dataButton: 'My data',
+  dataSending: '### 📦 Your data is on its way\nAuracle is sending you a private file with everything it keeps about you.',
+  dataFile:
+    '📦 Here is everything Auracle keeps about you, traveler. Only you can see this message.\n' +
+    '-# Feedback messages you sent are kept in a private Discord channel and are not in this file. To get them, write to auracle.contact@gmail.com',
 };
 
 export const forgetTexts = {

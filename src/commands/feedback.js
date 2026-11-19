@@ -2,7 +2,12 @@
 
 import { ui } from '../core/ui.js';
 import { config } from '../config.js';
-import { feedbackTexts as F } from '../texts/en-feedback.js';
+import { feedbackTexts as F, banTexts } from '../texts/en-feedback.js';
+import * as store from '../core/store.js';
+
+// Anti-spam: 5 messages every 24 hours. Trying to send more blocks Auracle for 30 days.
+const FEEDBACK_LIMIT = 5;
+const BAN_DAYS = 30;
 
 const KINDS = { bug: F.bug, idea: F.idea };
 
@@ -22,12 +27,22 @@ export function feedbackCommand() {
         ui.button({ id: 'fb:bug', label: F.bugButton, emoji: '🐞', style: ui.ButtonStyle.SECONDARY }),
         ui.button({ id: 'fb:idea', label: F.ideaButton, emoji: '💡' }),
       ),
+      ui.text(F.limitNote),
     ]),
   );
 }
 
+// Over the limit? Then Auracle is blocked for this traveler. Returns the block, or null.
+async function overLimit(env, userId) {
+  if ((await store.feedbackCount(env, userId)) < FEEDBACK_LIMIT) return null;
+  await store.banUser(env, userId, banTexts.spamReason, BAN_DAYS);
+  return store.getBan(env, userId);
+}
+
 // Button clicked: open the small form (a Discord "modal").
-export function feedbackComponent(interaction) {
+export async function feedbackComponent(interaction, env) {
+  const blocked = await overLimit(env, userOf(interaction).id);
+  if (blocked) return ui.update(box(banTexts.blocked(blocked.until)));
   const kind = interaction.data.custom_id.split(':')[1];
   const t = KINDS[kind] ?? F.idea;
   return {
@@ -73,6 +88,9 @@ export async function feedbackModal(interaction, env) {
   const name = user.global_name || user.username;
   const text = (findValue(interaction.data.components) ?? '').trim();
 
+  const blocked = await overLimit(env, user.id);
+  if (blocked) return ui.update(box(banTexts.blocked(blocked.until)));
+
   const response = await fetch(`https://discord.com/api/v10/channels/${config.feedbackChannelId}/messages`, {
     method: 'POST',
     headers: { 'content-type': 'application/json', authorization: `Bot ${env.DISCORD_TOKEN}` },
@@ -90,5 +108,6 @@ export async function feedbackModal(interaction, env) {
     }),
   });
 
+  if (response.ok) await store.logFeedback(env, user.id);
   return ui.update(box(response.ok ? F.thanks : F.failed));
 }
