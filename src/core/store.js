@@ -173,6 +173,52 @@ export async function clearIdentity(env, userId, withdraw = false) {
     .run();
 }
 
+// ---- 🏅 Badges ----
+
+// Gives a badge if the traveler has a card and does not have it yet. Returns true when it is new.
+// A new badge is shown on the card right away if fewer than 3 are shown.
+export async function awardBadge(env, userId, key) {
+  const row = await env.DB.prepare('SELECT badges, badges_shown FROM profiles WHERE user_id = ?').bind(userId).first();
+  if (!row) return false;
+  const earned = (row.badges ?? '').split(',').filter(Boolean);
+  if (earned.includes(key)) return false;
+  const shown = (row.badges_shown ?? '').split(',').filter(Boolean);
+  const nextShown = shown.length < 3 ? [...shown, key] : shown;
+  await env.DB.prepare('UPDATE profiles SET badges = ?, badges_shown = ? WHERE user_id = ?')
+    .bind([...earned, key].join(','), nextShown.join(',') || null, userId)
+    .run();
+  return true;
+}
+
+export async function setBadgesShown(env, userId, keys) {
+  await env.DB.prepare('UPDATE profiles SET badges_shown = ?, updated_at = ? WHERE user_id = ?')
+    .bind(keys.length ? keys.join(',') : null, Date.now(), userId)
+    .run();
+}
+
+// One more comparison (only the number is kept, never with whom). Returns the new count, or null without a card.
+export async function countCompare(env, userId) {
+  await env.DB.prepare('UPDATE profiles SET compare_count = compare_count + 1 WHERE user_id = ?').bind(userId).run();
+  const row = await env.DB.prepare('SELECT compare_count FROM profiles WHERE user_id = ?').bind(userId).first();
+  return row ? row.compare_count : null;
+}
+
+// Remembers that a Codex page was opened (one bit per page). Returns the pages mask, or null when
+// there is no card or Lorekeeper is already earned (then nothing is kept anymore).
+export async function seeCodexPage(env, userId, index) {
+  const row = await env.DB.prepare('SELECT codex_seen, badges FROM profiles WHERE user_id = ?').bind(userId).first();
+  if (!row || (row.badges ?? '').split(',').includes('lorekeeper')) return null;
+  const mask = (row.codex_seen ?? 0) | (1 << index);
+  if (mask !== row.codex_seen) {
+    await env.DB.prepare('UPDATE profiles SET codex_seen = ? WHERE user_id = ?').bind(mask, userId).run();
+  }
+  return mask;
+}
+
+export async function forgetCodexPages(env, userId) {
+  await env.DB.prepare('UPDATE profiles SET codex_seen = NULL WHERE user_id = ?').bind(userId).run();
+}
+
 export async function deleteProfile(env, userId) {
   await env.DB.prepare('DELETE FROM profiles WHERE user_id = ?').bind(userId).run();
 }
@@ -369,6 +415,12 @@ export async function exportData(env, userId) {
         orientation_own_words: profile.orientation_text ?? null,
         origins: profile.origins ? profile.origins.split(',') : [],
         origins_own_words: profile.origins_text ?? null,
+      },
+      badges: {
+        earned: profile.badges ? profile.badges.split(',') : [],
+        shown_on_card: profile.badges_shown ? profile.badges_shown.split(',') : [],
+        comparisons_made: profile.compare_count ?? 0,
+        codex_pages_opened: profile.codex_seen == null ? null : profile.codex_seen.toString(2).split('').filter((b) => b === '1').length,
       },
       accent_color: profile.accent == null ? null : '#' + profile.accent.toString(16).padStart(6, '0').toUpperCase(),
       completed_at: date(profile.completed_at),
