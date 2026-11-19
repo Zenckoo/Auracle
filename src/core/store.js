@@ -85,6 +85,19 @@ export async function setAccent(env, userId, accent) {
     .run();
 }
 
+// 🎨 Customize > 💬 About me: the sentence (null to clear), and the vibe (key or 'custom' with its text).
+export async function setAbout(env, userId, about) {
+  await env.DB.prepare('UPDATE profiles SET about = ?, updated_at = ? WHERE user_id = ?')
+    .bind(about, Date.now(), userId)
+    .run();
+}
+
+export async function setVibe(env, userId, vibe, vibeText = null) {
+  await env.DB.prepare('UPDATE profiles SET vibe = ?, vibe_text = ?, updated_at = ? WHERE user_id = ?')
+    .bind(vibe, vibeText, Date.now(), userId)
+    .run();
+}
+
 export async function deleteProfile(env, userId) {
   await env.DB.prepare('DELETE FROM profiles WHERE user_id = ?').bind(userId).run();
 }
@@ -254,6 +267,8 @@ export async function exportData(env, userId) {
       hidden_secret_shown: profile.secret_public === 1,
       wears_guild_role: profile.wear_role !== 0,
       fantasy_title: profile.title ?? null,
+      about_me: profile.about ?? null,
+      current_vibe: profile.vibe === 'custom' ? profile.vibe_text : profile.vibe ?? null,
       accent_color: profile.accent == null ? null : '#' + profile.accent.toString(16).padStart(6, '0').toUpperCase(),
       completed_at: date(profile.completed_at),
       updated_at: date(profile.updated_at),
