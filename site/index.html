@@ -7,7 +7,7 @@
 <meta name="description" content="Auracle is a social companion for Discord: a personality trial, a profile card that feels like you, and a kind, inclusive community.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@400;500&family=Cinzel:wght@400&display=swap" rel="stylesheet">
 <style>
   :root {
     --night: #0e1328;
@@ -44,8 +44,11 @@
   @media (prefers-reduced-motion: reduce) { .star { animation: none; } }
   .wind { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
   main, header, footer { position: relative; z-index: 1; }
-  .whisper { position: fixed; z-index: 0; pointer-events: none; font-family: 'Marcellus', serif; font-style: italic; font-size: 12px; color: var(--soft); white-space: nowrap; opacity: 0; filter: blur(6px); transition: opacity 1.2s ease, filter 1.2s ease, transform 4.4s ease-out; }
+  .whisper { position: fixed; z-index: 0; pointer-events: none; font-family: 'Marcellus', serif; font-style: italic; font-size: 12px; color: var(--soft); white-space: normal; line-height: 1.5; opacity: 0; filter: blur(6px); transition: opacity 1.2s ease, filter 1.2s ease, transform 4.4s ease-out; }
   .whisper.show { opacity: .55; filter: blur(0); }
+  /* Whispers look like carved runes, in lavender. */
+  .whisper.rune { font-family: 'Cinzel', serif; font-style: normal; font-size: 11px; letter-spacing: .12em; color: #b8a9f5; text-shadow: 0 0 8px rgba(155, 135, 245, .45); }
+  .whisper.rune.show { opacity: .75; }
   .egg { position: fixed; left: 0; top: 0; width: 46px; height: 46px; object-fit: contain; pointer-events: none; z-index: 0; will-change: transform; }
 
   /* Header */
@@ -394,37 +397,38 @@
 
   // Whispers: now and then, a small mystical sentence appears like a spirit, then fades away.
   (function () {
+    // Each whisper keeps its theme next to it, in case themes get their own style one day.
     const WHISPERS = [
       // Spirits and guardians
-      'A spirit walks beside you tonight.',
-      'Your guardian spirit is never far.',
-      'Somewhere, a silver spirit watches over you.',
-      'Speak softly. The spirits are listening.',
+      ['A spirit walks beside you tonight.', 'rune'],
+      ['Your guardian spirit is never far.', 'rune'],
+      ['Somewhere, a silver spirit watches over you.', 'rune'],
+      ['Speak softly. The spirits are listening.', 'rune'],
       // Stars
-      'The stars whisper your name.',
-      'Every star was once a wish.',
-      'Follow the brightest star home.',
-      'Stardust lingers where you have been.',
+      ['The stars whisper your name.', 'tale'],
+      ['Every star was once a wish.', 'tale'],
+      ['Follow the brightest star home.', 'tale'],
+      ['Stardust lingers where you have been.', 'tale'],
       // Mystic
-      'The veil between worlds is thin tonight.',
-      'Ancient runes glow in the dark.',
-      'The moon keeps your secrets.',
+      ['The veil between worlds is thin tonight.', 'rune'],
+      ['Ancient runes glow in the dark.', 'rune'],
+      ['The moon keeps your secrets.', 'rune'],
       // Fae
-      'The fae dance where no one looks.',
-      'A fairy light flickers just for you.',
-      'Magic sleeps in the smallest things.',
+      ['The fae dance where no one looks.', 'tale'],
+      ['A fairy light flickers just for you.', 'tale'],
+      ['Magic sleeps in the smallest things.', 'tale'],
       // Astral
-      'The astral tides are turning.',
-      'Constellations are maps for dreamers.',
-      'Your soul knows the way through the stars.',
+      ['The astral tides are turning.', 'rune'],
+      ['Constellations are maps for dreamers.', 'rune'],
+      ['Your soul knows the way through the stars.', 'rune'],
       // Adventure
-      'Every adventure begins with one step.',
-      'Beyond the mist, a new path awaits.',
-      'Your hero is waiting to be summoned.',
+      ['Every adventure begins with one step.', 'tale'],
+      ['Beyond the mist, a new path awaits.', 'tale'],
+      ['Your hero is waiting to be summoned.', 'tale'],
       // Guides
-      'Lost? The lanterns will guide you.',
-      'A guide appears when you are ready.',
-      'Trust the light that leads you.'
+      ['Lost? The lanterns will guide you.', 'tale'],
+      ['A guide appears when you are ready.', 'tale'],
+      ['Trust the light that leads you.', 'tale']
     ];
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     let last = -1;
@@ -433,17 +437,23 @@
       do { i = Math.floor(Math.random() * WHISPERS.length); } while (i === last && WHISPERS.length > 1);
       last = i;
       const el = document.createElement('div');
-      el.className = 'whisper';
+      el.className = 'whisper rune';
       el.setAttribute('aria-hidden', 'true');
-      el.textContent = WHISPERS[i];
+      el.textContent = WHISPERS[i][0];
       el.style.visibility = 'hidden';
       document.body.appendChild(el);
-      // Along the left or right edge of the screen, away from the text in the middle.
-      // Mostly near the edge, sometimes a little further in, so it never feels too regular.
-      const room = Math.max(0, window.innerWidth - el.offsetWidth - 16);
-      const nudge = 8 + Math.pow(Math.random(), 1.6) * room * 0.35;
-      if (Math.random() < 0.5) el.style.left = nudge + 'px';
-      else el.style.left = (window.innerWidth - el.offsetWidth - nudge) + 'px';
+      // Narrow enough to fit beside the content, wrapping on two lines if needed.
+      const vw = window.innerWidth;
+      el.style.maxWidth = Math.min(240, vw * 0.55) + 'px';
+      const width = el.offsetWidth;
+      // Left side, right side, or now and then a little toward the middle.
+      const side = Math.random();
+      const nudge = 8 + Math.pow(Math.random(), 1.6) * vw * 0.18;
+      let left;
+      if (side < 0.4) { left = nudge; el.style.textAlign = 'left'; }
+      else if (side < 0.8) { left = vw - width - nudge; el.style.textAlign = 'right'; }
+      else { left = (vw - width) / 2 + (Math.random() - 0.5) * vw * 0.25; el.style.textAlign = 'center'; }
+      el.style.left = Math.max(8, Math.min(vw - width - 8, left)) + 'px';
       const maxY = Math.max(10, window.innerHeight - el.offsetHeight - 10);
       el.style.top = (10 + Math.random() * (maxY - 10)) + 'px';
       el.style.visibility = '';
