@@ -3,6 +3,7 @@
 //   about : 💬 About me (a short sentence) and 🌙 Current vibe
 //   tastes: 🎮 Tastes & fun (games, shows, music, favorite people, Ask me about, Looking for, DMs)
 //   practical: 🕰️ Practical (time zone, languages by region, birthday)
+//   identity: 🌈 Identity (pronouns, gender, orientation), only after explicit consent, private by default
 // Opened from the /auracle menu. Buttons, menus and forms are named "cz:...".
 
 import { ui } from '../core/ui.js';
@@ -14,6 +15,8 @@ import { PALETTE, parseHex, colorName } from '../data/colors.js';
 import { VIBES, vibeLine } from '../data/vibes.js';
 import { TASTE_FIELDS, TASTE_MAX, LOOKING_FOR, DMS, lookingList, tasteLines } from '../data/tastes.js';
 import { TIMEZONES, LANG_REGIONS, LANG_MAX, langList, langName, parseBirthday, birthdayName } from '../data/practical.js';
+import { IDENTITY_FIELDS, OWN_MAX, identityKeys, identityNames, hasIdentity } from '../data/identity.js';
+import { SITE } from '../config.js';
 import { cleanText, showText } from '../core/text.js';
 import * as store from '../core/store.js';
 
@@ -91,6 +94,7 @@ function mainPage(profile, state = {}) {
         ui.button({ id: 'cz:page:about', label: C.aboutPage, emoji: '💬', style: S.PRIMARY }),
         ui.button({ id: 'cz:page:tastes', label: C.tastesPage, emoji: '🎮', style: S.PRIMARY }),
         ui.button({ id: 'cz:page:practical', label: C.practicalPage, emoji: '🕰️', style: S.PRIMARY }),
+        ui.button({ id: 'cz:page:identity', label: C.identityPage, emoji: '🌈', style: S.PRIMARY }),
       ),
       ui.row(cardButton()),
     ]),
@@ -233,7 +237,78 @@ function practicalPage(profile, state = {}, region = null) {
   ];
 }
 
-const PAGES = { main: mainPage, about: aboutPage, tastes: tastesPage, practical: practicalPage };
+function backRow() {
+  return ui.row(ui.button({ id: 'cz:page:main', label: C.back, emoji: '◀️', style: S.SECONDARY }), cardButton());
+}
+
+// Shown until the traveler gives explicit consent. Nothing about identity is saved before.
+function consentPage(profile, state = {}) {
+  return [
+    ui.container(color(profile), [
+      ...notice(state),
+      ui.text(`${C.consentTitle}\n${C.consentBody}`),
+      ui.separator(),
+      ui.row(
+        ui.button({ id: 'cz:idagree', label: C.consentAgree, emoji: '✅', style: S.PRIMARY }),
+        ui.linkButton({ url: `${SITE.privacy}#identity-and-origins`, label: C.consentPolicy, emoji: '🔒' }),
+      ),
+      backRow(),
+    ]),
+  ];
+}
+
+function identitySelect(profile, field) {
+  const f = IDENTITY_FIELDS[field];
+  const chosen = identityKeys(profile, field);
+  const options = [
+    ...Object.entries(f.options).map(([value, label]) => ({ label, value, emoji: { name: f.emoji }, default: chosen.includes(value) })),
+    { label: C.ownWords, value: 'own', emoji: { name: '💭' }, default: chosen.includes('own') && !!profile[`${field}_text`] },
+  ];
+  return { type: 1, components: [{ type: 3, custom_id: `cz:idf:${field}`, placeholder: C.fieldPlaceholder[field], min_values: 0, max_values: f.max, options }] };
+}
+
+function identityPage(profile, state = {}) {
+  const isPublic = profile.identity_public === 1;
+  const fields = Object.keys(IDENTITY_FIELDS).flatMap((field) => [
+    ui.text(C.fieldLine[field](identityNames(profile, field))),
+    identitySelect(profile, field),
+  ]);
+  return [
+    ui.container(color(profile), [
+      ...notice(state),
+      ui.text(`${C.identityTitle}\n${C.identityIntro}`),
+      ui.separator(),
+      ui.text(C.visibilityLine(isPublic, profile.is_public === 1)),
+      ui.row(
+        ui.button({ id: 'cz:idvis', label: isPublic ? C.makePrivate : C.makePublic, emoji: isPublic ? '🔒' : '🌍', style: S.SECONDARY }),
+      ),
+      ui.separator(),
+      ...fields,
+      ui.separator(),
+      ui.text(C.identityRules),
+      ui.row(
+        ui.button({ id: 'cz:idclear', label: C.identityClear, emoji: '🧹', style: S.SECONDARY, disabled: !hasIdentity(profile) }),
+        ui.button({ id: 'cz:idwithdraw', label: C.withdraw, emoji: '↩️', style: S.DANGER }),
+      ),
+      backRow(),
+    ]),
+  ];
+}
+
+function confirmPage(profile, text, yes, no) {
+  return [
+    ui.container(color(profile), [
+      ui.text(text),
+      ui.row(yes, ui.button({ id: 'cz:page:identity', label: no.label, emoji: no.emoji, style: S.SECONDARY })),
+    ]),
+  ];
+}
+
+function identityOrConsent(profile, state = {}) {
+  return profile.identity_consent_at ? identityPage(profile, state) : consentPage(profile, state);
+}
+
+const PAGES = { main: mainPage, about: aboutPage, tastes: tastesPage, practical: practicalPage, identity: identityOrConsent };
 
 function noProfile() {
   return [ui.container(ui.COLORS.auracle, [ui.text(profileTexts.notAwakenedSelf)])];
@@ -345,8 +420,75 @@ export async function customizeComponent(interaction, env) {
       Object.assign(profile, { birth_day: null, birth_month: null });
       return ui.update(practicalPage(profile, { sealed: true }));
 
+    case 'idagree': {
+      const at = profile.identity_consent_at ?? Date.now();
+      await store.setIdentityConsent(env, userId, at);
+      profile.identity_consent_at = at;
+      return ui.update(identityPage(profile));
+    }
+
     default:
+      if (action.startsWith('id')) return identityComponent(interaction, env, profile, action, arg);
       return ui.update(mainPage(profile));
+  }
+}
+
+// 🌈 Identity buttons and menus. All of them need consent first.
+async function identityComponent(interaction, env, profile, action, field) {
+  const userId = profile.user_id;
+  if (!profile.identity_consent_at) return ui.update(consentPage(profile));
+
+  switch (action) {
+    case 'idvis': {
+      if (profile.identity_public === 1) {
+        await store.setIdentityPublic(env, userId, false);
+        profile.identity_public = 0;
+        return ui.update(identityPage(profile, { sealed: true }));
+      }
+      const yes = ui.button({ id: 'cz:idpubok', label: C.publicConfirm, emoji: '🌍', style: S.PRIMARY });
+      return ui.update(confirmPage(profile, C.publicWarning, yes, { label: C.keepPrivate, emoji: '🔒' }));
+    }
+
+    case 'idpubok':
+      await store.setIdentityPublic(env, userId, true);
+      profile.identity_public = 1;
+      return ui.update(identityPage(profile, { sealed: true }));
+
+    case 'idf': {
+      const f = IDENTITY_FIELDS[field];
+      if (!f) return ui.update(identityPage(profile));
+      const values = (interaction.data.values ?? []).filter((k) => k in f.options || k === 'own');
+      if (values.length > f.max) return ui.update(identityPage(profile, { warning: C.tooMany }));
+      const known = values.filter((k) => k !== 'own');
+      const ownText = profile[`${field}_text`];
+      // "My own words" chosen without words yet: save the rest, then open the form.
+      if (values.includes('own') && !ownText) {
+        await store.setIdentityField(env, userId, field, known, null);
+        return form(`cz:idown:${field}`, { ...C.ownForm[field] }, { max: OWN_MAX, required: true });
+      }
+      const keys = values.includes('own') ? [...known, 'own'] : known;
+      const text = values.includes('own') ? ownText : null;
+      await store.setIdentityField(env, userId, field, keys, text);
+      Object.assign(profile, { [field]: keys.join(',') || null, [`${field}_text`]: text });
+      return ui.update(identityPage(profile, { sealed: true }));
+    }
+
+    case 'idclear':
+      await store.clearIdentity(env, userId);
+      for (const f of Object.keys(IDENTITY_FIELDS)) Object.assign(profile, { [f]: null, [`${f}_text`]: null });
+      return ui.update(identityPage(profile, { sealed: true }));
+
+    case 'idwithdraw': {
+      const yes = ui.button({ id: 'cz:idwithdrawok', label: C.withdrawConfirm, emoji: '🧹', style: S.DANGER });
+      return ui.update(confirmPage(profile, C.withdrawWarning, yes, { label: C.cancel, emoji: '◀️' }));
+    }
+
+    case 'idwithdrawok':
+      await store.clearIdentity(env, userId, true);
+      return ui.update([ui.container(color(profile), [ui.text(C.withdrawn), backRow()])]);
+
+    default:
+      return ui.update(identityOrConsent(profile));
   }
 }
 
@@ -371,7 +513,7 @@ function findValue(components) {
 // Forms: cz:hex (own color), cz:about (About me), cz:vibetext (own vibe), cz:tastes (Tastes & fun), cz:birthday.
 export async function customizeModal(interaction, env) {
   const userId = userOf(interaction).id;
-  const action = interaction.data.custom_id.split(':')[1];
+  const [, action, arg] = interaction.data.custom_id.split(':');
   const raw = findValue(interaction.data.components);
   const profile = await store.getProfile(env, userId);
   if (!profile) return ui.update(noProfile());
@@ -408,6 +550,20 @@ export async function customizeModal(interaction, env) {
     await store.setBirthday(env, userId, date.day, date.month);
     Object.assign(profile, { birth_day: date.day, birth_month: date.month });
     return ui.update(practicalPage(profile, { sealed: true }));
+  }
+
+  // 🌈 Own words for pronouns, gender or orientation.
+  if (action === 'idown') {
+    const f = IDENTITY_FIELDS[arg];
+    if (!f || !profile.identity_consent_at) return ui.update(identityOrConsent(profile));
+    const { text, error } = cleanText(raw, OWN_MAX);
+    if (error) return ui.update(identityPage(profile, { warning: C.noLinks }));
+    const known = identityKeys(profile, arg).filter((k) => k !== 'own');
+    if (text && known.length >= f.max) return ui.update(identityPage(profile, { warning: C.tooMany }));
+    const keys = text ? [...known, 'own'] : known;
+    await store.setIdentityField(env, userId, arg, keys, text);
+    Object.assign(profile, { [arg]: keys.join(',') || null, [`${arg}_text`]: text });
+    return ui.update(identityPage(profile, { sealed: true }));
   }
 
   if (action === 'tastes') {

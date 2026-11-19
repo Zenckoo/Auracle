@@ -140,6 +140,39 @@ export async function setBirthday(env, userId, day, month) {
     .run();
 }
 
+// 🎨 Customize > 🌈 Identity. Saved only after explicit consent (the date is kept as proof).
+export async function setIdentityConsent(env, userId, at) {
+  await env.DB.prepare('UPDATE profiles SET identity_consent_at = ?, updated_at = ? WHERE user_id = ?')
+    .bind(at, Date.now(), userId)
+    .run();
+}
+
+export async function setIdentityPublic(env, userId, isPublic) {
+  await env.DB.prepare('UPDATE profiles SET identity_public = ?, updated_at = ? WHERE user_id = ?')
+    .bind(isPublic ? 1 : 0, Date.now(), userId)
+    .run();
+}
+
+// field: 'pronouns', 'gender' or 'orientation'. keys: an array. text: own words or null.
+const IDENTITY_COLUMNS = ['pronouns', 'gender', 'orientation'];
+
+export async function setIdentityField(env, userId, field, keys, text) {
+  if (!IDENTITY_COLUMNS.includes(field)) return;
+  await env.DB.prepare(`UPDATE profiles SET ${field} = ?, ${field}_text = ?, updated_at = ? WHERE user_id = ?`)
+    .bind(keys.length ? keys.join(',') : null, text, Date.now(), userId)
+    .run();
+}
+
+// Erases every identity answer. withdraw: also forgets the consent and makes it private again.
+export async function clearIdentity(env, userId, withdraw = false) {
+  const extra = withdraw ? ', identity_consent_at = NULL, identity_public = 0' : '';
+  await env.DB.prepare(
+    `UPDATE profiles SET ${IDENTITY_COLUMNS.map((c) => `${c} = NULL, ${c}_text = NULL`).join(', ')}${extra}, updated_at = ? WHERE user_id = ?`,
+  )
+    .bind(Date.now(), userId)
+    .run();
+}
+
 export async function deleteProfile(env, userId) {
   await env.DB.prepare('DELETE FROM profiles WHERE user_id = ?').bind(userId).run();
 }
@@ -324,6 +357,16 @@ export async function exportData(env, userId) {
         time_zone: profile.timezone ?? null,
         languages: profile.languages ? profile.languages.split(',') : [],
         birthday: profile.birth_day && profile.birth_month ? `${String(profile.birth_day).padStart(2, '0')}/${String(profile.birth_month).padStart(2, '0')} (day/month)` : null,
+      },
+      identity: {
+        consent_given_at: date(profile.identity_consent_at),
+        shown_on_public_card: profile.identity_public === 1,
+        pronouns: profile.pronouns ? profile.pronouns.split(',') : [],
+        pronouns_own_words: profile.pronouns_text ?? null,
+        gender: profile.gender ? profile.gender.split(',') : [],
+        gender_own_words: profile.gender_text ?? null,
+        orientation: profile.orientation ? profile.orientation.split(',') : [],
+        orientation_own_words: profile.orientation_text ?? null,
       },
       accent_color: profile.accent == null ? null : '#' + profile.accent.toString(16).padStart(6, '0').toUpperCase(),
       completed_at: date(profile.completed_at),

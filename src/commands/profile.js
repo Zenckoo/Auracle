@@ -17,6 +17,7 @@ import { vibeLine } from '../data/vibes.js';
 import { showText } from '../core/text.js';
 import { tasteLines } from '../data/tastes.js';
 import { practicalLine } from '../data/practical.js';
+import { identityLine } from '../data/identity.js';
 
 const R = texts.results;
 
@@ -55,6 +56,9 @@ function card(profile, user, name, isOwnPrivate, reportable = false) {
   // Small line under the guild: the flame, and the 🌙 vibe if the traveler chose one.
   const mood = `-# ${[flame, vibeLine(profile)].filter(Boolean).join(' · ')}`;
 
+  // 🌈 Identity: only on a private card seen by its owner, or if the traveler chose to show it.
+  const identity = isOwnPrivate || profile.identity_public === 1 ? identityLine(profile) : null;
+
   // 💬 About me, as a quote, only if the traveler wrote one.
   const about = profile.about ? [ui.separator(), ui.text(`❝ *${showText(profile.about)}* ❞`)] : [];
 
@@ -69,7 +73,7 @@ function card(profile, user, name, isOwnPrivate, reportable = false) {
   return [
     ui.container(hasAccent ? profile.accent : ui.COLORS[guild.colorKey], [
       ui.section(
-        [P.cardLabel(name), heading, `**${type}** · ${guildLabel}\n${mood}`],
+        [P.cardLabel(name), heading, [`**${type}** · ${guildLabel}`, mood, identity].filter(Boolean).join('\n')],
         ui.avatarUrl(user),
       ),
       ...about,
