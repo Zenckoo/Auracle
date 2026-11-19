@@ -14,6 +14,9 @@ import { compareCommand } from './compare.js';
 import { guildsCommand } from './guilds.js';
 import { codexCommand } from './codex.js';
 import { codexTexts } from '../texts/en-codex.js';
+import { serverTexts } from '../texts/en-server.js';
+import { serverCommand } from './server.js';
+import { isStaff } from '../core/roles.js';
 
 const S = ui.ButtonStyle;
 
@@ -21,7 +24,12 @@ function userSelect(id, placeholder) {
   return { type: 1, components: [{ type: 5, custom_id: id, placeholder, min_values: 1, max_values: 1 }] };
 }
 
-export function hubCommand() {
+export function hubCommand(interaction) {
+  // ⚙️ Server settings only shows for staff (people who can manage the server).
+  const staffRow =
+    interaction?.guild_id && isStaff(interaction)
+      ? [ui.row(ui.button({ id: 'hub:server', label: serverTexts.hubButton, emoji: '⚙️', style: S.SECONDARY }))]
+      : [];
   return ui.message([
     ui.container(ui.COLORS.auracle, [
       ui.text(`${H.title}\n${H.body}`),
@@ -41,6 +49,7 @@ export function hubCommand() {
       ),
       userSelect('hub:view', H.viewPlaceholder),
       userSelect('hub:compare', H.comparePlaceholder),
+      ...staffRow,
     ]),
   ]);
 }
@@ -77,7 +86,9 @@ export async function hubComponent(interaction, env, later) {
       return profileCommand(withMember(interaction), env, later);
     case 'compare':
       return compareCommand(withMember(interaction), env, later);
+    case 'server':
+      return serverCommand(asCommand, env, later);
     default:
-      return hubCommand();
+      return hubCommand(interaction);
   }
 }

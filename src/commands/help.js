@@ -2,11 +2,12 @@
 
 import { ui } from '../core/ui.js';
 import { texts } from '../texts/en.js';
+import { serverTexts } from '../texts/en-server.js';
 
 export function helpCommand() {
   const t = texts.help;
   const commands = t.commands.map((c) => `${c.name} : ${c.description}`).join('\n');
-  const menu = t.menu.join('\n');
+  const menu = [...t.menu, serverTexts.helpLine].join('\n');
 
   return ui.message([
     ui.container(ui.COLORS.auracle, [

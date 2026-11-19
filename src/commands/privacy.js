@@ -6,6 +6,7 @@ import { privacyTexts as P } from '../texts/en-privacy.js';
 import { secretTexts as SX } from '../texts/en-secrets.js';
 import { CLASSES, GUILDS } from '../data/classes.js';
 import * as store from '../core/store.js';
+import * as roles from '../core/roles.js';
 
 const S = ui.ButtonStyle;
 
@@ -20,6 +21,7 @@ function color(profile) {
 function screen(profile, sealed = false) {
   const isPublic = profile.is_public === 1;
   const isShown = profile.secret_public === 1;
+  const wearsRole = profile.wear_role !== 0;
   const parts = [];
   if (sealed) parts.push(ui.text(P.sealed), ui.separator());
   parts.push(
@@ -35,6 +37,11 @@ function screen(profile, sealed = false) {
       ui.button({ id: 'pv:sshow', label: SX.show, emoji: '🗝️', style: isShown ? S.SUCCESS : S.SECONDARY }),
       ui.button({ id: 'pv:shide', label: SX.hide, emoji: '🤫', style: isShown ? S.SECONDARY : S.SUCCESS }),
     ),
+    ui.text(`${P.roleLine(wearsRole)}\n${P.roleNote}`),
+    ui.row(
+      ui.button({ id: 'pv:rwear', label: P.wear, emoji: '🏰', style: wearsRole ? S.SUCCESS : S.SECONDARY }),
+      ui.button({ id: 'pv:rhide', label: P.noWear, emoji: '🚫', style: wearsRole ? S.SECONDARY : S.SUCCESS }),
+    ),
   );
   return [ui.container(color(profile), parts)];
 }
@@ -45,7 +52,7 @@ export async function privacyCommand(interaction, env) {
   return ui.message(screen(profile));
 }
 
-export async function privacyComponent(interaction, env) {
+export async function privacyComponent(interaction, env, later) {
   const userId = userOf(interaction).id;
   const action = interaction.data.custom_id.split(':')[1];
   const profile = await store.getProfile(env, userId);
@@ -59,6 +66,14 @@ export async function privacyComponent(interaction, env) {
     const isShown = action === 'sshow';
     await store.setSecretPublic(env, userId, isShown);
     profile.secret_public = isShown ? 1 : 0;
+  } else if (action === 'rwear' || action === 'rhide') {
+    const wear = action === 'rwear';
+    await store.setWearRole(env, userId, wear);
+    profile.wear_role = wear ? 1 : 0;
+  }
+  // Public/private or wear/don't wear: update the guild role on every server that uses them.
+  if (later && action !== 'sshow' && action !== 'shide') {
+    later(roles.syncEverywhere(env, userId, { profile }).catch(() => {}));
   }
   return ui.update(screen(profile, true));
 }

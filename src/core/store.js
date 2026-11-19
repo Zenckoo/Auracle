@@ -48,8 +48,12 @@ export async function completeTrial(env, trial, scores, typeCode) {
   const now = Date.now();
   await env.DB.batch([
     env.DB.prepare(
-      `INSERT OR REPLACE INTO profiles (user_id, version, answers, scores, type_code, class_key, is_public, secret_public, completed_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, 0, 0, ?, ?)`,
+      // A new trial resets the card to private, but keeps the traveler's guild role choice.
+      `INSERT INTO profiles (user_id, version, answers, scores, type_code, class_key, is_public, secret_public, completed_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, 0, 0, ?, ?)
+       ON CONFLICT(user_id) DO UPDATE SET version = excluded.version, answers = excluded.answers, scores = excluded.scores,
+         type_code = excluded.type_code, class_key = excluded.class_key, is_public = 0, secret_public = 0,
+         completed_at = excluded.completed_at, updated_at = excluded.updated_at`,
     ).bind(trial.user_id, trial.version, JSON.stringify(trial.answers), JSON.stringify(scores), typeCode, typeCode, now, now),
     env.DB.prepare('DELETE FROM trials WHERE user_id = ?').bind(trial.user_id),
   ]);
@@ -96,4 +100,51 @@ export async function publicTypesInGuild(env, guildId) {
     .bind(guildId)
     .all();
   return results.map((r) => r.type_code);
+}
+
+// ---- Guild roles ----
+
+export async function setWearRole(env, userId, wear) {
+  await env.DB.prepare('UPDATE profiles SET wear_role = ?, updated_at = ? WHERE user_id = ?')
+    .bind(wear ? 1 : 0, Date.now(), userId)
+    .run();
+}
+
+export async function getServerSettings(env, guildId) {
+  return env.DB.prepare('SELECT * FROM server_settings WHERE guild_id = ?').bind(guildId).first();
+}
+
+// ids: { dreamers, scholars, guardians, wanderers } (null to forget them).
+export async function saveServerRoles(env, guildId, enabled, ids = {}) {
+  await env.DB.prepare(
+    `INSERT INTO server_settings (guild_id, roles_enabled, role_dreamers, role_scholars, role_guardians, role_wanderers, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?)
+     ON CONFLICT(guild_id) DO UPDATE SET roles_enabled = excluded.roles_enabled, role_dreamers = excluded.role_dreamers,
+       role_scholars = excluded.role_scholars, role_guardians = excluded.role_guardians,
+       role_wanderers = excluded.role_wanderers, updated_at = excluded.updated_at`,
+  )
+    .bind(guildId, enabled ? 1 : 0, ids.dreamers ?? null, ids.scholars ?? null, ids.guardians ?? null, ids.wanderers ?? null, Date.now())
+    .run();
+}
+
+// Servers where this traveler used Auracle and where guild roles are on.
+export async function roleServersOfUser(env, userId, limit = 10) {
+  const { results } = await env.DB.prepare(
+    `SELECT s.* FROM members m JOIN server_settings s ON s.guild_id = m.guild_id
+     WHERE m.user_id = ? AND s.roles_enabled = 1 ORDER BY m.seen_at DESC LIMIT ?`,
+  )
+    .bind(userId, limit)
+    .all();
+  return results;
+}
+
+// Travelers of this server with a public card who wear their role, most recent first.
+export async function roleWearersInGuild(env, guildId, limit) {
+  const { results } = await env.DB.prepare(
+    `SELECT p.user_id, p.type_code FROM profiles p JOIN members m ON m.user_id = p.user_id
+     WHERE m.guild_id = ? AND p.is_public = 1 AND p.wear_role = 1 ORDER BY m.seen_at DESC LIMIT ?`,
+  )
+    .bind(guildId, limit)
+    .all();
+  return results;
 }

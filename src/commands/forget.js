@@ -3,6 +3,7 @@
 import { ui } from '../core/ui.js';
 import { forgetTexts as F } from '../texts/en-privacy.js';
 import * as store from '../core/store.js';
+import * as roles from '../core/roles.js';
 
 function userOf(interaction) {
   return interaction.member?.user ?? interaction.user;
@@ -29,14 +30,17 @@ export async function forgetCommand(interaction, env) {
   );
 }
 
-export async function forgetComponent(interaction, env) {
+export async function forgetComponent(interaction, env, later) {
   const userId = userOf(interaction).id;
   const action = interaction.data.custom_id.split(':')[1];
 
   if (action === 'erase') {
+    // Read the servers with guild roles before the server list is erased, then remove the roles.
+    const servers = await store.roleServersOfUser(env, userId);
     await store.deleteProfile(env, userId);
     await store.deleteTrial(env, userId);
     await store.deleteMembers(env, userId);
+    if (later) later(roles.syncEverywhere(env, userId, { servers, profile: null }).catch(() => {}));
     return ui.update(box(F.erased));
   }
   return ui.update(box(F.kept));

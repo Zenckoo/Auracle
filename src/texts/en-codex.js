@@ -168,6 +168,7 @@ export const codexTexts = {
       body:
         'Thinking of adding Auracle to your server? Here is what you should know:\n\n' +
         '⚙️ **What it does:** Auracle only answers its own commands. It never reads your channels, never sends messages on its own, and needs no admin or moderation permission.\n\n' +
+        '🏰 **Guild roles (optional):** staff can turn them on in ⚙️ Server settings, in `/auracle`. Auracle then creates the four guild roles and gives each member with a public card the role of their guild. For this only, it asks for **Manage Roles**, and it never touches any other role.\n\n' +
         '👀 **What members see:** **Compare**, **Guilds** and public cards are posted in the channel. Everything else stays private to the member.\n\n' +
         '🔒 **What it keeps:** a member\'s answers and results, and which servers they used Auracle on (only for Guilds). Members can erase it all with `/forget`. Private cards are never shown to others or counted.\n\n' +
         '🚫 **What it is not:** a diagnosis, a moderation tool, or a way to sort, rank or select members. Please never use results to judge anyone.\n\n' +
@@ -180,7 +181,9 @@ export const codexTexts = {
       body:
         'Auracle is crafted with care by **Zenckoo**, and still a work in progress.\n\n' +
         '🤖 Parts of its code and texts are created with the help of AI. Its art and illustrations will always be made by human hands, never by AI. More in **Auracle and AI**.\n\n' +
-        "💡 Spotted a bug or have an idea? Use **📬 Feedback** in `/auracle`. Curious about what's coming? Check **📜 Updates**.",
+        "💡 Spotted a bug or have an idea? Use **📬 Feedback** in `/auracle`. Curious about what's coming? Check **📜 Updates**.\n\n" +
+        '🌐 Auracle has its own website: **auracle-site.pages.dev**\n\n' +
+        '-# Crystal ball icon by Lorc, from game-icons.net, under the CC BY 3.0 license.',
       links: [],
     },
   ],

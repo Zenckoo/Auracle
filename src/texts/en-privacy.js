@@ -7,6 +7,10 @@ export const privacyTexts = {
   public: 'Public',
   private: 'Private',
   sealed: '### ✨ Your choice has been sealed.',
+  roleLine: (wear) => `Guild role: **${wear ? '🏰 Worn' : '🚫 Not worn'}**`,
+  wear: 'Wear it',
+  noWear: "Don't wear it",
+  roleNote: '-# Only on servers where staff turned on guild roles, and only while your card is public.',
 };
 
 export const forgetTexts = {

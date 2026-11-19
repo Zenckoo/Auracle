@@ -5,6 +5,7 @@ import { verifyDiscordRequest } from './discord/verify.js';
 import { registerCommands } from './discord/register.js';
 import { handleCommand, handleComponent, handleModal } from './router.js';
 import { recordMember } from './core/store.js';
+import { syncMember } from './core/roles.js';
 
 const InteractionType = { PING: 1, APPLICATION_COMMAND: 2, MESSAGE_COMPONENT: 3, MODAL_SUBMIT: 5 };
 
@@ -47,6 +48,10 @@ export default {
       }
 
       if (interaction.type === InteractionType.APPLICATION_COMMAND) {
+        // Guild roles: check this traveler's role on this server (not for /forget, which removes it itself).
+        if (interaction.guild_id && userId && interaction.data.name !== 'forget') {
+          later(syncMember(env, interaction.guild_id, userId, { currentRoles: interaction.member.roles ?? [] }).catch(() => {}));
+        }
         return json(await handleCommand(interaction, env, later));
       }
 

@@ -12,6 +12,16 @@ export const updatesTexts = {
   page: (n, total) => `Page ${n} / ${total}`,
   versions: [
     {
+      name: 'v1.6',
+      items: [
+        '🌍 Auracle is now open to every server, in public beta',
+        '🏰 **Guild roles**: server staff can turn them on in ⚙️ Server settings, in `/auracle`. Each traveler with a public card gets the role of their guild',
+        "Don't want to wear your guild role? Choose it in 🔒 Privacy",
+        '🌐 Auracle has its own website, with the Codex, the Privacy Policy and the Terms of Service: **auracle-site.pages.dev**',
+        '🔮 A new crystal ball icon and a starry banner',
+      ],
+    },
+    {
       name: 'v1.5',
       items: [
         '🧭 Everything now lives in the `/auracle` menu: fewer commands, more buttons',
