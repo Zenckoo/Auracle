@@ -357,6 +357,117 @@ export async function cleanup(env) {
     env.DB.prepare('DELETE FROM feedback_log WHERE sent_at < ?').bind(now - DAY),
     env.DB.prepare('DELETE FROM report_log WHERE sent_at < ?').bind(now - DAY),
     env.DB.prepare('DELETE FROM bans WHERE until <= ?').bind(now),
+    env.DB.prepare('DELETE FROM blessing_log WHERE sent_at < ?').bind(now - DAY),
+    // 💌 Blessings never accepted are erased after 30 days.
+    env.DB.prepare("DELETE FROM blessings WHERE status = 'new' AND created_at < ?").bind(now - THIRTY_DAYS),
+  ]);
+}
+
+// ---- 💌 Blessings ----
+
+export const BLESSING_LIMIT = 5;       // sent every 24 hours
+export const BLESSING_KEEP = 10;       // accepted blessings kept on a card at most
+export const BLESSING_SHOW = 3;        // shown on the card at most
+
+export async function getBlessing(env, targetId, authorId) {
+  return env.DB.prepare('SELECT * FROM blessings WHERE target_id = ? AND author_id = ?').bind(targetId, authorId).first();
+}
+
+// A new blessing, or a rewritten one: it waits again for the owner's choice.
+export async function saveBlessing(env, targetId, authorId, text) {
+  const now = Date.now();
+  await env.DB.batch([
+    env.DB.prepare(
+      `INSERT INTO blessings (target_id, author_id, text, status, shown, created_at) VALUES (?, ?, ?, 'new', 0, ?)
+       ON CONFLICT(target_id, author_id) DO UPDATE SET text = excluded.text, status = 'new', shown = 0, created_at = excluded.created_at`,
+    ).bind(targetId, authorId, text, now),
+    env.DB.prepare('INSERT INTO blessing_log (user_id, sent_at) VALUES (?, ?)').bind(authorId, now),
+  ]);
+}
+
+export async function blessingCount(env, userId) {
+  const row = await env.DB.prepare('SELECT COUNT(*) AS n FROM blessing_log WHERE user_id = ? AND sent_at > ?').bind(userId, Date.now() - DAY).first();
+  return row?.n ?? 0;
+}
+
+export async function isBlessingBlocked(env, ownerId, authorId) {
+  const row = await env.DB.prepare('SELECT 1 AS x FROM blessing_blocks WHERE owner_id = ? AND blocked_id = ?').bind(ownerId, authorId).first();
+  return !!row;
+}
+
+// Every blessing received, newest first.
+export async function blessingsFor(env, targetId) {
+  const { results } = await env.DB.prepare('SELECT * FROM blessings WHERE target_id = ? ORDER BY created_at DESC').bind(targetId).all();
+  return results ?? [];
+}
+
+export async function shownBlessings(env, targetId) {
+  const { results } = await env.DB.prepare(
+    "SELECT * FROM blessings WHERE target_id = ? AND status = 'accepted' AND shown = 1 ORDER BY created_at DESC LIMIT ?",
+  ).bind(targetId, BLESSING_SHOW).all();
+  return results ?? [];
+}
+
+export async function newBlessingCount(env, targetId) {
+  const row = await env.DB.prepare("SELECT COUNT(*) AS n FROM blessings WHERE target_id = ? AND status = 'new'").bind(targetId).first();
+  return row?.n ?? 0;
+}
+
+// Accept: shown right away if fewer than 3 are shown. Returns how many of the author's blessings are accepted now.
+export async function acceptBlessing(env, targetId, authorId) {
+  const shown = await env.DB.prepare("SELECT COUNT(*) AS n FROM blessings WHERE target_id = ? AND status = 'accepted' AND shown = 1").bind(targetId).first();
+  await env.DB.prepare("UPDATE blessings SET status = 'accepted', shown = ? WHERE target_id = ? AND author_id = ? AND status = 'new'")
+    .bind((shown?.n ?? 0) < BLESSING_SHOW ? 1 : 0, targetId, authorId).run();
+  const row = await env.DB.prepare("SELECT COUNT(*) AS n FROM blessings WHERE author_id = ? AND status = 'accepted'").bind(authorId).first();
+  const n = row?.n ?? 0;
+  await env.DB.prepare('UPDATE profiles SET blessings_accepted = MAX(blessings_accepted, ?) WHERE user_id = ?').bind(n, authorId).run();
+  return n;
+}
+
+export async function removeBlessing(env, targetId, authorId) {
+  await env.DB.prepare('DELETE FROM blessings WHERE target_id = ? AND author_id = ?').bind(targetId, authorId).run();
+}
+
+export async function blockBlesser(env, ownerId, authorId) {
+  await env.DB.batch([
+    env.DB.prepare('INSERT OR IGNORE INTO blessing_blocks (owner_id, blocked_id) VALUES (?, ?)').bind(ownerId, authorId),
+    env.DB.prepare('DELETE FROM blessings WHERE target_id = ? AND author_id = ?').bind(ownerId, authorId),
+  ]);
+}
+
+export async function blockedCount(env, ownerId) {
+  const row = await env.DB.prepare('SELECT COUNT(*) AS n FROM blessing_blocks WHERE owner_id = ?').bind(ownerId).first();
+  return row?.n ?? 0;
+}
+
+export async function unblockAll(env, ownerId) {
+  await env.DB.prepare('DELETE FROM blessing_blocks WHERE owner_id = ?').bind(ownerId).run();
+}
+
+// Which accepted blessings are shown on the card (by author ID).
+export async function setBlessingsShown(env, targetId, authorIds) {
+  const chosen = authorIds.slice(0, BLESSING_SHOW);
+  const marks = chosen.map(() => '?').join(', ');
+  await env.DB.prepare(
+    `UPDATE blessings SET shown = CASE WHEN author_id IN (${marks || "''"}) THEN 1 ELSE 0 END WHERE target_id = ? AND status = 'accepted'`,
+  ).bind(...chosen, targetId).run();
+}
+
+export async function setBlessingsOff(env, userId, off) {
+  await env.DB.prepare('UPDATE profiles SET blessings_off = ?, updated_at = ? WHERE user_id = ?').bind(off ? 1 : 0, Date.now(), userId).run();
+}
+
+// Moderation: remove every accepted blessing from a card.
+export async function clearAcceptedBlessings(env, targetId) {
+  await env.DB.prepare("DELETE FROM blessings WHERE target_id = ? AND status = 'accepted'").bind(targetId).run();
+}
+
+// /forget: blessings received and sent, blocks, and the anti-spam log.
+export async function deleteBlessings(env, userId) {
+  await env.DB.batch([
+    env.DB.prepare('DELETE FROM blessings WHERE target_id = ? OR author_id = ?').bind(userId, userId),
+    env.DB.prepare('DELETE FROM blessing_blocks WHERE owner_id = ? OR blocked_id = ?').bind(userId, userId),
+    env.DB.prepare('DELETE FROM blessing_log WHERE user_id = ?').bind(userId),
   ]);
 }
 
@@ -364,13 +475,17 @@ export async function cleanup(env) {
 
 // Everything Auracle keeps about this traveler, in one object.
 export async function exportData(env, userId) {
-  const [profile, trial, servers, ban, feedback, reports] = await Promise.all([
+  const [profile, trial, servers, ban, feedback, reports, received, sent, blocked, blessLog] = await Promise.all([
     env.DB.prepare('SELECT * FROM profiles WHERE user_id = ?').bind(userId).first(),
     env.DB.prepare('SELECT * FROM trials WHERE user_id = ?').bind(userId).first(),
     env.DB.prepare('SELECT guild_id, seen_at FROM members WHERE user_id = ?').bind(userId).all(),
     env.DB.prepare('SELECT * FROM bans WHERE user_id = ?').bind(userId).first(),
     env.DB.prepare('SELECT sent_at FROM feedback_log WHERE user_id = ?').bind(userId).all(),
     env.DB.prepare('SELECT sent_at FROM report_log WHERE user_id = ?').bind(userId).all(),
+    env.DB.prepare('SELECT * FROM blessings WHERE target_id = ?').bind(userId).all(),
+    env.DB.prepare('SELECT * FROM blessings WHERE author_id = ?').bind(userId).all(),
+    env.DB.prepare('SELECT blocked_id FROM blessing_blocks WHERE owner_id = ?').bind(userId).all(),
+    env.DB.prepare('SELECT sent_at FROM blessing_log WHERE user_id = ?').bind(userId).all(),
   ]);
   const date = (ms) => (ms ? new Date(ms).toISOString() : null);
   const parse = (text) => {
@@ -421,7 +536,9 @@ export async function exportData(env, userId) {
         shown_on_card: profile.badges_shown ? profile.badges_shown.split(',') : [],
         comparisons_made: profile.compare_count ?? 0,
         codex_pages_opened: profile.codex_seen == null ? null : profile.codex_seen.toString(2).split('').filter((b) => b === '1').length,
+        blessings_accepted_by_others: profile.blessings_accepted ?? 0,
       },
+      receives_blessings: profile.blessings_off !== 1,
       accent_color: profile.accent == null ? null : '#' + profile.accent.toString(16).padStart(6, '0').toUpperCase(),
       completed_at: date(profile.completed_at),
       updated_at: date(profile.updated_at),
@@ -437,5 +554,11 @@ export async function exportData(env, userId) {
     feedback_sent_last_24_hours: (feedback.results ?? []).map((f) => date(f.sent_at)),
     reports_sent_last_24_hours: (reports.results ?? []).map((r) => date(r.sent_at)),
     block: ban && { reason: ban.reason, from: date(ban.banned_at), until: date(ban.until) },
+    blessings: {
+      received: (received.results ?? []).map((b) => ({ from_user_id: b.author_id, text: b.text, status: b.status, shown_on_card: b.shown === 1, written_at: date(b.created_at) })),
+      sent: (sent.results ?? []).map((b) => ({ to_user_id: b.target_id, text: b.text, status: b.status, written_at: date(b.created_at) })),
+      blocked_user_ids: (blocked.results ?? []).map((b) => b.blocked_id),
+      sent_last_24_hours: (blessLog.results ?? []).map((b) => date(b.sent_at)),
+    },
   };
 }

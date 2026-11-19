@@ -40,6 +40,7 @@ export async function forgetComponent(interaction, env, later) {
     await store.deleteProfile(env, userId);
     await store.deleteTrial(env, userId);
     await store.deleteMembers(env, userId);
+    await store.deleteBlessings(env, userId);
     if (later) later(roles.syncEverywhere(env, userId, { servers, profile: null }).catch(() => {}));
     return ui.update(box(F.erased));
   }

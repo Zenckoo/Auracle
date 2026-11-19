@@ -21,6 +21,7 @@ import { customizeCommand } from './customize.js';
 import { customizeTexts } from '../texts/en-customize.js';
 import { isBirthday } from '../data/practical.js';
 import * as store from '../core/store.js';
+import { blessingTexts } from '../texts/en-blessings.js';
 
 const S = ui.ButtonStyle;
 
@@ -38,10 +39,14 @@ export async function hubCommand(interaction, env) {
   const userId = interaction?.member?.user?.id ?? interaction?.user?.id;
   const profile = env && userId ? await store.getProfile(env, userId) : null;
   const birthday = profile && isBirthday(profile) ? [ui.text(H.birthday), ui.separator()] : [];
+  // 💌 New blessings are announced here, since Auracle never sends DMs.
+  const newBlessings = profile ? await store.newBlessingCount(env, userId) : 0;
+  const blessings = newBlessings ? [ui.text(blessingTexts.hub(newBlessings)), ui.separator()] : [];
 
   return ui.message([
     ui.container(ui.COLORS.auracle, [
       ...birthday,
+      ...blessings,
       ui.text(`${H.title}\n${H.body}`),
       ui.separator(),
       ui.row(

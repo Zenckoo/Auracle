@@ -12,6 +12,7 @@ import { serverComponent } from './commands/server.js';
 import { reportComponent, reportModal } from './commands/report.js';
 import { customizeComponent, customizeModal } from './commands/customize.js';
 import { moderationComponent } from './commands/moderation.js';
+import { blessingsComponent, blessingsModal } from './commands/blessings.js';
 import { syncEverywhere } from './core/roles.js';
 import { ui } from './core/ui.js';
 import { texts } from './texts/en.js';
@@ -37,6 +38,7 @@ const componentHandlers = {
   rp: reportComponent,
   cz: customizeComponent,
   md: moderationComponent,
+  bl: blessingsComponent,
 };
 
 // Forms (modals), same naming.
@@ -44,6 +46,7 @@ const modalHandlers = {
   fb: feedbackModal,
   rp: reportModal,
   cz: customizeModal,
+  bl: blessingsModal,
 };
 
 function unknown() {

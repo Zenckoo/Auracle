@@ -8,6 +8,7 @@ export const BETA = true;
 
 export const SHOW_MAX = 3;
 export const KINDRED_GOAL = 5;
+export const KIND_SOUL_GOAL = 3;
 
 export const BADGES = {
   early: { emoji: '🌱', name: 'Early Traveler', hint: 'Take the trial during the public beta' },
@@ -16,6 +17,7 @@ export const BADGES = {
   messenger: { emoji: '💬', name: 'Messenger', hint: 'Send your first 📬 Feedback' },
   lorekeeper: { emoji: '📖', name: 'Lorekeeper', hint: 'Open every page of the 📖 Codex' },
   painter: { emoji: '🎨', name: 'Apprentice Painter', hint: 'Customize your card for the first time' },
+  kindsoul: { emoji: '🕊️', name: 'Kind Soul', hint: `Have ${KIND_SOUL_GOAL} of your 💌 Blessings accepted by other travelers` },
 };
 
 function keys(text) {

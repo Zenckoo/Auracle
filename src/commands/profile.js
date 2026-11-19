@@ -19,6 +19,8 @@ import { tasteLines } from '../data/tastes.js';
 import { practicalLine } from '../data/practical.js';
 import { identityLine } from '../data/identity.js';
 import { badgeLine } from '../data/badges.js';
+import { blessButton, blessingLines } from './blessings.js';
+import { blessingTexts as BL } from '../texts/en-blessings.js';
 
 const R = texts.results;
 
@@ -31,7 +33,8 @@ function displayName(user, member) {
 }
 
 // reportable: someone else's card, so it gets a 🚩 Report button.
-function card(profile, user, name, isOwnPrivate, reportable = false) {
+// extra.blessings: the blessings shown on the card. extra.newBlessings: how many wait (only told to the owner, privately).
+function card(profile, user, name, isOwnPrivate, reportable = false, extra = {}) {
   const type = profile.type_code;
   const cls = CLASSES[type];
   const guild = GUILDS[cls.guild];
@@ -68,9 +71,14 @@ function card(profile, user, name, isOwnPrivate, reportable = false) {
   const tasteList = [...tasteLines(profile), practicalLine(profile)].filter(Boolean);
   const tastes = tasteList.length ? [ui.separator(), ui.text(tasteList.join('\n'))] : [];
 
+  // 💌 Up to 3 blessings from other travelers, chosen by the card owner.
+  const blessed = blessingLines(extra.blessings ?? []);
+  const blessings = blessed.length ? [ui.separator(), ui.text(blessed.join('\n'))] : [];
+
   // 🏅 Up to 3 badges chosen by the traveler, on top of the footer.
   const footer = [badgeLine(profile), `${TT.badge(profile.version)} · ${P.awakened(Math.floor(profile.completed_at / 1000)).replace('-# ', '')}`, R.estimate];
   if (isOwnPrivate) footer.push(P.privateNote);
+  if (isOwnPrivate && extra.newBlessings) footer.push(BL.newOnCard(extra.newBlessings));
   const footerText = footer.filter(Boolean).join('\n');
 
   return [
@@ -81,11 +89,12 @@ function card(profile, user, name, isOwnPrivate, reportable = false) {
       ),
       ...about,
       ...tastes,
+      ...blessings,
       ui.separator(),
       ui.text(traits),
       ui.separator(),
       ui.text(footerText),
-      ...(reportable ? [ui.row(reportButton(user.id))] : []),
+      ...(reportable ? [ui.row(blessButton(user.id), reportButton(user.id))] : []),
     ]),
   ];
 }
@@ -99,7 +108,11 @@ export async function profileCommand(interaction, env) {
     const profile = await store.getProfile(env, me.id);
     if (!profile) return note(P.notAwakenedSelf);
     const isPublic = profile.is_public === 1;
-    return ui.message(card(profile, me, displayName(me, interaction.member), !isPublic), { ephemeral: !isPublic });
+    const extra = {
+      blessings: await store.shownBlessings(env, me.id),
+      newBlessings: isPublic ? 0 : await store.newBlessingCount(env, me.id),
+    };
+    return ui.message(card(profile, me, displayName(me, interaction.member), !isPublic, false, extra), { ephemeral: !isPublic });
   }
 
   // Someone else's card
@@ -114,5 +127,6 @@ export async function profileCommand(interaction, env) {
   if (!profile) return note(P.notAwakenedOther(name));
   if (profile.is_public !== 1) return note(P.privateOther(name));
 
-  return ui.message(card(profile, target, name, false, true), { ephemeral: false });
+  const extra = { blessings: await store.shownBlessings(env, targetId) };
+  return ui.message(card(profile, target, name, false, true, extra), { ephemeral: false });
 }
