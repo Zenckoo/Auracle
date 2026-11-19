@@ -19,7 +19,7 @@ export const texts = {
     menu: [
       '✨ **Awaken**: begin your trial',
       '🪪 **My card**: view your profile card',
-      '🎨 **Customize**: make your card truly yours: fantasy title, accent color, About me, vibe, tastes, practical info, identity',
+      '🎨 **Customize**: make your card truly yours: fantasy title, accent color, About me, vibe, tastes, practical info, identity, badges',
       '🏰 **Guilds**: how the guilds are spread across the server',
       '🔒 **Privacy**: choose what you share, and get a copy of your data',
       "📜 **Updates**: see what's new and what's coming",
@@ -109,7 +109,7 @@ export const texts = {
     },
 
     warning: {
-      text: '### ⚠️ Beware, traveler!\nTaking a new trial will erase your current class forever. Are you sure?',
+      text: '### ⚠️ Beware, traveler!\nA new trial will replace your current class and results once you finish it. Until then, your card stays private.\n-# Your customization and badges are kept. Are you sure?',
       anew: 'Begin anew',
       keep: 'Keep my class',
       kept: 'Your class remains yours, traveler. 💜',

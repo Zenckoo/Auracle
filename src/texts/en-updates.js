@@ -24,9 +24,11 @@ export const updatesTexts = {
         '🤖 Auracle now credits **Claude**, the AI by Anthropic that helps write its code and texts',
         '📬 Feedback is limited to 5 messages every 24 hours, to keep it spam-free',
         '🔗 Links to the website, the Privacy Policy and the Terms of Service in Help, Privacy, the Codex and before the trial',
-        '🎨 **Customize** in `/auracle`: choose a fantasy title for your card, among 15, an accent color for its border, an **About me** sentence, your **current vibe**, and your **tastes**: games, anime, music, favorite people, what you are looking for and your DM preference, and **practical** info: your local time, the languages you speak (more than 150, from Swahili to Māori) and your birthday, and, if you wish, your **identity**: pronouns, gender and orientation, only with your consent and private by default',
+        '🎨 **Customize** in `/auracle`: choose a fantasy title for your card, among 15, an accent color for its border, an **About me** sentence, your **current vibe**, and your **tastes**: games, anime, music, favorite people, what you are looking for and your DM preference, and **practical** info: your local time, the languages you speak (more than 150, from Swahili to Māori) and your birthday, and, if you wish, your **identity**: pronouns, gender, orientation and origins, only with your consent and private by default',
         "🚩 **Report**: every traveler's card now has a Report button. Pick a reason, and your report goes privately to Zenckoo",
         '📖 A new Codex page, **Identity words**: pronouns, genders and orientations explained simply',
+        '🏅 **Badges**: earn them along your journey and show up to 3 on your card. 🌱 **Early Traveler** is only for travelers of the public beta!',
+        '🔄 Taking a new trial now keeps your customization and badges',
       ],
     },
     {
