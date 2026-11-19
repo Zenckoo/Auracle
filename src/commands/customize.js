@@ -1,7 +1,8 @@
 // 🎨 Customize: everything a traveler can change on their card, page by page.
 //   main  : 🖌️ Appearance (fantasy title, accent color) and buttons to the other pages
 //   about : 💬 About me (a short sentence) and 🌙 Current vibe
-//   tastes: 🎮 Tastes & fun (games, shows, music, characters, Ask me about, Looking for, DMs)
+//   tastes: 🎮 Tastes & fun (games, shows, music, favorite people, Ask me about, Looking for, DMs)
+//   practical: 🕰️ Practical (time zone, languages by region, birthday)
 // Opened from the /auracle menu. Buttons, menus and forms are named "cz:...".
 
 import { ui } from '../core/ui.js';
@@ -12,6 +13,7 @@ import { TITLES, titleName } from '../data/titles.js';
 import { PALETTE, parseHex, colorName } from '../data/colors.js';
 import { VIBES, vibeLine } from '../data/vibes.js';
 import { TASTE_FIELDS, TASTE_MAX, LOOKING_FOR, DMS, lookingList, tasteLines } from '../data/tastes.js';
+import { TIMEZONES, LANG_REGIONS, LANG_MAX, langList, langName, parseBirthday, birthdayName } from '../data/practical.js';
 import { cleanText, showText } from '../core/text.js';
 import * as store from '../core/store.js';
 
@@ -88,8 +90,9 @@ function mainPage(profile, state = {}) {
       ui.row(
         ui.button({ id: 'cz:page:about', label: C.aboutPage, emoji: '💬', style: S.PRIMARY }),
         ui.button({ id: 'cz:page:tastes', label: C.tastesPage, emoji: '🎮', style: S.PRIMARY }),
-        cardButton(),
+        ui.button({ id: 'cz:page:practical', label: C.practicalPage, emoji: '🕰️', style: S.PRIMARY }),
       ),
+      ui.row(cardButton()),
     ]),
   ];
 }
@@ -167,7 +170,70 @@ function tastesPage(profile, state = {}) {
   ];
 }
 
-const PAGES = { main: mainPage, about: aboutPage, tastes: tastesPage };
+function timezoneSelect(profile) {
+  return select('cz:tz', C.timePlaceholder, [
+    { label: C.timeNone, value: 'none', emoji: { name: '🚫' }, default: !TIMEZONES[profile.timezone] },
+    ...Object.entries(TIMEZONES).map(([value, t]) => ({ label: t.name, value, emoji: { name: '🕰️' }, default: profile.timezone === value })),
+  ]);
+}
+
+function regionSelect(region) {
+  return select('cz:region', C.regionPlaceholder, Object.entries(LANG_REGIONS).map(([value, r]) => ({ label: r.name, value, emoji: { name: r.emoji }, default: region === value })));
+}
+
+// The languages of one region. Choosing here replaces only this region's languages.
+function langSelect(profile, region) {
+  const r = LANG_REGIONS[region];
+  const chosen = langList(profile);
+  const options = Object.entries(r.langs).map(([value, name]) => ({ label: name, value, default: chosen.includes(value) }));
+  return { type: 1, components: [{ type: 3, custom_id: `cz:lang:${region}`, placeholder: C.langPlaceholder(r.name), min_values: 0, max_values: Math.min(LANG_MAX, options.length), options }] };
+}
+
+function birthdayForm(profile) {
+  const field = (id, label, value) => {
+    const input = { type: 4, custom_id: id, style: 1, label, min_length: 1, max_length: 2, required: true };
+    if (value) input.value = String(value);
+    return { type: 1, components: [input] };
+  };
+  return {
+    type: 9,
+    data: {
+      custom_id: 'cz:birthday',
+      title: C.birthdayForm.title,
+      components: [field('day', C.birthdayForm.day, profile.birth_day), field('month', C.birthdayForm.month, profile.birth_month)],
+    },
+  };
+}
+
+// region: the region whose languages are open (from the region menu), or null.
+function practicalPage(profile, state = {}, region = null) {
+  const langs = langList(profile);
+  const hasBirthday = !!birthdayName(profile);
+  return [
+    ui.container(color(profile), [
+      ...notice(state),
+      ui.text(`${C.practicalTitle}\n${C.practicalIntro}`),
+      ui.separator(),
+      ui.text(C.timeLine(TIMEZONES[profile.timezone]?.name ?? null)),
+      timezoneSelect(profile),
+      ui.separator(),
+      ui.text(C.langLine(langs.map(langName), LANG_MAX)),
+      regionSelect(region),
+      ...(LANG_REGIONS[region] ? [langSelect(profile, region)] : []),
+      ui.row(ui.button({ id: 'cz:langclear', label: C.langClear, emoji: '🧹', style: S.SECONDARY, disabled: !langs.length })),
+      ui.separator(),
+      ui.text(C.birthdayLine(birthdayName(profile))),
+      ui.row(
+        ui.button({ id: 'cz:bdayedit', label: C.birthdaySet, emoji: '🎂', style: S.PRIMARY }),
+        ui.button({ id: 'cz:bdayclear', label: C.birthdayClear, emoji: '🧹', style: S.SECONDARY, disabled: !hasBirthday }),
+      ),
+      ui.separator(),
+      ui.row(ui.button({ id: 'cz:page:main', label: C.back, emoji: '◀️', style: S.SECONDARY }), cardButton()),
+    ]),
+  ];
+}
+
+const PAGES = { main: mainPage, about: aboutPage, tastes: tastesPage, practical: practicalPage };
 
 function noProfile() {
   return [ui.container(ui.COLORS.auracle, [ui.text(profileTexts.notAwakenedSelf)])];
@@ -243,6 +309,42 @@ export async function customizeComponent(interaction, env) {
       return ui.update(tastesPage(profile, { sealed: true }));
     }
 
+    case 'tz': {
+      const timezone = value in TIMEZONES ? value : null;
+      await store.setTimezone(env, userId, timezone);
+      profile.timezone = timezone;
+      return ui.update(practicalPage(profile, { sealed: true }));
+    }
+
+    case 'region':
+      return ui.update(practicalPage(profile, {}, value in LANG_REGIONS ? value : null));
+
+    case 'lang': {
+      const region = LANG_REGIONS[arg] ? arg : null;
+      if (!region) return ui.update(practicalPage(profile));
+      const inRegion = Object.keys(LANG_REGIONS[region].langs);
+      const kept = langList(profile).filter((c) => !inRegion.includes(c));
+      const picked = (interaction.data.values ?? []).filter((c) => inRegion.includes(c));
+      const languages = [...kept, ...picked];
+      if (languages.length > LANG_MAX) return ui.update(practicalPage(profile, { warning: C.langFull(LANG_MAX) }, region));
+      await store.setLanguages(env, userId, languages);
+      profile.languages = languages.length ? languages.join(',') : null;
+      return ui.update(practicalPage(profile, { sealed: true }, region));
+    }
+
+    case 'langclear':
+      await store.setLanguages(env, userId, []);
+      profile.languages = null;
+      return ui.update(practicalPage(profile, { sealed: true }));
+
+    case 'bdayedit':
+      return birthdayForm(profile);
+
+    case 'bdayclear':
+      await store.setBirthday(env, userId, null, null);
+      Object.assign(profile, { birth_day: null, birth_month: null });
+      return ui.update(practicalPage(profile, { sealed: true }));
+
     default:
       return ui.update(mainPage(profile));
   }
@@ -266,7 +368,7 @@ function findValue(components) {
   return null;
 }
 
-// Forms: cz:hex (own color), cz:about (About me), cz:vibetext (own vibe), cz:tastes (Tastes & fun).
+// Forms: cz:hex (own color), cz:about (About me), cz:vibetext (own vibe), cz:tastes (Tastes & fun), cz:birthday.
 export async function customizeModal(interaction, env) {
   const userId = userOf(interaction).id;
   const action = interaction.data.custom_id.split(':')[1];
@@ -297,6 +399,15 @@ export async function customizeModal(interaction, env) {
     await store.setVibe(env, userId, vibe, text);
     Object.assign(profile, { vibe, vibe_text: text });
     return ui.update(aboutPage(profile, { sealed: true }));
+  }
+
+  if (action === 'birthday') {
+    const values = formValues(interaction.data.components);
+    const date = parseBirthday(values.day, values.month);
+    if (!date) return ui.update(practicalPage(profile, { warning: C.badBirthday }));
+    await store.setBirthday(env, userId, date.day, date.month);
+    Object.assign(profile, { birth_day: date.day, birth_month: date.month });
+    return ui.update(practicalPage(profile, { sealed: true }));
   }
 
   if (action === 'tastes') {

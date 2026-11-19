@@ -19,6 +19,8 @@ import { serverCommand } from './server.js';
 import { isStaff } from '../core/roles.js';
 import { customizeCommand } from './customize.js';
 import { customizeTexts } from '../texts/en-customize.js';
+import { isBirthday } from '../data/practical.js';
+import * as store from '../core/store.js';
 
 const S = ui.ButtonStyle;
 
@@ -26,14 +28,20 @@ function userSelect(id, placeholder) {
   return { type: 1, components: [{ type: 5, custom_id: id, placeholder, min_values: 1, max_values: 1 }] };
 }
 
-export function hubCommand(interaction) {
+export async function hubCommand(interaction, env) {
   // ⚙️ Server settings only shows for staff (people who can manage the server).
   const staffRow =
     interaction?.guild_id && isStaff(interaction)
       ? [ui.row(ui.button({ id: 'hub:server', label: serverTexts.hubButton, emoji: '⚙️', style: S.SECONDARY }))]
       : [];
+  // 🎂 On the traveler's birthday (day and month they chose in Customize), a small greeting on top.
+  const userId = interaction?.member?.user?.id ?? interaction?.user?.id;
+  const profile = env && userId ? await store.getProfile(env, userId) : null;
+  const birthday = profile && isBirthday(profile) ? [ui.text(H.birthday), ui.separator()] : [];
+
   return ui.message([
     ui.container(ui.COLORS.auracle, [
+      ...birthday,
       ui.text(`${H.title}\n${H.body}`),
       ui.separator(),
       ui.row(
@@ -94,6 +102,6 @@ export async function hubComponent(interaction, env, later) {
     case 'server':
       return serverCommand(asCommand, env, later);
     default:
-      return hubCommand(interaction);
+      return hubCommand(interaction, env);
   }
 }

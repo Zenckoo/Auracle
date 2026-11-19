@@ -121,6 +121,25 @@ export async function setDms(env, userId, dms) {
     .run();
 }
 
+// 🎨 Customize > 🕰️ Practical: time zone key, language codes (array), birthday (day and month, never the year).
+export async function setTimezone(env, userId, timezone) {
+  await env.DB.prepare('UPDATE profiles SET timezone = ?, updated_at = ? WHERE user_id = ?')
+    .bind(timezone, Date.now(), userId)
+    .run();
+}
+
+export async function setLanguages(env, userId, languages) {
+  await env.DB.prepare('UPDATE profiles SET languages = ?, updated_at = ? WHERE user_id = ?')
+    .bind(languages.length ? languages.join(',') : null, Date.now(), userId)
+    .run();
+}
+
+export async function setBirthday(env, userId, day, month) {
+  await env.DB.prepare('UPDATE profiles SET birth_day = ?, birth_month = ?, updated_at = ? WHERE user_id = ?')
+    .bind(day, month, Date.now(), userId)
+    .run();
+}
+
 export async function deleteProfile(env, userId) {
   await env.DB.prepare('DELETE FROM profiles WHERE user_id = ?').bind(userId).run();
 }
@@ -300,6 +319,11 @@ export async function exportData(env, userId) {
         ask_me_about: profile.ask_about ?? null,
         looking_for: profile.looking_for ? profile.looking_for.split(',') : [],
         dms: profile.dms ?? null,
+      },
+      practical: {
+        time_zone: profile.timezone ?? null,
+        languages: profile.languages ? profile.languages.split(',') : [],
+        birthday: profile.birth_day && profile.birth_month ? `${String(profile.birth_day).padStart(2, '0')}/${String(profile.birth_month).padStart(2, '0')} (day/month)` : null,
       },
       accent_color: profile.accent == null ? null : '#' + profile.accent.toString(16).padStart(6, '0').toUpperCase(),
       completed_at: date(profile.completed_at),
