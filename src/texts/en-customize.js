@@ -26,6 +26,7 @@ export const customizeTexts = {
   pagesTitle: '**📖 More pages**',
   aboutPage: 'About me',
   tastesPage: 'Tastes & fun',
+  practicalPage: 'Practical',
   back: 'Back',
 
   // 💬 About me page
@@ -54,5 +55,22 @@ export const customizeTexts = {
   dmsLine: '**✉️ Direct messages**',
   dmsPlaceholder: 'Your DM preference',
   dmsNone: 'Not shown',
+
+  // 🕰️ Practical page
+  practicalTitle: '### 🕰️ Practical',
+  practicalIntro: '-# Little things that help others reach you. Everything is optional.',
+  timeLine: (name) => `**🕰️ Local time**: ${name ?? 'Not shown'}\n-# Your card shows your current time. Only a broad time zone, never your city.`,
+  timePlaceholder: 'Choose your time zone',
+  timeNone: 'Not shown',
+  langLine: (names, max) => `**🗣️ Languages**: ${names.length ? names.join(', ') : 'None'}\n-# Up to ${max}. Pick a region, then your languages.`,
+  regionPlaceholder: 'Pick a region of the world',
+  langPlaceholder: (region) => `Your languages: ${region}`,
+  langClear: 'Clear languages',
+  langFull: (max) => `-# ⚠️ You can show up to ${max} languages. Remove one before adding another.`,
+  birthdayLine: (date) => `**🎂 Birthday**: ${date ?? 'Not shown'}\n-# Day and month only, never the year. On your birthday, your card celebrates it.`,
+  birthdaySet: 'Set my birthday',
+  birthdayClear: 'Clear',
+  birthdayForm: { title: 'Your birthday', day: 'Day (1 to 31)', month: 'Month (1 to 12)' },
+  badBirthday: '-# ⚠️ That date does not exist. Use numbers, like **14** and **3** for March 14.',
   rules: '-# Keep it kind: no hate, no NSFW, no personal details like your address. Every card can be reported.',
 };
