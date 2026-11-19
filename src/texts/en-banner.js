@@ -8,18 +8,18 @@ export const bannerTexts = {
   none: '-# No banner yet.',
   rules:
     '**📏 Rules**\n' +
-    '-# PNG, JPG, WebP or GIF · at least 600 × 200 pixels · 8 MB max. Wide images look best (about 3 times wider than tall).\n' +
+    '-# PNG, JPG, WebP or GIF · at least 600 × 200 pixels · 10 MB max. Wide images look best (about 3 times wider than tall).\n' +
     '-# Every banner is checked automatically, and can be removed by moderation. Nothing shocking: no nudity, gore, hate or anything unsafe for younger travelers. Only images you have the right to use.\n' +
     '-# ✂️ Moving and cropping your banner will come with the website.',
   upload: 'Upload a banner',
   change: 'Change banner',
   remove: 'Remove',
-  form: { title: 'Your banner', label: 'Your image', description: 'PNG, JPG, WebP or GIF · at least 600 × 200 pixels · 8 MB max' },
+  form: { title: 'Your banner', label: 'Your image', description: 'PNG, JPG, WebP or GIF · at least 600 × 200 pixels · 10 MB max' },
   checking: '### ⏳ Checking your banner...\n-# This takes a few seconds.',
   saved: '### ✨ Your banner is on your card!',
   removed: '### 🧹 Your banner has been removed.',
   badType: '### ⚠️ Wrong file type\nPlease send a PNG, JPG, WebP or GIF image.',
-  tooBig: '### ⚠️ Too heavy\nYour image is over 8 MB. Try a smaller or shorter file.',
+  tooBig: '### ⚠️ Too heavy\nYour image is over 10 MB. Try a smaller or shorter file.',
   tooSmall: (w, h) => `### ⚠️ Too small\nYour image is ${w} × ${h} pixels. It needs at least 600 × 200 pixels to look sharp on your card.`,
   refused: '### 🚫 Banner refused\nThis image does not look safe for everyone, so it cannot be shown on Auracle.\n-# If you think this is a mistake, send a 📬 Feedback.',
   failed: '### ⚠️ Something went wrong\nYour banner could not be saved. Please try again in a moment.',
