@@ -32,6 +32,7 @@ function screen(profile, sealed = false) {
   const isPublic = profile.is_public === 1;
   const isShown = profile.secret_public === 1;
   const wearsRole = profile.wear_role !== 0;
+  const a11y = profile.a11y === 1;
   const parts = [];
   if (sealed) parts.push(ui.text(P.sealed), ui.separator());
   parts.push(
@@ -52,6 +53,9 @@ function screen(profile, sealed = false) {
       ui.button({ id: 'pv:rwear', label: P.wear, emoji: '🏰', style: wearsRole ? S.SUCCESS : S.SECONDARY }),
       ui.button({ id: 'pv:rhide', label: P.noWear, emoji: '🚫', style: wearsRole ? S.SECONDARY : S.SUCCESS }),
     ),
+    ui.separator(),
+    ui.text(P.a11yLine(a11y)),
+    ui.row(ui.button({ id: 'pv:a11y', label: a11y ? P.a11yOff : P.a11yOn, emoji: '♿', style: a11y ? S.SUCCESS : S.SECONDARY })),
     ui.separator(),
     ui.text(P.dataLine),
     dataRow(),
@@ -98,6 +102,12 @@ export async function privacyComponent(interaction, env, later) {
     const isShown = action === 'sshow';
     await store.setSecretPublic(env, userId, isShown);
     profile.secret_public = isShown ? 1 : 0;
+  } else if (action === 'a11y') {
+    // ♿ Only changes how Auracle shows things to this traveler: no guild role to update.
+    const on = profile.a11y !== 1;
+    await store.setAccessibility(env, userId, on);
+    profile.a11y = on ? 1 : 0;
+    return ui.update(screen(profile, true));
   } else if (action === 'rwear' || action === 'rhide') {
     const wear = action === 'rwear';
     await store.setWearRole(env, userId, wear);

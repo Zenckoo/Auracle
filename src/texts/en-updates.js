@@ -30,6 +30,9 @@ export const updatesTexts = {
         '🏅 **Badges**: earn them along your journey and show up to 3 on your card. 🌱 **Early Traveler** is only for travelers of the public beta!',
         '🔄 Taking a new trial now keeps your customization and badges',
         "💌 **Blessings**: leave a kind word on another traveler's card with the 💌 Bless button. Nothing appears until they accept it, and they choose up to 3 to show. Earn the 🕊️ **Kind Soul** badge when 3 of your blessings are accepted!",
+        '🖼️ **Banners**: upload your own image or GIF on top of your card, in 🎨 Customize. Every banner is checked to keep Auracle safe for everyone',
+        '🗂️ **Organize your card**: choose the order of its parts, and hide the ones you want',
+        '♿ **Accessibility mode** in 🔒 Privacy: simpler messages for screen readers, with words instead of bars and no decorative emojis',
       ],
     },
     {
@@ -86,7 +89,6 @@ export const updatesTexts = {
     },
   ],
   soon: [
-    'Profile banners',
     'More languages: French, German and Japanese',
   ],
   footer: '-# Have an idea? Share it with 📬 Feedback in `/auracle`.',

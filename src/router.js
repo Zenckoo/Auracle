@@ -16,6 +16,8 @@ import { blessingsComponent, blessingsModal } from './commands/blessings.js';
 import { bannerComponent, bannerModal } from './commands/banner.js';
 import { organizeComponent } from './commands/organize.js';
 import { syncEverywhere } from './core/roles.js';
+import { accessible } from './core/a11y.js';
+import { getAccessibility } from './core/store.js';
 import { ui } from './core/ui.js';
 import { texts } from './texts/en.js';
 
@@ -58,9 +60,20 @@ function unknown() {
   return ui.message([ui.container(ui.COLORS.auracle, [ui.text(texts.common.unknownCommand)])]);
 }
 
+// ♿ Accessibility mode: simpler messages for the traveler who turned it on (see core/a11y.js).
+async function forReader(interaction, env, answer) {
+  const userId = interaction.member?.user?.id ?? interaction.user?.id;
+  if (!userId || !(answer?.type === 4 || answer?.type === 7)) return answer;
+  try {
+    return (await getAccessibility(env, userId)) ? accessible(answer) : answer;
+  } catch {
+    return answer;
+  }
+}
+
 export async function handleCommand(interaction, env, later) {
   const handler = commandHandlers[interaction.data.name];
-  return handler ? handler(interaction, env, later) : unknown();
+  return forReader(interaction, env, handler ? await handler(interaction, env, later) : unknown());
 }
 
 // Buttons that change a card in the trial: public, private, or a new trial (card erased).
@@ -76,11 +89,11 @@ export async function handleComponent(interaction, env, later) {
   if (ROLE_CHANGES.has(interaction.data.custom_id) && userId) {
     later(syncEverywhere(env, userId).catch(() => {}));
   }
-  return answer;
+  return forReader(interaction, env, answer);
 }
 
 export async function handleModal(interaction, env, later) {
   const prefix = interaction.data.custom_id.split(':')[0];
   const handler = modalHandlers[prefix];
-  return handler ? handler(interaction, env, later) : unknown();
+  return forReader(interaction, env, handler ? await handler(interaction, env, later) : unknown());
 }

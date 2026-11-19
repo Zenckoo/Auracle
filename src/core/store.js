@@ -501,6 +501,18 @@ export async function setCardLayout(env, userId, layout) {
   await env.DB.prepare('UPDATE profiles SET card_layout = ?, updated_at = ? WHERE user_id = ?').bind(layout, Date.now(), userId).run();
 }
 
+// ---- ♿ Accessibility mode ----
+
+export async function setAccessibility(env, userId, on) {
+  await env.DB.prepare('UPDATE profiles SET a11y = ?, updated_at = ? WHERE user_id = ?').bind(on ? 1 : 0, Date.now(), userId).run();
+}
+
+// A light read, done for every answer: true when this traveler turned accessibility mode on.
+export async function getAccessibility(env, userId) {
+  const row = await env.DB.prepare('SELECT a11y FROM profiles WHERE user_id = ?').bind(userId).first();
+  return row?.a11y === 1;
+}
+
 // ---- My data (right of access and portability) ----
 
 // Everything Auracle keeps about this traveler, in one object.
@@ -571,6 +583,7 @@ export async function exportData(env, userId) {
       receives_blessings: profile.blessings_off !== 1,
       banner: profile.banner ? { file: profile.banner, uploaded_at: date(profile.banner_at) } : null,
       card_layout: profile.card_layout ?? null,
+      accessibility_mode: profile.a11y === 1,
       accent_color: profile.accent == null ? null : '#' + profile.accent.toString(16).padStart(6, '0').toUpperCase(),
       completed_at: date(profile.completed_at),
       updated_at: date(profile.updated_at),
