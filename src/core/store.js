@@ -358,6 +358,7 @@ export async function cleanup(env) {
     env.DB.prepare('DELETE FROM report_log WHERE sent_at < ?').bind(now - DAY),
     env.DB.prepare('DELETE FROM bans WHERE until <= ?').bind(now),
     env.DB.prepare('DELETE FROM blessing_log WHERE sent_at < ?').bind(now - DAY),
+    env.DB.prepare('DELETE FROM banner_log WHERE sent_at < ?').bind(now - DAY),
     // 💌 Blessings never accepted are erased after 30 days.
     env.DB.prepare("DELETE FROM blessings WHERE status = 'new' AND created_at < ?").bind(now - THIRTY_DAYS),
   ]);
@@ -471,6 +472,28 @@ export async function deleteBlessings(env, userId) {
   ]);
 }
 
+// ---- 🖼️ Banners ----
+
+// key: the file name in the R2 bucket, or null to remove the banner.
+export async function setBanner(env, userId, key) {
+  await env.DB.prepare('UPDATE profiles SET banner = ?, banner_at = ?, updated_at = ? WHERE user_id = ?')
+    .bind(key, key ? Date.now() : null, Date.now(), userId)
+    .run();
+}
+
+export async function bannerCount(env, userId) {
+  const row = await env.DB.prepare('SELECT COUNT(*) AS n FROM banner_log WHERE user_id = ? AND sent_at > ?').bind(userId, Date.now() - DAY).first();
+  return row?.n ?? 0;
+}
+
+export async function logBanner(env, userId) {
+  await env.DB.prepare('INSERT INTO banner_log (user_id, sent_at) VALUES (?, ?)').bind(userId, Date.now()).run();
+}
+
+export async function deleteBannerLog(env, userId) {
+  await env.DB.prepare('DELETE FROM banner_log WHERE user_id = ?').bind(userId).run();
+}
+
 // ---- My data (right of access and portability) ----
 
 // Everything Auracle keeps about this traveler, in one object.
@@ -539,6 +562,7 @@ export async function exportData(env, userId) {
         blessings_accepted_by_others: profile.blessings_accepted ?? 0,
       },
       receives_blessings: profile.blessings_off !== 1,
+      banner: profile.banner ? { file: profile.banner, uploaded_at: date(profile.banner_at) } : null,
       accent_color: profile.accent == null ? null : '#' + profile.accent.toString(16).padStart(6, '0').toUpperCase(),
       completed_at: date(profile.completed_at),
       updated_at: date(profile.updated_at),
