@@ -12,6 +12,7 @@ import * as scoring from '../core/scoring.js';
 import { reportButton } from './report.js';
 import { customizeTexts as CZ } from '../texts/en-customize.js';
 import { titleName } from '../data/titles.js';
+import { GUILD_DOTS } from '../data/colors.js';
 
 const R = texts.results;
 
@@ -43,13 +44,17 @@ function card(profile, user, name, isOwnPrivate, reportable = false) {
   const title = titleName(profile.title);
   const heading = `## ${cls.emoji} ${cls.name}\n${cls.subtitle}${title ? `\n${CZ.cardLine(title)}` : ''}`;
 
+  // A custom accent color replaces the guild color on the border, so a dot keeps the guild color visible.
+  const hasAccent = profile.accent != null;
+  const guildLabel = `${hasAccent ? `${GUILD_DOTS[cls.guild]} ` : ''}${guild.emoji} ${guild.name}`;
+
   const footer = [`${TT.badge(profile.version)} · ${P.awakened(Math.floor(profile.completed_at / 1000)).replace('-# ', '')}`, R.estimate];
   if (isOwnPrivate) footer.push(P.privateNote);
 
   return [
-    ui.container(ui.COLORS[guild.colorKey], [
+    ui.container(hasAccent ? profile.accent : ui.COLORS[guild.colorKey], [
       ui.section(
-        [P.cardLabel(name), heading, `**${type}** · ${guild.emoji} ${guild.name} · ${flame}`],
+        [P.cardLabel(name), heading, `**${type}** · ${guildLabel} · ${flame}`],
         ui.avatarUrl(user),
       ),
       ui.separator(),

@@ -9,5 +9,15 @@ export const customizeTexts = {
   titlePlaceholder: 'Choose a fantasy title',
   noTitle: 'No title',
   cardLine: (name) => `✨ *${name}*`,
+  colorLine: (name) => `**🎨 Accent color**: ${name ?? 'Guild color'}\n-# The border of your card. Your guild keeps its color with a dot in front of its name.`,
+  colorPlaceholder: 'Choose an accent color',
+  guildColor: 'Guild color',
+  customColor: 'My own hex code...',
+  colorForm: {
+    title: 'Your own color',
+    label: 'Hex code',
+    placeholder: '#FF6FAE',
+  },
+  badColor: '-# ⚠️ That hex code does not look right. Use 6 characters, like **#FF6FAE**.',
   viewCard: 'View my card',
 };

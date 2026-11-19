@@ -10,7 +10,7 @@ import { hubCommand, hubComponent } from './commands/hub.js';
 import { codexComponent } from './commands/codex.js';
 import { serverComponent } from './commands/server.js';
 import { reportComponent, reportModal } from './commands/report.js';
-import { customizeComponent } from './commands/customize.js';
+import { customizeComponent, customizeModal } from './commands/customize.js';
 import { syncEverywhere } from './core/roles.js';
 import { ui } from './core/ui.js';
 import { texts } from './texts/en.js';
@@ -41,6 +41,7 @@ const componentHandlers = {
 const modalHandlers = {
   fb: feedbackModal,
   rp: reportModal,
+  cz: customizeModal,
 };
 
 function unknown() {
