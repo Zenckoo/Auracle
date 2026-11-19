@@ -98,6 +98,29 @@ export async function setVibe(env, userId, vibe, vibeText = null) {
     .run();
 }
 
+// 🎨 Customize > 🎮 Tastes & fun. fields: { games, shows, music, characters, ask_about } (null to clear).
+const TASTE_COLUMNS = ['games', 'shows', 'music', 'characters', 'ask_about'];
+
+export async function setTastes(env, userId, fields) {
+  const values = TASTE_COLUMNS.map((c) => fields[c] ?? null);
+  await env.DB.prepare(`UPDATE profiles SET ${TASTE_COLUMNS.map((c) => `${c} = ?`).join(', ')}, updated_at = ? WHERE user_id = ?`)
+    .bind(...values, Date.now(), userId)
+    .run();
+}
+
+// lookingFor: an array of keys. dms: 'open', 'ask', 'closed' or null.
+export async function setLookingFor(env, userId, lookingFor) {
+  await env.DB.prepare('UPDATE profiles SET looking_for = ?, updated_at = ? WHERE user_id = ?')
+    .bind(lookingFor.length ? lookingFor.join(',') : null, Date.now(), userId)
+    .run();
+}
+
+export async function setDms(env, userId, dms) {
+  await env.DB.prepare('UPDATE profiles SET dms = ?, updated_at = ? WHERE user_id = ?')
+    .bind(dms, Date.now(), userId)
+    .run();
+}
+
 export async function deleteProfile(env, userId) {
   await env.DB.prepare('DELETE FROM profiles WHERE user_id = ?').bind(userId).run();
 }
@@ -269,6 +292,15 @@ export async function exportData(env, userId) {
       fantasy_title: profile.title ?? null,
       about_me: profile.about ?? null,
       current_vibe: profile.vibe === 'custom' ? profile.vibe_text : profile.vibe ?? null,
+      tastes: {
+        games: profile.games ?? null,
+        anime_or_series: profile.shows ?? null,
+        music: profile.music ?? null,
+        characters: profile.characters ?? null,
+        ask_me_about: profile.ask_about ?? null,
+        looking_for: profile.looking_for ? profile.looking_for.split(',') : [],
+        dms: profile.dms ?? null,
+      },
       accent_color: profile.accent == null ? null : '#' + profile.accent.toString(16).padStart(6, '0').toUpperCase(),
       completed_at: date(profile.completed_at),
       updated_at: date(profile.updated_at),

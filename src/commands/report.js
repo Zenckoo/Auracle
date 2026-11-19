@@ -8,6 +8,7 @@ import { reportTexts as RP } from '../texts/en-report.js';
 import { CLASSES } from '../data/classes.js';
 import * as store from '../core/store.js';
 import { vibeLine } from '../data/vibes.js';
+import { tasteLines } from '../data/tastes.js';
 import { showText } from '../core/text.js';
 import { moderationRow } from './moderation.js';
 
@@ -128,6 +129,7 @@ function snapshot(profile) {
   const vibe = vibeLine(profile);
   if (vibe) lines.push(RP.snapshot('🌙 Vibe', vibe));
   if (profile.about) lines.push(RP.snapshot('💬 About me', showText(profile.about)));
+  lines.push(...tasteLines(profile));
   return `${RP.snapshotTitle}\n${lines.length ? lines.join('\n') : RP.nothingFilled}`;
 }
 

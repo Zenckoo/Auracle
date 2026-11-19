@@ -15,6 +15,7 @@ import { titleName } from '../data/titles.js';
 import { GUILD_DOTS } from '../data/colors.js';
 import { vibeLine } from '../data/vibes.js';
 import { showText } from '../core/text.js';
+import { tasteLines } from '../data/tastes.js';
 
 const R = texts.results;
 
@@ -56,6 +57,10 @@ function card(profile, user, name, isOwnPrivate, reportable = false) {
   // 💬 About me, as a quote, only if the traveler wrote one.
   const about = profile.about ? [ui.separator(), ui.text(`❝ *${showText(profile.about)}* ❞`)] : [];
 
+  // 🎮 Tastes & fun, only what the traveler filled in.
+  const tasteList = tasteLines(profile);
+  const tastes = tasteList.length ? [ui.separator(), ui.text(tasteList.join('\n'))] : [];
+
   const footer = [`${TT.badge(profile.version)} · ${P.awakened(Math.floor(profile.completed_at / 1000)).replace('-# ', '')}`, R.estimate];
   if (isOwnPrivate) footer.push(P.privateNote);
 
@@ -66,6 +71,7 @@ function card(profile, user, name, isOwnPrivate, reportable = false) {
         ui.avatarUrl(user),
       ),
       ...about,
+      ...tastes,
       ui.separator(),
       ui.text(traits),
       ui.separator(),
