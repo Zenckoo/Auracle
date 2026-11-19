@@ -179,7 +179,7 @@ export const codexTexts = {
       emoji: '✨',
       name: 'About Auracle',
       body:
-        'Auracle is crafted with care by **Zenckoo**, and still a work in progress.\n\n' +
+        'Auracle is crafted with care by **Zenckoo**. It is in **public beta**: open to everyone, still growing, and shaped by your feedback.\n\n' +
         '🤖 Parts of its code and texts are created with the help of AI. Its art and illustrations will always be made by human hands, never by AI. More in **Auracle and AI**.\n\n' +
         "💡 Spotted a bug or have an idea? Use **📬 Feedback** in `/auracle`. Curious about what's coming? Check **📜 Updates**.\n\n" +
         '🌐 Auracle has its own website: **auracle-site.pages.dev**\n\n' +

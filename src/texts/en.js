@@ -48,7 +48,7 @@ export const texts = {
         '🔒 Your results stay private unless you choose to share them.\n\n' +
         "🌱 Auracle starts with this trial, but it's more than a test: " +
         'a social companion for Discord, inclusive, safe, and soon truly yours to customize.\n\n' +
-        '🛠️ Still a work in progress, tested by a small circle of servers. ' +
+        '🛠️ Auracle is in **public beta**: open to every server, and still growing. ' +
         'Spotted a bug or have an idea? Use **📬 Feedback** in `/auracle`. Lost? `/auracle` gathers everything, and the **📖 Codex** explains how it all works, with support resources if you ever need them.\n\n' +
         '-# Crafted with care by Zenckoo ✨',
       button: 'Continue',
