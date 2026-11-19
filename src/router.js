@@ -14,6 +14,7 @@ import { customizeComponent, customizeModal } from './commands/customize.js';
 import { moderationComponent } from './commands/moderation.js';
 import { blessingsComponent, blessingsModal } from './commands/blessings.js';
 import { bannerComponent, bannerModal } from './commands/banner.js';
+import { organizeComponent } from './commands/organize.js';
 import { syncEverywhere } from './core/roles.js';
 import { ui } from './core/ui.js';
 import { texts } from './texts/en.js';
@@ -41,6 +42,7 @@ const componentHandlers = {
   md: moderationComponent,
   bl: blessingsComponent,
   bn: bannerComponent,
+  og: organizeComponent,
 };
 
 // Forms (modals), same naming.
