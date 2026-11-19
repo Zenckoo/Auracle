@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy · Auracle</title>
+<meta name="description" content="What Auracle keeps about you, why, and how you stay in control.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night: #0e1328;
+    --night-2: #151c3a;
+    --night-3: #1d2650;
+    --ink: #f3efe2;
+    --soft: #c9cdea;
+    --muted: #8f97c4;
+    --line: rgba(201, 205, 234, 0.16);
+    --accent: #4c6fff;
+    --dreamers: #9b87f5;
+    --scholars: #1fa67a;
+    --guardians: #e0a526;
+    --wanderers: #e0533d;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: 'Inter', system-ui, sans-serif; font-size: 16px; line-height: 1.65; color: var(--soft); background: var(--night); }
+  h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; color: var(--ink); line-height: 1.2; }
+  a { color: inherit; }
+  b { color: var(--ink); font-weight: 500; }
+  code { font-family: ui-monospace, monospace; font-size: .9em; background: var(--night-3); padding: 1px 6px; border-radius: 5px; color: var(--ink); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+  /* Stars, drawn in code */
+  .sky { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .star { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; opacity: .5; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%, 100% { opacity: .2; } 50% { opacity: .8; } }
+  @media (prefers-reduced-motion: reduce) { .star { animation: none; } }
+  header, main, footer { position: relative; z-index: 1; }
+
+  .home { display: inline-block; margin-top: 22px; font-size: 14px; color: var(--muted); text-decoration: none; }
+  .home:hover { color: var(--ink); }
+  .hero { text-align: center; padding: 36px 0 28px; }
+  .hero h1 { font-size: clamp(38px, 10vw, 60px); margin: 0 0 6px; }
+  .hero p { margin: 0 auto; max-width: 520px; }
+
+  .updated { font-size: 13px; color: var(--muted); margin-top: 10px !important; }
+  .contents { background: var(--night-2); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; margin-bottom: 28px; }
+  .contents h2 { font-size: 22px; margin: 0 0 10px; }
+  .contents ol { margin: 0; padding-left: 22px; columns: 2 220px; column-gap: 24px; }
+  .contents li { margin: 3px 0; break-inside: avoid; }
+  .contents a { text-decoration: none; }
+  .contents a:hover { color: var(--ink); text-decoration: underline; }
+
+  .page { background: var(--night-2); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 6px; padding: 18px 22px; margin-bottom: 18px; scroll-margin-top: 16px; }
+  .page .num { font-size: 12px; color: var(--muted); margin: 0; }
+  .page h2 { font-size: 26px; margin: 4px 0 12px; }
+  .page p { margin: 0 0 10px; }
+  .page ul { margin: 0 0 10px; padding-left: 20px; }
+  .page .small { font-size: 13px; color: var(--muted); }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 4px; }
+  .link { display: inline-block; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,.03); color: var(--ink); text-decoration: none; font-size: 14px; }
+  .link:hover { border-color: var(--accent); }
+  .top { display: inline-block; margin-top: 8px; font-size: 13px; color: var(--muted); text-decoration: none; }
+  .top:hover { color: var(--ink); }
+
+  /* Guilds */
+  .guilds { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); margin-bottom: 6px; }
+  .guild { background: var(--night-3); border: 1px solid var(--line); border-top: 4px solid var(--c); border-radius: 0 0 12px 12px; padding: 14px 16px; }
+  .guild h3 { font-size: 20px; margin: 0 0 8px; }
+  .guild h3 .dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; background: var(--c); margin-right: 8px; vertical-align: 2px; }
+  .guild ul { list-style: none; padding: 0; margin: 0; font-size: 15px; }
+  .guild li { padding: 4px 0; border-top: 1px solid var(--line); }
+  .guild li:first-child { border-top: none; }
+  .guild li span { color: var(--muted); font-size: 13px; }
+
+  footer { border-top: 1px solid var(--line); padding: 36px 0 48px; margin-top: 28px; text-align: center; font-size: 14px; color: var(--muted); }
+  footer nav { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px; }
+  footer nav a { color: var(--soft); text-decoration: none; }
+  footer nav a:hover { color: var(--ink); text-decoration: underline; }
+  .sign { font-family: 'Marcellus', serif; color: var(--soft); }
+</style>
+</head>
+<body>
+<div class="sky" id="sky" aria-hidden="true"></div>
+
+<header class="wrap">
+  <a class="home" href="/">← Back to Auracle</a>
+  <div class="hero">
+    <h1>🔒 Privacy Policy</h1>
+    <p>Auracle is a free Discord bot made by Zenckoo, a solo creator. This page explains, in plain words, what Auracle keeps about you, why, and how you stay in control.</p>
+    <p class="updated">Last updated: November 19, 2026</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <nav class="contents" id="contents">
+    <h2>Contents</h2>
+    <ol>
+        <li><a href="#what-auracle-keeps">📦 What Auracle keeps</a></li>
+        <li><a href="#why">🎯 Why Auracle keeps it</a></li>
+        <li><a href="#never">🚫 What Auracle never does</a></li>
+        <li><a href="#your-rights">🗝️ Your rights</a></li>
+        <li><a href="#younger-travelers">🌱 Younger travelers</a></li>
+        <li><a href="#contact">📬 Contact</a></li>
+    </ol>
+  </nav>
+
+    <article class="page" id="what-auracle-keeps">
+      <p class="num">Part 1 / 6</p>
+      <h2>📦 What Auracle keeps</h2>
+      <ul>
+        <li><b>Your Discord user ID</b>, the number that identifies your account. Auracle never sees your password or your email.</li>
+        <li><b>Your trial</b>: your answers, the trial you chose, and where you stopped. Unfinished trials are erased 30 days after your last answer.</li>
+        <li><b>Your results</b>: your answers, your five traits, your 30 facets, your class, and the date you finished.</li>
+        <li><b>Your privacy choices</b>: whether your card and your hidden secret are public or private.</li>
+        <li><b>The servers where you used Auracle</b>, with the last date, only to count public cards in 🏰 Guilds.</li>
+        <li><b>The Feedback you send</b>: your message, your Discord ID and your username, delivered to Zenckoo's private Discord server so it can be read and answered.</li>
+      </ul>
+      <p>When card customization arrives, what you choose to add to your card will be kept too, and this page will be updated first.</p>
+      <p>Auracle does not read your messages, your channels or your DMs. It only sees what you send through its own commands and buttons.</p>
+      <a class="top" href="#contents">↑ Back to contents</a>
+    </article>
+
+    <article class="page" id="why">
+      <p class="num">Part 2 / 6</p>
+      <h2>🎯 Why Auracle keeps it</h2>
+      <p>Only to make Auracle work for you:</p>
+      <ul>
+        <li>run the trial, save your progress, and show your results;</li>
+        <li>show your card the way you chose, public or private;</li>
+        <li>count public cards in 🏰 Guilds;</li>
+        <li>read and answer your Feedback.</li>
+      </ul>
+      <p>Nothing else. No ads, no tracking, no profiles built for anyone else.</p>
+      <a class="top" href="#contents">↑ Back to contents</a>
+    </article>
+
+    <article class="page" id="never">
+      <p class="num">Part 3 / 6</p>
+      <h2>🚫 What Auracle never does</h2>
+      <ul>
+        <li>Never sells, rents or trades your data.</li>
+        <li>Never shows your private card to anyone. Your facets are never shown to others, even when your card is public.</li>
+        <li>Never sends your answers or results to an AI. Your results come from a fixed formula based on public research.</li>
+        <li>Never uses your data for ads.</li>
+        <li>Never asks for your real name, your address, your city, your phone number or your email.</li>
+      </ul>
+      <p><b>Where your data lives:</b> Auracle and this website run on Cloudflare, which stores the data safely for Auracle. Discord also sees the commands you use, as with any bot, under Discord's own privacy policy.</p>
+      <p><b>This website</b> uses no cookies and no tracking tools. It loads its fonts from Google Fonts, which can see your IP address, like on most websites.</p>
+      <div class="links"><a class="link" href="https://discord.com/privacy" target="_blank" rel="noopener">🔗 Discord Privacy Policy</a><a class="link" href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">🔗 Cloudflare Privacy Policy</a></div>
+      <a class="top" href="#contents">↑ Back to contents</a>
+    </article>
+
+    <article class="page" id="your-rights">
+      <p class="num">Part 4 / 6</p>
+      <h2>🗝️ Your rights</h2>
+      <ul>
+        <li><b>See:</b> your card and your results are always one tap away in <code>/auracle</code>.</li>
+        <li><b>Change:</b> make your card and your hidden secret public or private anytime with 🔒 Privacy in <code>/auracle</code>.</li>
+        <li><b>Erase:</b> <code>/forget</code> erases your answers, your results, your choices and your server list, right away and forever. Feedback you already sent stays in Zenckoo's server, unless you ask for it to be removed.</li>
+        <li><b>Get a copy:</b> ask through the contact below, and you will receive everything Auracle keeps about you. A download button is planned on this website.</li>
+      </ul>
+      <p>If you live in the European Union or the United Kingdom, the GDPR also gives you the right to access, correct, erase or object to the use of your data, and to complain to your data protection authority (in France, the CNIL).</p>
+      <a class="top" href="#contents">↑ Back to contents</a>
+    </article>
+
+    <article class="page" id="younger-travelers">
+      <p class="num">Part 5 / 6</p>
+      <h2>🌱 Younger travelers</h2>
+      <p>Discord accounts are for people aged 13 or older (or older, depending on your country), so Auracle follows the same rule.</p>
+      <ul>
+        <li>Everything is <b>private by default</b>: nothing is shown to others unless you choose it.</li>
+        <li>Auracle never asks where you live, and future card options will never include a city or an address.</li>
+        <li>If you are under 18, keep your results private, and talk to a trusted adult if anything feels heavy.</li>
+      </ul>
+      <p>A parent or guardian who wants a young person's data erased can use the contact below.</p>
+      <a class="top" href="#contents">↑ Back to contents</a>
+    </article>
+
+    <article class="page" id="contact">
+      <p class="num">Part 6 / 6</p>
+      <h2>📬 Contact</h2>
+      <p>A question, a copy of your data, or something to remove? Use <b>📬 Feedback</b> in <code>/auracle</code>: your message goes straight to Zenckoo. A contact email is coming soon.</p>
+      <p class="small">If this policy changes, Auracle will tell you in 📜 Updates, and the date at the top of this page will change.</p>
+      <a class="top" href="#contents">↑ Back to contents</a>
+    </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <nav>
+      <a href="/">🔮 Home</a>
+      <a href="/codex">📖 Codex</a>
+      <a href="/privacy">🔒 Privacy Policy</a>
+      <a href="/terms">📜 Terms of Service</a>
+    </nav>
+    <p class="sign">Crafted with care by Zenckoo ✨</p>
+  </div>
+</footer>
+
+<script>
+  // Stars, placed at random by code.
+  const sky = document.getElementById('sky');
+  for (let i = 0; i < 70; i++) {
+    const s = document.createElement('span');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.animationDelay = (Math.random() * 4).toFixed(2) + 's';
+    if (Math.random() < 0.15) { s.style.width = s.style.height = '3px'; }
+    sky.appendChild(s);
+  }
+</script>
+</body>
+</html>
