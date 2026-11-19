@@ -15,3 +15,12 @@ database_id = "f09ab038-9b6e-471a-af52-506c72d58f2d"
 # Every night at 03:17 UTC: cleanup of old data (see scheduled() in src/index.js).
 [triggers]
 crons = ["17 3 * * *"]
+
+# 🖼️ Banners: the images travelers upload are stored here.
+[[r2_buckets]]
+binding = "BANNERS"
+bucket_name = "auracle-banners"
+
+# 🤖 Workers AI: checks every banner automatically before it is shown (it never creates images).
+[ai]
+binding = "AI"

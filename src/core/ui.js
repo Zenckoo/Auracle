@@ -110,6 +110,15 @@ export const ui = {
       body: form,
     });
   },
+  // Replaces the message this interaction answered (used after a slow task, like checking a banner).
+  async editOriginal(interaction, components) {
+    await fetch(`https://discord.com/api/v10/webhooks/${interaction.application_id}/${interaction.token}/messages/@original`, {
+      method: 'PATCH',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ components, allowed_mentions: { parse: [] } }),
+    });
+  },
+
   avatarUrl(user) {
     if (user?.avatar) return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=256`;
     const index = Number((BigInt(user?.id ?? '0') >> 22n) % 6n);

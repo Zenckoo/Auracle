@@ -4,6 +4,7 @@ import { ui } from '../core/ui.js';
 import { forgetTexts as F } from '../texts/en-privacy.js';
 import * as store from '../core/store.js';
 import * as roles from '../core/roles.js';
+import { deleteBannerFile } from '../core/banners.js';
 
 function userOf(interaction) {
   return interaction.member?.user ?? interaction.user;
@@ -37,6 +38,10 @@ export async function forgetComponent(interaction, env, later) {
   if (action === 'erase') {
     // Read the servers with guild roles before the server list is erased, then remove the roles.
     const servers = await store.roleServersOfUser(env, userId);
+    // 🖼️ The banner file is erased from storage too.
+    const profile = await store.getProfile(env, userId);
+    await deleteBannerFile(env, profile?.banner);
+    await store.deleteBannerLog(env, userId);
     await store.deleteProfile(env, userId);
     await store.deleteTrial(env, userId);
     await store.deleteMembers(env, userId);

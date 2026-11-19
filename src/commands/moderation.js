@@ -5,6 +5,7 @@ import { ui } from '../core/ui.js';
 import { config } from '../config.js';
 import { moderationTexts as M } from '../texts/en-moderation.js';
 import * as store from '../core/store.js';
+import { deleteBannerFile } from '../core/banners.js';
 
 const S = ui.ButtonStyle;
 
@@ -37,5 +38,9 @@ export async function moderationComponent(interaction, env) {
   if (field === 'tastes') await store.setTastes(env, targetId, {});
   if (field === 'identity') await store.clearIdentity(env, targetId);
   if (field === 'blessings') await store.clearAcceptedBlessings(env, targetId);
+  if (field === 'banner') {
+    await deleteBannerFile(env, profile.banner);
+    await store.setBanner(env, targetId, null);
+  }
   return ui.message(box(M.done(M.what[field], targetId)));
 }

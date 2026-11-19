@@ -20,6 +20,9 @@ export const SITE = {
   terms: 'https://auracle-site.pages.dev/terms',
 };
 
+// 🖼️ Public address of the R2 bucket where banners are stored (its r2.dev link). Empty: banners are off.
+export const BANNER_BASE = '';
+
 // Discord permissions Auracle asks for: only Manage Roles, for its four guild roles.
 export const MANAGE_ROLES = 0x10000000n;
 

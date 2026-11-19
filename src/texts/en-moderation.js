@@ -9,5 +9,5 @@ export const moderationTexts = {
   notAllowed: '### 🔒 Moderators only\nOnly Zenckoo can use these buttons.',
   done: (what, userId) => `### ✅ Done\n${what} of <@${userId}> has been cleared.`,
   gone: '### 🌫️ Nothing to clear\nThis traveler has no card anymore.',
-  what: { about: 'About me', vibe: 'The vibe', tastes: 'The tastes', identity: 'The identity', blessings: 'The blessings' },
+  what: { about: 'About me', vibe: 'The vibe', tastes: 'The tastes', identity: 'The identity', blessings: 'The blessings', banner: 'The banner' },
 };
