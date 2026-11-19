@@ -78,6 +78,13 @@ export async function setTitle(env, userId, title) {
     .run();
 }
 
+// 🎨 Customize: the accent color (a number like 0xff6fae), or null for the guild color.
+export async function setAccent(env, userId, accent) {
+  await env.DB.prepare('UPDATE profiles SET accent = ?, updated_at = ? WHERE user_id = ?')
+    .bind(accent, Date.now(), userId)
+    .run();
+}
+
 export async function deleteProfile(env, userId) {
   await env.DB.prepare('DELETE FROM profiles WHERE user_id = ?').bind(userId).run();
 }
@@ -247,6 +254,7 @@ export async function exportData(env, userId) {
       hidden_secret_shown: profile.secret_public === 1,
       wears_guild_role: profile.wear_role !== 0,
       fantasy_title: profile.title ?? null,
+      accent_color: profile.accent == null ? null : '#' + profile.accent.toString(16).padStart(6, '0').toUpperCase(),
       completed_at: date(profile.completed_at),
       updated_at: date(profile.updated_at),
     },
