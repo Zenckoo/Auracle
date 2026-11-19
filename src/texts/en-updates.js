@@ -29,6 +29,7 @@ export const updatesTexts = {
         '📖 A new Codex page, **Identity words**: pronouns, genders and orientations explained simply',
         '🏅 **Badges**: earn them along your journey and show up to 3 on your card. 🌱 **Early Traveler** is only for travelers of the public beta!',
         '🔄 Taking a new trial now keeps your customization and badges',
+        "💌 **Blessings**: leave a kind word on another traveler's card with the 💌 Bless button. Nothing appears until they accept it, and they choose up to 3 to show. Earn the 🕊️ **Kind Soul** badge when 3 of your blessings are accepted!",
       ],
     },
     {

@@ -5,6 +5,7 @@
 //   practical: 🕰️ Practical (time zone, languages by region, birthday)
 //   identity: 🌈 Identity (pronouns, gender, orientation, origins), only after explicit consent, private by default
 //   badges: 🏅 Badges (all badges, and up to 3 shown on the card)
+//   💌 Blessings has its own file (blessings.js), opened from the main page.
 // Opened from the /auracle menu. Buttons, menus and forms are named "cz:...".
 
 import { ui } from '../core/ui.js';
@@ -19,8 +20,9 @@ import { TIMEZONES, LANG_REGIONS, LANG_MAX, langList, langName, parseBirthday, b
 import { IDENTITY_FIELDS, OWN_MAX, identityKeys, identityNames, hasIdentity } from '../data/identity.js';
 import { ORIGIN_REGIONS, ORIGIN_MAX, flag, originKeys, originNames } from '../data/origins.js';
 import { SITE } from '../config.js';
-import { BADGES, SHOW_MAX, KINDRED_GOAL, earnedBadges, shownBadges, pagesSeen } from '../data/badges.js';
+import { BADGES, SHOW_MAX, KINDRED_GOAL, KIND_SOUL_GOAL, earnedBadges, shownBadges, pagesSeen } from '../data/badges.js';
 import { badgeTexts as B } from '../texts/en-badges.js';
+import { blessingTexts } from '../texts/en-blessings.js';
 import { codexTexts } from '../texts/en-codex.js';
 import { earn, announce } from '../core/badges.js';
 import { cleanText, showText } from '../core/text.js';
@@ -103,7 +105,10 @@ function mainPage(profile, state = {}) {
         ui.button({ id: 'cz:page:identity', label: C.identityPage, emoji: '🌈', style: S.PRIMARY }),
         ui.button({ id: 'cz:page:badges', label: B.page, emoji: '🏅', style: S.PRIMARY }),
       ),
-      ui.row(cardButton()),
+      ui.row(
+        ui.button({ id: 'bl:page', label: blessingTexts.page, emoji: '💌', style: S.PRIMARY }),
+        cardButton(),
+      ),
     ]),
   ];
 }
@@ -340,6 +345,7 @@ function identityOrConsent(profile, state = {}) {
 function progress(profile, key) {
   if (key === 'kindred') return `${Math.min(profile.compare_count ?? 0, KINDRED_GOAL)}/${KINDRED_GOAL}`;
   if (key === 'lorekeeper') return `${pagesSeen(profile)}/${codexTexts.pages.length}`;
+  if (key === 'kindsoul') return `${Math.min(profile.blessings_accepted ?? 0, KIND_SOUL_GOAL)}/${KIND_SOUL_GOAL}`;
   return null;
 }
 

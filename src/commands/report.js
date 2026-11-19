@@ -125,7 +125,7 @@ async function nameOf(env, userId) {
 }
 
 // What the reported card shows right now, so Zenckoo sees it even if it changes later.
-function snapshot(profile) {
+function snapshot(profile, blessings = []) {
   const lines = [];
   const vibe = vibeLine(profile);
   if (vibe) lines.push(RP.snapshot('🌙 Vibe', vibe));
@@ -133,6 +133,8 @@ function snapshot(profile) {
   lines.push(...tasteLines(profile));
   // 🌈 Identity, only if the traveler made it public (otherwise nobody else could see it).
   if (profile.identity_public === 1 && identityLine(profile)) lines.push(identityLine(profile));
+  // 💌 Blessings shown on the card, with who wrote them.
+  for (const b of blessings) lines.push(RP.snapshot('💌 Blessing', `${showText(b.text)} (from <@${b.author_id}>, ID ${b.author_id})`));
   return `${RP.snapshotTitle}\n${lines.length ? lines.join('\n') : RP.nothingFilled}`;
 }
 
@@ -160,7 +162,7 @@ export async function reportModal(interaction, env) {
           ui.text(RP.reported(targetId, await nameOf(env, targetId))),
           ui.text(RP.card(`${cls.emoji} ${cls.name}`, profile.type_code)),
           ui.separator(),
-          ui.text(snapshot(profile)),
+          ui.text(snapshot(profile, await store.shownBlessings(env, targetId))),
           ui.separator(),
           ui.text(details || RP.noDetails),
           ui.separator(),
