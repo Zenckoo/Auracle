@@ -3,6 +3,7 @@
 export const texts = {
   common: {
     unknownCommand: 'This spell is not known yet, traveler.',
+    links: { home: 'Website', privacy: 'Privacy Policy', terms: 'Terms of Service' },
   },
 
   help: {
@@ -19,7 +20,7 @@ export const texts = {
       '✨ **Awaken**: begin your trial',
       '🪪 **My card**: view your profile card',
       '🏰 **Guilds**: how the guilds are spread across the server',
-      '🔒 **Privacy**: choose what you share with others',
+      '🔒 **Privacy**: choose what you share, and get a copy of your data',
       "📜 **Updates**: see what's new and what's coming",
       '📬 **Feedback**: report a bug or suggest an idea',
       '❔ **Help**: open this guide',
@@ -64,11 +65,11 @@ export const texts = {
         "🤖 **Built with AI assistance.** Auracle embraces today's tools: parts of its code and texts are created with the help of **Claude**, an AI by Anthropic. Its art and illustrations, however, will always be made by human hands, never by AI.\n\n" +
         '🔞 **Discretion is advised.** If you are under 18, keep your results private and talk to a trusted adult if anything feels heavy.\n\n' +
         '-# You are always more than a test result. 💜',
+      agree: "📜 By continuing, you agree to Auracle's **Terms of Service** and **Privacy Policy**.",
       button: 'I understand',
     },
 
     question: {
-      versionName: 'Standard Trial',
       prompt: '-# How accurately does this describe you?',
       answers: ['Not me at all', 'Mostly not me', 'In between', 'Mostly me', 'Exactly me'],
       back: 'Back',

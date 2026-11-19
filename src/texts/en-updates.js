@@ -23,6 +23,7 @@ export const updatesTexts = {
         '⚖️ A new, much more detailed Privacy Policy and Terms of Service, with full transparency on AI',
         '🤖 Auracle now credits **Claude**, the AI by Anthropic that helps write its code and texts',
         '📬 Feedback is limited to 5 messages every 24 hours, to keep it spam-free',
+        '🔗 Links to the website, the Privacy Policy and the Terms of Service in Help, Privacy, the Codex and before the trial',
       ],
     },
     {
