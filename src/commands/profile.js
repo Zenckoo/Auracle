@@ -18,6 +18,7 @@ import { showText } from '../core/text.js';
 import { tasteLines } from '../data/tastes.js';
 import { practicalLine } from '../data/practical.js';
 import { identityLine } from '../data/identity.js';
+import { badgeLine } from '../data/badges.js';
 
 const R = texts.results;
 
@@ -67,8 +68,10 @@ function card(profile, user, name, isOwnPrivate, reportable = false) {
   const tasteList = [...tasteLines(profile), practicalLine(profile)].filter(Boolean);
   const tastes = tasteList.length ? [ui.separator(), ui.text(tasteList.join('\n'))] : [];
 
-  const footer = [`${TT.badge(profile.version)} · ${P.awakened(Math.floor(profile.completed_at / 1000)).replace('-# ', '')}`, R.estimate];
+  // 🏅 Up to 3 badges chosen by the traveler, on top of the footer.
+  const footer = [badgeLine(profile), `${TT.badge(profile.version)} · ${P.awakened(Math.floor(profile.completed_at / 1000)).replace('-# ', '')}`, R.estimate];
   if (isOwnPrivate) footer.push(P.privateNote);
+  const footerText = footer.filter(Boolean).join('\n');
 
   return [
     ui.container(hasAccent ? profile.accent : ui.COLORS[guild.colorKey], [
@@ -81,7 +84,7 @@ function card(profile, user, name, isOwnPrivate, reportable = false) {
       ui.separator(),
       ui.text(traits),
       ui.separator(),
-      ui.text(footer.join('\n')),
+      ui.text(footerText),
       ...(reportable ? [ui.row(reportButton(user.id))] : []),
     ]),
   ];
