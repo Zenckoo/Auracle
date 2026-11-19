@@ -10,6 +10,8 @@ import { CLASSES, GUILDS } from '../data/classes.js';
 import * as store from '../core/store.js';
 import * as scoring from '../core/scoring.js';
 import { reportButton } from './report.js';
+import { customizeTexts as CZ } from '../texts/en-customize.js';
+import { titleName } from '../data/titles.js';
 
 const R = texts.results;
 
@@ -38,13 +40,16 @@ function card(profile, user, name, isOwnPrivate, reportable = false) {
     traits += `\n\n${SX.cardLine(s.name, s.facetPct)}`;
   }
 
+  const title = titleName(profile.title);
+  const heading = `## ${cls.emoji} ${cls.name}\n${cls.subtitle}${title ? `\n${CZ.cardLine(title)}` : ''}`;
+
   const footer = [`${TT.badge(profile.version)} · ${P.awakened(Math.floor(profile.completed_at / 1000)).replace('-# ', '')}`, R.estimate];
   if (isOwnPrivate) footer.push(P.privateNote);
 
   return [
     ui.container(ui.COLORS[guild.colorKey], [
       ui.section(
-        [P.cardLabel(name), `## ${cls.emoji} ${cls.name}\n${cls.subtitle}`, `**${type}** · ${guild.emoji} ${guild.name} · ${flame}`],
+        [P.cardLabel(name), heading, `**${type}** · ${guild.emoji} ${guild.name} · ${flame}`],
         ui.avatarUrl(user),
       ),
       ui.separator(),

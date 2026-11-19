@@ -24,6 +24,7 @@ export const updatesTexts = {
         '🤖 Auracle now credits **Claude**, the AI by Anthropic that helps write its code and texts',
         '📬 Feedback is limited to 5 messages every 24 hours, to keep it spam-free',
         '🔗 Links to the website, the Privacy Policy and the Terms of Service in Help, Privacy, the Codex and before the trial',
+        '🎨 **Customize** in `/auracle`: choose a fantasy title for your card, among 15',
         "🚩 **Report**: every traveler's card now has a Report button. Pick a reason, and your report goes privately to Zenckoo",
       ],
     },

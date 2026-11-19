@@ -17,6 +17,8 @@ import { codexTexts } from '../texts/en-codex.js';
 import { serverTexts } from '../texts/en-server.js';
 import { serverCommand } from './server.js';
 import { isStaff } from '../core/roles.js';
+import { customizeCommand } from './customize.js';
+import { customizeTexts } from '../texts/en-customize.js';
 
 const S = ui.ButtonStyle;
 
@@ -37,6 +39,7 @@ export function hubCommand(interaction) {
       ui.row(
         ui.button({ id: 'hub:awaken', label: H.awaken, emoji: '✨', style: S.PRIMARY }),
         ui.button({ id: 'hub:card', label: H.card, emoji: '🪪', style: S.PRIMARY }),
+        ui.button({ id: 'hub:customize', label: customizeTexts.hubButton, emoji: '🎨', style: S.PRIMARY }),
         ui.button({ id: 'hub:guilds', label: H.guilds, emoji: '🏰', style: S.SECONDARY }),
         ui.button({ id: 'hub:privacy', label: H.privacy, emoji: '🔒', style: S.SECONDARY }),
       ),
@@ -68,6 +71,8 @@ export async function hubComponent(interaction, env, later) {
       return awakenCommand(asCommand, env, later);
     case 'card':
       return profileCommand(asCommand, env, later);
+    case 'customize':
+      return customizeCommand(asCommand, env, later);
     case 'guilds':
       return guildsCommand(asCommand, env, later);
     case 'privacy':

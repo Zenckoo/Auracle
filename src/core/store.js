@@ -71,6 +71,13 @@ export async function setSecretPublic(env, userId, isShown) {
     .run();
 }
 
+// 🎨 Customize: the fantasy title (a key from data/titles.js), or null for none.
+export async function setTitle(env, userId, title) {
+  await env.DB.prepare('UPDATE profiles SET title = ?, updated_at = ? WHERE user_id = ?')
+    .bind(title, Date.now(), userId)
+    .run();
+}
+
 export async function deleteProfile(env, userId) {
   await env.DB.prepare('DELETE FROM profiles WHERE user_id = ?').bind(userId).run();
 }
@@ -239,6 +246,7 @@ export async function exportData(env, userId) {
       card_public: profile.is_public === 1,
       hidden_secret_shown: profile.secret_public === 1,
       wears_guild_role: profile.wear_role !== 0,
+      fantasy_title: profile.title ?? null,
       completed_at: date(profile.completed_at),
       updated_at: date(profile.updated_at),
     },
