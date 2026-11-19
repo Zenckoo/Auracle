@@ -2,6 +2,7 @@
 // Every answer is saved at once, so closing the message never loses anything.
 
 import { ui } from '../core/ui.js';
+import { siteLinks } from '../core/links.js';
 import { texts } from '../texts/en.js';
 import { secretTexts as SX } from '../texts/en-secrets.js';
 import { trialTexts as TT } from '../texts/en-trials.js';
@@ -80,6 +81,8 @@ function disclaimerScreen() {
     ui.text(T.disclaimer.title),
     ui.text(T.disclaimer.body),
     ui.separator(),
+    ui.text(T.disclaimer.agree),
+    siteLinks('terms', 'privacy'),
     ui.row(ui.button({ id: 'aw:choose', label: T.disclaimer.button, emoji: '✅' })),
   ]);
 }

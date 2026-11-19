@@ -1,4 +1,4 @@
-// English texts for /codex: how Auracle works, with links to sources.
+// English texts for the Codex (📖 Codex in /auracle, and the Codex page of the website).
 
 export const codexTexts = {
   title: '### 📖 The Codex',
@@ -7,7 +7,6 @@ export const codexTexts = {
   next: 'Next',
   jump: 'Jump to a page',
   footer: '-# Questions or ideas? Share them with 📬 Feedback in `/auracle`.',
-  helpEntry: { name: '`/codex`', description: 'How Auracle works, sources, and where to find support' },
   hubButton: 'Codex',
   pages: [
     {
@@ -72,8 +71,8 @@ export const codexTexts = {
         '- Unfinished trials, erased 30 days after your last answer\n' +
         '- Which server you used Auracle on, only for 🏰 Guilds and guild roles\n\n' +
         'Your card and your hidden secret are **private by default**. Your facets are never shown to others. `/forget` erases everything, anytime, and **📦 My data** in 🔒 Privacy sends you a copy of everything Auracle keeps.\n\n' +
-        '-# All the details are in the Privacy Policy: **auracle-site.pages.dev/privacy**',
-      links: [],
+        '-# Every detail is in the Privacy Policy.',
+      links: [{ label: 'Privacy Policy', url: 'https://auracle-site.pages.dev/privacy' }],
     },
     {
       emoji: '🌱',
@@ -171,10 +170,13 @@ export const codexTexts = {
         '⚙️ **What it does:** Auracle only answers its own commands. It never reads your channels, never sends messages on its own, and needs no admin or moderation permission.\n\n' +
         '🏰 **Guild roles (optional):** staff can turn them on in ⚙️ Server settings, in `/auracle`. Auracle then creates the four guild roles and gives each member with a public card the role of their guild. For this only, it asks for **Manage Roles**, and it never touches any other role.\n\n' +
         '👀 **What members see:** **Compare**, **Guilds** and public cards are posted in the channel. Everything else stays private to the member.\n\n' +
-        '🔒 **What it keeps:** a member\'s answers and results, and which servers they used Auracle on (only for Guilds). Members can erase it all with `/forget`. Private cards are never shown to others or counted.\n\n' +
+        '🔒 **What it keeps:** a member\'s answers and results, and which servers they used Auracle on (only for Guilds and guild roles). Members can erase it all with `/forget`. Private cards are never shown to others or counted.\n\n' +
         '🚫 **What it is not:** a diagnosis, a moderation tool, or a way to sort, rank or select members. Please never use results to judge anyone.\n\n' +
         '💬 **A problem or a question?** Use 📬 Feedback in `/auracle`: messages go straight to Zenckoo.',
-      links: [],
+      links: [
+        { label: 'Terms of Service', url: 'https://auracle-site.pages.dev/terms' },
+        { label: 'Privacy Policy', url: 'https://auracle-site.pages.dev/privacy' },
+      ],
     },
     {
       emoji: '✨',
@@ -186,7 +188,11 @@ export const codexTexts = {
         '🌐 Auracle has its own website: **auracle-site.pages.dev**\n\n' +
         '-# Crystal ball icon by Lorc, from game-icons.net, under the CC BY 3.0 license.\n' +
         '-# Auracle is not affiliated with Discord or Anthropic.',
-      links: [],
+      links: [
+        { label: 'Website', url: 'https://auracle-site.pages.dev' },
+        { label: 'Privacy Policy', url: 'https://auracle-site.pages.dev/privacy' },
+        { label: 'Terms of Service', url: 'https://auracle-site.pages.dev/terms' },
+      ],
     },
   ],
 };
