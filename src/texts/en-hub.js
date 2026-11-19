@@ -13,6 +13,4 @@ export const hubTexts = {
   forget: 'Forget',
   viewPlaceholder: "🪪 View a traveler's card",
   comparePlaceholder: '🤝 Compare with a traveler',
-  // Line added at the top of /help.
-  helpEntry: { name: '`/auracle`', description: 'Open the menu (no need to type commands)' },
 };

@@ -1,4 +1,4 @@
-// /privacy: choose if your profile card is public or private, and if your hidden secret shows on it.
+// 🔒 Privacy (in the /auracle menu): public or private card, hidden secret, guild role, and My data.
 
 import { ui } from '../core/ui.js';
 import { profileTexts } from '../texts/en-profile.js';
@@ -7,6 +7,8 @@ import { secretTexts as SX } from '../texts/en-secrets.js';
 import { CLASSES, GUILDS } from '../data/classes.js';
 import * as store from '../core/store.js';
 import * as roles from '../core/roles.js';
+import { SITE } from '../config.js';
+import { texts } from '../texts/en.js';
 
 const S = ui.ButtonStyle;
 
@@ -16,6 +18,14 @@ function userOf(interaction) {
 
 function color(profile) {
   return ui.COLORS[GUILDS[CLASSES[profile.type_code].guild].colorKey];
+}
+
+// My data, and a link to the full Privacy Policy on the website.
+function dataRow() {
+  return ui.row(
+    ui.button({ id: 'pv:export', label: P.dataButton, emoji: '📦', style: S.SECONDARY }),
+    ui.linkButton({ url: SITE.privacy, label: texts.common.links.privacy, emoji: '🔒' }),
+  );
 }
 
 function screen(profile, sealed = false) {
@@ -44,7 +54,7 @@ function screen(profile, sealed = false) {
     ),
     ui.separator(),
     ui.text(P.dataLine),
-    ui.row(ui.button({ id: 'pv:export', label: P.dataButton, emoji: '📦', style: S.SECONDARY })),
+    dataRow(),
   );
   return [ui.container(color(profile), parts)];
 }
@@ -56,7 +66,7 @@ function noProfileScreen() {
       ui.text(profileTexts.notAwakenedSelf),
       ui.separator(),
       ui.text(P.dataLine),
-      ui.row(ui.button({ id: 'pv:export', label: P.dataButton, emoji: '📦', style: S.SECONDARY })),
+      dataRow(),
     ]),
   ];
 }

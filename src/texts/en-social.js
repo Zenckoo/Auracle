@@ -1,4 +1,4 @@
-// English texts for /compare and /guilds (as validated in the plan).
+// English texts for Compare and Guilds (in the /auracle menu).
 
 export const compareTexts = {
   title: '### 🤝 Compatibility',
@@ -32,9 +32,3 @@ export const guildsTexts = {
   total: (n) => `-# ${n} public ${n === 1 ? 'card' : 'cards'} in this realm. Private cards are never counted.`,
   empty: 'No public cards in this realm yet... Be the first with `/awaken`!',
 };
-
-// Lines added to /help, after /profile.
-export const socialHelp = [
-  { name: '`/compare`', description: 'See how well you match with someone' },
-  { name: '`/guilds`', description: 'See how the guilds are spread across the server' },
-];

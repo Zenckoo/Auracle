@@ -1,33 +1,24 @@
 // Sends each slash command, button click and form to the right handler.
 
-import { helpCommand } from './commands/help.js';
 import { awakenCommand, awakenComponent } from './commands/awaken.js';
 import { profileCommand } from './commands/profile.js';
-import { privacyCommand, privacyComponent } from './commands/privacy.js';
+import { privacyComponent } from './commands/privacy.js';
 import { forgetCommand, forgetComponent } from './commands/forget.js';
-import { updatesCommand, updatesComponent } from './commands/updates.js';
-import { feedbackCommand, feedbackComponent, feedbackModal } from './commands/feedback.js';
+import { updatesComponent } from './commands/updates.js';
+import { feedbackComponent, feedbackModal } from './commands/feedback.js';
 import { hubCommand, hubComponent } from './commands/hub.js';
-import { compareCommand } from './commands/compare.js';
-import { guildsCommand } from './commands/guilds.js';
-import { codexCommand, codexComponent } from './commands/codex.js';
+import { codexComponent } from './commands/codex.js';
 import { serverComponent } from './commands/server.js';
 import { syncEverywhere } from './core/roles.js';
 import { ui } from './core/ui.js';
 import { texts } from './texts/en.js';
 
+// The 4 slash commands. Everything else is a button in the /auracle menu (see hub.js).
 const commandHandlers = {
   auracle: hubCommand,
-  help: helpCommand,
   awaken: awakenCommand,
   profile: profileCommand,
-  compare: compareCommand,
-  guilds: guildsCommand,
-  privacy: privacyCommand,
   forget: forgetCommand,
-  updates: updatesCommand,
-  feedback: feedbackCommand,
-  codex: codexCommand,
 };
 
 // Buttons are named "prefix:action:...". The prefix tells which feature owns them.

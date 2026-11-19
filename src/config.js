@@ -1,10 +1,17 @@
 // Public settings (not secrets).
 
 export const config = {
-  // Channel on the HQ server where /feedback messages arrive.
+  // Channel on the HQ server where Feedback messages arrive.
   feedbackChannelId: '1572412877212754041',
 
   applicationId: '1572397022370078860',
+};
+
+// Auracle's website, and its legal pages (linked from the bot).
+export const SITE = {
+  home: 'https://auracle-site.pages.dev',
+  privacy: 'https://auracle-site.pages.dev/privacy',
+  terms: 'https://auracle-site.pages.dev/terms',
 };
 
 // Discord permissions Auracle asks for: only Manage Roles, for its four guild roles.

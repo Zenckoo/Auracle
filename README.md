@@ -1,22 +1,29 @@
 # 🔮 Auracle
 
-Un bot Discord qui fait passer le test de personnalité Big Five (IPIP-NEO) et révèle à chacun sa classe de héros.
+Un compagnon social pour Discord : une épreuve de personnalité Big Five (IPIP-NEO), 16 classes de héros dans 4 guildes, des cartes de profil, et un site web relié au bot.
 
-Crafted with care by Zenckoo ✨
+Crafted with care by Zenckoo ✨ · Code et textes écrits avec l'aide de Claude (Anthropic).
 
 ## Comment il fonctionne
 
-- Hébergé gratuitement sur Cloudflare Workers
+- Hébergé gratuitement sur Cloudflare : le bot sur Workers, la base de données sur D1, le site sur Pages
 - Uniquement des commandes slash et des boutons, pas besoin d'être allumé en permanence
+- 4 commandes : `/auracle` (le menu avec tous les boutons), `/awaken`, `/profile`, `/forget`
+- Chaque nuit, un nettoyage automatique efface les vieilles données (voir `scheduled()` dans `src/index.js`)
 - La seule partie liée à Cloudflare est `src/index.js` : le reste peut déménager chez un autre hébergeur
 
 ## Organisation
 
-- `src/index.js` : point d'entrée Cloudflare
+- `src/index.js` : point d'entrée Cloudflare (interactions Discord, blocages, nettoyage de nuit)
+- `src/router.js` : envoie chaque commande, bouton et formulaire au bon fichier
 - `src/discord/` : sécurité Discord et enregistrement des commandes
-- `src/commands/` : une commande par fichier
-- `src/core/ui.js` : construction des messages (Components V2)
-- `src/texts/en.js` : tous les textes en anglais
+- `src/commands/` : une fonction par fichier (épreuve, carte, menu, Privacy, Codex, Guilds, Feedback...)
+- `src/core/` : base de données (`store.js`), calcul des résultats, rôles de guilde, messages Discord, liens vers le site
+- `src/data/` : questions des épreuves, classes, données de référence
+- `src/texts/` : tous les textes en anglais, un fichier par fonction
+- `src/config.js` : réglages publics (identifiant du bot, liens du site, permission demandée)
+- `migrations/` : la structure de la base de données, dans l'ordre
+- `site/` : le site web (accueil, Codex, Privacy Policy, Terms of Service), mis en ligne par Cloudflare Pages
 
 ## Clés secrètes (dans Cloudflare, jamais dans le code)
 
