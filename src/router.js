@@ -11,6 +11,7 @@ import { codexComponent } from './commands/codex.js';
 import { serverComponent } from './commands/server.js';
 import { reportComponent, reportModal } from './commands/report.js';
 import { customizeComponent, customizeModal } from './commands/customize.js';
+import { moderationComponent } from './commands/moderation.js';
 import { syncEverywhere } from './core/roles.js';
 import { ui } from './core/ui.js';
 import { texts } from './texts/en.js';
@@ -35,6 +36,7 @@ const componentHandlers = {
   sv: serverComponent,
   rp: reportComponent,
   cz: customizeComponent,
+  md: moderationComponent,
 };
 
 // Forms (modals), same naming.

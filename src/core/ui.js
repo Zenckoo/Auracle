@@ -66,6 +66,7 @@ export const ui = {
       data: {
         flags: FLAGS.COMPONENTS_V2 | (ephemeral ? FLAGS.EPHEMERAL : 0),
         components,
+        allowed_mentions: { parse: [] }, // Never ping anyone, whatever a card says.
       },
     };
   },
@@ -77,6 +78,7 @@ export const ui = {
       data: {
         flags: FLAGS.COMPONENTS_V2,
         components,
+        allowed_mentions: { parse: [] },
       },
     };
   },

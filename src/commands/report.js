@@ -7,6 +7,9 @@ import { config } from '../config.js';
 import { reportTexts as RP } from '../texts/en-report.js';
 import { CLASSES } from '../data/classes.js';
 import * as store from '../core/store.js';
+import { vibeLine } from '../data/vibes.js';
+import { showText } from '../core/text.js';
+import { moderationRow } from './moderation.js';
 
 const REPORT_LIMIT = 5;
 const API = 'https://discord.com/api/v10';
@@ -119,6 +122,15 @@ async function nameOf(env, userId) {
   }
 }
 
+// What the reported card shows right now, so Zenckoo sees it even if it changes later.
+function snapshot(profile) {
+  const lines = [];
+  const vibe = vibeLine(profile);
+  if (vibe) lines.push(RP.snapshot('🌙 Vibe', vibe));
+  if (profile.about) lines.push(RP.snapshot('💬 About me', showText(profile.about)));
+  return `${RP.snapshotTitle}\n${lines.length ? lines.join('\n') : RP.nothingFilled}`;
+}
+
 // The form: rp:send:<id>:<reason>. Posts the report in the moderation channel.
 export async function reportModal(interaction, env) {
   const [, , targetId, reasonKey] = interaction.data.custom_id.split(':');
@@ -143,9 +155,12 @@ export async function reportModal(interaction, env) {
           ui.text(RP.reported(targetId, await nameOf(env, targetId))),
           ui.text(RP.card(`${cls.emoji} ${cls.name}`, profile.type_code)),
           ui.separator(),
+          ui.text(snapshot(profile)),
+          ui.separator(),
           ui.text(details || RP.noDetails),
           ui.separator(),
           ui.text(RP.from(user.id, user.global_name || user.username, interaction.guild_id)),
+          moderationRow(targetId),
         ]),
       ],
     }),

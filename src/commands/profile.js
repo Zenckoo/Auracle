@@ -13,6 +13,8 @@ import { reportButton } from './report.js';
 import { customizeTexts as CZ } from '../texts/en-customize.js';
 import { titleName } from '../data/titles.js';
 import { GUILD_DOTS } from '../data/colors.js';
+import { vibeLine } from '../data/vibes.js';
+import { showText } from '../core/text.js';
 
 const R = texts.results;
 
@@ -48,6 +50,10 @@ function card(profile, user, name, isOwnPrivate, reportable = false) {
   const hasAccent = profile.accent != null;
   const guildLabel = `${hasAccent ? `${GUILD_DOTS[cls.guild]} ` : ''}${guild.emoji} ${guild.name}`;
 
+  // 💬 About me and 🌙 vibe, only if the traveler filled them in.
+  const aboutLines = [vibeLine(profile), profile.about ? `💬 ${showText(profile.about)}` : null].filter(Boolean);
+  const about = aboutLines.length ? [ui.separator(), ui.text(aboutLines.join('\n'))] : [];
+
   const footer = [`${TT.badge(profile.version)} · ${P.awakened(Math.floor(profile.completed_at / 1000)).replace('-# ', '')}`, R.estimate];
   if (isOwnPrivate) footer.push(P.privateNote);
 
@@ -57,6 +63,7 @@ function card(profile, user, name, isOwnPrivate, reportable = false) {
         [P.cardLabel(name), heading, `**${type}** · ${guildLabel} · ${flame}`],
         ui.avatarUrl(user),
       ),
+      ...about,
       ui.separator(),
       ui.text(traits),
       ui.separator(),
