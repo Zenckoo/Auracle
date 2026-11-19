@@ -4,6 +4,7 @@
 //   tastes: 🎮 Tastes & fun (games, shows, music, favorite people, Ask me about, Looking for, DMs)
 //   practical: 🕰️ Practical (time zone, languages by region, birthday)
 //   identity: 🌈 Identity (pronouns, gender, orientation, origins), only after explicit consent, private by default
+//   badges: 🏅 Badges (all badges, and up to 3 shown on the card)
 // Opened from the /auracle menu. Buttons, menus and forms are named "cz:...".
 
 import { ui } from '../core/ui.js';
@@ -18,6 +19,10 @@ import { TIMEZONES, LANG_REGIONS, LANG_MAX, langList, langName, parseBirthday, b
 import { IDENTITY_FIELDS, OWN_MAX, identityKeys, identityNames, hasIdentity } from '../data/identity.js';
 import { ORIGIN_REGIONS, ORIGIN_MAX, flag, originKeys, originNames } from '../data/origins.js';
 import { SITE } from '../config.js';
+import { BADGES, SHOW_MAX, KINDRED_GOAL, earnedBadges, shownBadges, pagesSeen } from '../data/badges.js';
+import { badgeTexts as B } from '../texts/en-badges.js';
+import { codexTexts } from '../texts/en-codex.js';
+import { earn, announce } from '../core/badges.js';
 import { cleanText, showText } from '../core/text.js';
 import * as store from '../core/store.js';
 
@@ -96,6 +101,7 @@ function mainPage(profile, state = {}) {
         ui.button({ id: 'cz:page:tastes', label: C.tastesPage, emoji: '🎮', style: S.PRIMARY }),
         ui.button({ id: 'cz:page:practical', label: C.practicalPage, emoji: '🕰️', style: S.PRIMARY }),
         ui.button({ id: 'cz:page:identity', label: C.identityPage, emoji: '🌈', style: S.PRIMARY }),
+        ui.button({ id: 'cz:page:badges', label: B.page, emoji: '🏅', style: S.PRIMARY }),
       ),
       ui.row(cardButton()),
     ]),
@@ -330,7 +336,37 @@ function identityOrConsent(profile, state = {}) {
   return profile.identity_consent_at ? identityPage(profile, state) : consentPage(profile, state);
 }
 
-const PAGES = { main: mainPage, about: aboutPage, tastes: tastesPage, practical: practicalPage, identity: identityOrConsent };
+// Progress shown next to a locked badge, when it can be counted.
+function progress(profile, key) {
+  if (key === 'kindred') return `${Math.min(profile.compare_count ?? 0, KINDRED_GOAL)}/${KINDRED_GOAL}`;
+  if (key === 'lorekeeper') return `${pagesSeen(profile)}/${codexTexts.pages.length}`;
+  return null;
+}
+
+function badgesPage(profile, state = {}) {
+  const earned = earnedBadges(profile);
+  const shown = shownBadges(profile);
+  const lines = Object.entries(BADGES).map(([key, b]) =>
+    earned.includes(key) ? B.earned(b.emoji, b.name, b.hint) : B.locked(b.name, b.hint, progress(profile, key)),
+  );
+  const choose = earned.length
+    ? [{ type: 1, components: [{ type: 3, custom_id: 'cz:badges', placeholder: B.placeholder, min_values: 0, max_values: Math.min(SHOW_MAX, earned.length),
+        options: earned.map((key) => ({ label: BADGES[key].name, value: key, emoji: { name: BADGES[key].emoji }, default: shown.includes(key) })) }] }]
+    : [ui.text(B.none)];
+  return [
+    ui.container(color(profile), [
+      ...notice(state),
+      ui.text(`${B.title}\n${B.intro}`),
+      ui.separator(),
+      ui.text(lines.join('\n')),
+      ui.separator(),
+      ...choose,
+      backRow(),
+    ]),
+  ];
+}
+
+const PAGES = { main: mainPage, about: aboutPage, tastes: tastesPage, practical: practicalPage, identity: identityOrConsent, badges: badgesPage };
 
 function noProfile() {
   return [ui.container(ui.COLORS.auracle, [ui.text(profileTexts.notAwakenedSelf)])];
@@ -342,7 +378,21 @@ export async function customizeCommand(interaction, env) {
   return ui.message(mainPage(profile));
 }
 
+// 🏅 Apprentice Painter: the first time a change is saved ("Your card has been updated").
+async function withPainter(answer, env, userId) {
+  if (answer?.data?.components?.[0]?.components?.[0]?.content !== C.sealed) return answer;
+  return announce(answer, await earn(env, userId, 'painter'));
+}
+
 export async function customizeComponent(interaction, env) {
+  return withPainter(await handleComponent(interaction, env), env, userOf(interaction).id);
+}
+
+export async function customizeModal(interaction, env) {
+  return withPainter(await handleModal(interaction, env), env, userOf(interaction).id);
+}
+
+async function handleComponent(interaction, env) {
   const userId = userOf(interaction).id;
   const [, action, arg] = interaction.data.custom_id.split(':');
   const value = interaction.data.values?.[0];
@@ -441,6 +491,14 @@ export async function customizeComponent(interaction, env) {
       await store.setBirthday(env, userId, null, null);
       Object.assign(profile, { birth_day: null, birth_month: null });
       return ui.update(practicalPage(profile, { sealed: true }));
+
+    case 'badges': {
+      const earned = earnedBadges(profile);
+      const chosen = (interaction.data.values ?? []).filter((k) => earned.includes(k)).slice(0, SHOW_MAX);
+      await store.setBadgesShown(env, userId, chosen);
+      profile.badges_shown = chosen.join(',') || null;
+      return ui.update(badgesPage(profile, { sealed: true }));
+    }
 
     case 'idagree': {
       const at = profile.identity_consent_at ?? Date.now();
@@ -557,8 +615,8 @@ function findValue(components) {
   return null;
 }
 
-// Forms: cz:hex (own color), cz:about (About me), cz:vibetext (own vibe), cz:tastes (Tastes & fun), cz:birthday.
-export async function customizeModal(interaction, env) {
+// Forms: cz:hex (own color), cz:about (About me), cz:vibetext (own vibe), cz:tastes (Tastes & fun), cz:birthday, cz:idown.
+async function handleModal(interaction, env) {
   const userId = userOf(interaction).id;
   const [, action, arg] = interaction.data.custom_id.split(':');
   const raw = findValue(interaction.data.components);
