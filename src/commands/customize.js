@@ -3,7 +3,7 @@
 //   about : 💬 About me (a short sentence) and 🌙 Current vibe
 //   tastes: 🎮 Tastes & fun (games, shows, music, favorite people, Ask me about, Looking for, DMs)
 //   practical: 🕰️ Practical (time zone, languages by region, birthday)
-//   identity: 🌈 Identity (pronouns, gender, orientation), only after explicit consent, private by default
+//   identity: 🌈 Identity (pronouns, gender, orientation, origins), only after explicit consent, private by default
 // Opened from the /auracle menu. Buttons, menus and forms are named "cz:...".
 
 import { ui } from '../core/ui.js';
@@ -16,6 +16,7 @@ import { VIBES, vibeLine } from '../data/vibes.js';
 import { TASTE_FIELDS, TASTE_MAX, LOOKING_FOR, DMS, lookingList, tasteLines } from '../data/tastes.js';
 import { TIMEZONES, LANG_REGIONS, LANG_MAX, langList, langName, parseBirthday, birthdayName } from '../data/practical.js';
 import { IDENTITY_FIELDS, OWN_MAX, identityKeys, identityNames, hasIdentity } from '../data/identity.js';
+import { ORIGIN_REGIONS, ORIGIN_MAX, flag, originKeys, originNames } from '../data/origins.js';
 import { SITE } from '../config.js';
 import { cleanText, showText } from '../core/text.js';
 import * as store from '../core/store.js';
@@ -267,8 +268,22 @@ function identitySelect(profile, field) {
   return { type: 1, components: [{ type: 3, custom_id: `cz:idf:${field}`, placeholder: C.fieldPlaceholder[field], min_values: 0, max_values: f.max, options }] };
 }
 
-function identityPage(profile, state = {}) {
+function originRegionSelect(region) {
+  return select('cz:idoreg', C.originRegionPlaceholder, Object.entries(ORIGIN_REGIONS).map(([value, r]) => ({ label: r.name, value, emoji: { name: r.emoji }, default: region === value })));
+}
+
+// The countries of one region, with their flags. Choosing here replaces only this region's countries.
+function originSelect(profile, region) {
+  const r = ORIGIN_REGIONS[region];
+  const chosen = originKeys(profile);
+  const options = Object.entries(r.countries).map(([value, name]) => ({ label: name, value, emoji: { name: flag(value) }, default: chosen.includes(value) }));
+  return { type: 1, components: [{ type: 3, custom_id: `cz:idocountry:${region}`, placeholder: C.originPlaceholder(r.name), min_values: 0, max_values: Math.min(ORIGIN_MAX, options.length), options }] };
+}
+
+// region: the region whose countries are open (from the origins region menu), or null.
+function identityPage(profile, state = {}, region = null) {
   const isPublic = profile.identity_public === 1;
+  const origins = originNames(profile);
   const fields = Object.keys(IDENTITY_FIELDS).flatMap((field) => [
     ui.text(C.fieldLine[field](identityNames(profile, field))),
     identitySelect(profile, field),
@@ -284,6 +299,13 @@ function identityPage(profile, state = {}) {
       ),
       ui.separator(),
       ...fields,
+      ui.text(C.fieldLine.origins(origins)),
+      originRegionSelect(region),
+      ...(ORIGIN_REGIONS[region] ? [originSelect(profile, region)] : []),
+      ui.row(
+        ui.button({ id: 'cz:idoown', label: C.originOwn, emoji: '💭', style: S.SECONDARY }),
+        ui.button({ id: 'cz:idoclear', label: C.originClear, emoji: '🧹', style: S.SECONDARY, disabled: !origins.length }),
+      ),
       ui.separator(),
       ui.text(C.identityRules),
       ui.row(
@@ -473,9 +495,34 @@ async function identityComponent(interaction, env, profile, action, field) {
       return ui.update(identityPage(profile, { sealed: true }));
     }
 
+    case 'idoreg':
+      return ui.update(identityPage(profile, {}, interaction.data.values?.[0] in ORIGIN_REGIONS ? interaction.data.values[0] : null));
+
+    case 'idocountry': {
+      const region = ORIGIN_REGIONS[field] ? field : null;
+      if (!region) return ui.update(identityPage(profile));
+      const inRegion = Object.keys(ORIGIN_REGIONS[region].countries);
+      const kept = originKeys(profile).filter((c) => !inRegion.includes(c));
+      const picked = (interaction.data.values ?? []).filter((c) => inRegion.includes(c));
+      const keys = [...kept, ...picked];
+      if (keys.length > ORIGIN_MAX) return ui.update(identityPage(profile, { warning: C.tooMany }, region));
+      const text = keys.includes('own') ? profile.origins_text : null;
+      await store.setIdentityField(env, userId, 'origins', keys, text);
+      Object.assign(profile, { origins: keys.join(',') || null, origins_text: text });
+      return ui.update(identityPage(profile, { sealed: true }, region));
+    }
+
+    case 'idoown':
+      return form('cz:idown:origins', { ...C.ownForm.origins }, { max: OWN_MAX, value: profile.origins_text });
+
+    case 'idoclear':
+      await store.setIdentityField(env, userId, 'origins', [], null);
+      Object.assign(profile, { origins: null, origins_text: null });
+      return ui.update(identityPage(profile, { sealed: true }));
+
     case 'idclear':
       await store.clearIdentity(env, userId);
-      for (const f of Object.keys(IDENTITY_FIELDS)) Object.assign(profile, { [f]: null, [`${f}_text`]: null });
+      for (const f of [...Object.keys(IDENTITY_FIELDS), 'origins']) Object.assign(profile, { [f]: null, [`${f}_text`]: null });
       return ui.update(identityPage(profile, { sealed: true }));
 
     case 'idwithdraw': {
@@ -550,6 +597,19 @@ export async function customizeModal(interaction, env) {
     await store.setBirthday(env, userId, date.day, date.month);
     Object.assign(profile, { birth_day: date.day, birth_month: date.month });
     return ui.update(practicalPage(profile, { sealed: true }));
+  }
+
+  // 🌍 A heritage in the traveler's own words (empty to remove it).
+  if (action === 'idown' && arg === 'origins') {
+    if (!profile.identity_consent_at) return ui.update(identityOrConsent(profile));
+    const { text, error } = cleanText(raw, OWN_MAX);
+    if (error) return ui.update(identityPage(profile, { warning: C.noLinks }));
+    const known = originKeys(profile).filter((c) => c !== 'own');
+    if (text && known.length >= ORIGIN_MAX) return ui.update(identityPage(profile, { warning: C.tooMany }));
+    const keys = text ? [...known, 'own'] : known;
+    await store.setIdentityField(env, userId, 'origins', keys, text);
+    Object.assign(profile, { origins: keys.join(',') || null, origins_text: text });
+    return ui.update(identityPage(profile, { sealed: true }));
   }
 
   // 🌈 Own words for pronouns, gender or orientation.
