@@ -44,15 +44,17 @@ function card(profile, user, name, isOwnPrivate, reportable = false) {
   }
 
   const title = titleName(profile.title);
-  const heading = `## ${cls.emoji} ${cls.name}\n${cls.subtitle}${title ? `\n${CZ.cardLine(title)}` : ''}`;
+  const heading = `## ${cls.emoji} ${cls.name}\n${cls.subtitle}${title ? ` · ${CZ.cardLine(title)}` : ''}`;
 
   // A custom accent color replaces the guild color on the border, so a dot keeps the guild color visible.
   const hasAccent = profile.accent != null;
   const guildLabel = `${hasAccent ? `${GUILD_DOTS[cls.guild]} ` : ''}${guild.emoji} ${guild.name}`;
 
-  // 💬 About me and 🌙 vibe, only if the traveler filled them in.
-  const aboutLines = [vibeLine(profile), profile.about ? `💬 ${showText(profile.about)}` : null].filter(Boolean);
-  const about = aboutLines.length ? [ui.separator(), ui.text(aboutLines.join('\n'))] : [];
+  // Small line under the guild: the flame, and the 🌙 vibe if the traveler chose one.
+  const mood = `-# ${[flame, vibeLine(profile)].filter(Boolean).join(' · ')}`;
+
+  // 💬 About me, as a quote, only if the traveler wrote one.
+  const about = profile.about ? [ui.separator(), ui.text(`❝ *${showText(profile.about)}* ❞`)] : [];
 
   const footer = [`${TT.badge(profile.version)} · ${P.awakened(Math.floor(profile.completed_at / 1000)).replace('-# ', '')}`, R.estimate];
   if (isOwnPrivate) footer.push(P.privateNote);
@@ -60,7 +62,7 @@ function card(profile, user, name, isOwnPrivate, reportable = false) {
   return [
     ui.container(hasAccent ? profile.accent : ui.COLORS[guild.colorKey], [
       ui.section(
-        [P.cardLabel(name), heading, `**${type}** · ${guildLabel} · ${flame}`],
+        [P.cardLabel(name), heading, `**${type}** · ${guildLabel}\n${mood}`],
         ui.avatarUrl(user),
       ),
       ...about,
