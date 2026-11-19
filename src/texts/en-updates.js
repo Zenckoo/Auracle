@@ -19,6 +19,10 @@ export const updatesTexts = {
         "Don't want to wear your guild role? Choose it in 🔒 Privacy",
         '🌐 Auracle has its own website, with the Codex, the Privacy Policy and the Terms of Service: **auracle-site.pages.dev**',
         '🔮 A new crystal ball icon and a starry banner',
+        '📦 **My data** in 🔒 Privacy: get a file with everything Auracle keeps about you',
+        '⚖️ A new, much more detailed Privacy Policy and Terms of Service, with full transparency on AI',
+        '🤖 Auracle now credits **Claude**, the AI by Anthropic that helps write its code and texts',
+        '📬 Feedback is limited to 5 messages every 24 hours, to keep it spam-free',
       ],
     },
     {
