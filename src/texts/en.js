@@ -47,7 +47,7 @@ export const texts = {
         'Your answers uncover your five core traits, and with them, your **hero class**: one of 16, across four guilds.\n\n' +
         '🔒 Your results stay private unless you choose to share them.\n\n' +
         "🌱 Auracle starts with this trial, but it's more than a test: " +
-        'a social companion for Discord, inclusive, safe, and soon truly yours to customize.\n\n' +
+        'a social companion for Discord, inclusive, safe, and truly yours to customize.\n\n' +
         '🛠️ Auracle is in **public beta**: open to every server, and still growing. ' +
         'Spotted a bug or have an idea? Use **📬 Feedback** in `/auracle`. Lost? `/auracle` gathers everything, and the **📖 Codex** explains how it all works, with support resources if you ever need them.\n\n' +
         '-# Crafted with care by Zenckoo ✨',

@@ -15,7 +15,7 @@ export const codexTexts = {
       name: 'What is Auracle?',
       body:
         'Auracle is a social companion for Discord. It starts with a personality trial: you answer statements about yourself, and Auracle reveals your **five core traits**, your **30 facets**, and a **hero class** among 16, across four guilds.\n\n' +
-        "Then it's all about you and your community: compare with friends, see your server's guilds, and soon, make your card truly yours.\n\n" +
+        "Then it's all about you and your community: compare with friends, see your server's guilds, and make your card truly yours.\n\n" +
         '⚠️ **Not a diagnosis.** Auracle is not a psychological or medical assessment. Your class is a fun estimate, never a label.',
       links: [],
     },
