@@ -8,6 +8,9 @@ export const config = {
   reportChannelId: '1572822029713809468',
 
   applicationId: '1572397022370078860',
+
+  // Discord user IDs allowed to use the moderation buttons under a 🚩 Report (only Zenckoo).
+  moderatorIds: ['249869919292882944'],
 };
 
 // Auracle's website, and its legal pages (linked from the bot).
