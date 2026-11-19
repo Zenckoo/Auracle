@@ -16,6 +16,7 @@ import { GUILD_DOTS } from '../data/colors.js';
 import { vibeLine } from '../data/vibes.js';
 import { showText } from '../core/text.js';
 import { tasteLines } from '../data/tastes.js';
+import { practicalLine } from '../data/practical.js';
 
 const R = texts.results;
 
@@ -58,7 +59,8 @@ function card(profile, user, name, isOwnPrivate, reportable = false) {
   const about = profile.about ? [ui.separator(), ui.text(`❝ *${showText(profile.about)}* ❞`)] : [];
 
   // 🎮 Tastes & fun, only what the traveler filled in.
-  const tasteList = tasteLines(profile);
+  // 🕰️ Practical joins them as a small line: local time, languages, birthday.
+  const tasteList = [...tasteLines(profile), practicalLine(profile)].filter(Boolean);
   const tastes = tasteList.length ? [ui.separator(), ui.text(tasteList.join('\n'))] : [];
 
   const footer = [`${TT.badge(profile.version)} · ${P.awakened(Math.floor(profile.completed_at / 1000)).replace('-# ', '')}`, R.estimate];
