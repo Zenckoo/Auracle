@@ -12,6 +12,8 @@ import { tasteLines } from '../data/tastes.js';
 import { identityLine } from '../data/identity.js';
 import { showText } from '../core/text.js';
 import { moderationRow } from './moderation.js';
+import { bannerUrl, bannerGallery } from '../core/banners.js';
+import { bannerModRow } from './banner.js';
 
 const REPORT_LIMIT = 5;
 const API = 'https://discord.com/api/v10';
@@ -149,6 +151,8 @@ export async function reportModal(interaction, env) {
   const details = (findValue(interaction.data.components) ?? '').trim();
   const profile = await store.getProfile(env, targetId);
   const cls = CLASSES[profile.type_code];
+  // 🖼️ The banner, as it is right now, with its own Remove button.
+  const banner = bannerUrl(profile);
 
   const response = await fetch(`${API}/channels/${config.reportChannelId}/messages`, {
     method: 'POST',
@@ -163,11 +167,13 @@ export async function reportModal(interaction, env) {
           ui.text(RP.card(`${cls.emoji} ${cls.name}`, profile.type_code)),
           ui.separator(),
           ui.text(snapshot(profile, await store.shownBlessings(env, targetId))),
+          ...(banner ? [bannerGallery(banner)] : []),
           ui.separator(),
           ui.text(details || RP.noDetails),
           ui.separator(),
           ui.text(RP.from(user.id, user.global_name || user.username, interaction.guild_id)),
           moderationRow(targetId),
+          ...(banner ? [bannerModRow(targetId)] : []),
         ]),
       ],
     }),

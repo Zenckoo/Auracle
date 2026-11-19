@@ -21,6 +21,7 @@ import { identityLine } from '../data/identity.js';
 import { badgeLine } from '../data/badges.js';
 import { blessButton, blessingLines } from './blessings.js';
 import { blessingTexts as BL } from '../texts/en-blessings.js';
+import { bannerUrl, bannerGallery } from '../core/banners.js';
 
 const R = texts.results;
 
@@ -81,8 +82,12 @@ function card(profile, user, name, isOwnPrivate, reportable = false, extra = {})
   if (isOwnPrivate && extra.newBlessings) footer.push(BL.newOnCard(extra.newBlessings));
   const footerText = footer.filter(Boolean).join('\n');
 
+  // 🖼️ The banner, on top of the card.
+  const banner = bannerUrl(profile);
+
   return [
     ui.container(hasAccent ? profile.accent : ui.COLORS[guild.colorKey], [
+      ...(banner ? [bannerGallery(banner)] : []),
       ui.section(
         [P.cardLabel(name), heading, [`**${type}** · ${guildLabel}`, mood, identity].filter(Boolean).join('\n')],
         ui.avatarUrl(user),
