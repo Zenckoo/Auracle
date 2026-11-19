@@ -72,5 +72,53 @@ export const customizeTexts = {
   birthdayClear: 'Clear',
   birthdayForm: { title: 'Your birthday', day: 'Day (1 to 31)', month: 'Month (1 to 12)' },
   badBirthday: '-# ⚠️ That date does not exist. Use numbers, like **14** and **3** for March 14.',
+  // 🌈 Identity page
+  identityPage: 'Identity',
+  consentTitle: '### 🌈 Identity',
+  consentBody:
+    'Here you can share your **pronouns**, your **gender** and your **orientation** on your card, if you wish. Everything is optional.\n\n' +
+    '🔒 **Private by default.** This part has its own switch: even if your card is public, it stays hidden until you decide otherwise.\n' +
+    '🚫 **Never used elsewhere.** Not in Compare, Guilds, guild roles or statistics, and never linked to your results.\n' +
+    '🧹 **Your choice, always.** You can withdraw your consent anytime, and everything here is erased at once.\n' +
+    '🌱 **Younger travelers.** In some countries (in France, under 15), you need a parent\'s agreement first. If unsure, simply leave this empty.\n\n' +
+    '-# These are sensitive data under the GDPR. Auracle saves them only with your explicit consent, and keeps the date you agreed as proof.',
+  consentAgree: 'I agree',
+  consentPolicy: 'Read the Privacy Policy',
+  identityTitle: '### 🌈 Identity',
+  identityIntro: '-# Pronouns, gender and orientation. All optional. Pick up to 3 in each list, or write your own words.',
+  visibilityLine: (isPublic, cardPublic) =>
+    `**👁️ Visibility**: ${isPublic ? '🌍 Shown on your public card' : '🔒 Private, only you can see it'}` +
+    (isPublic && !cardPublic ? '\n-# Your card is private right now, so nobody else sees it anyway.' : ''),
+  makePublic: 'Show on my card',
+  makePrivate: 'Make private',
+  publicWarning:
+    '### 🌍 Show your identity?\nThis will be visible to everyone on the server. You can change it anytime.\n-# Only if your card is public too.',
+  publicConfirm: 'Show it',
+  keepPrivate: 'Keep private',
+  fieldLine: {
+    pronouns: (names) => `**🏷️ Pronouns**: ${names.length ? names.join(', ') : 'None'}`,
+    gender: (names) => `**🌈 Gender**: ${names.length ? names.join(', ') : 'None'}`,
+    orientation: (names) => `**💞 Orientation**: ${names.length ? names.join(', ') : 'None'}`,
+  },
+  fieldPlaceholder: {
+    pronouns: 'Your pronouns',
+    gender: 'Your gender',
+    orientation: 'Your orientation',
+  },
+  ownWords: 'My own words...',
+  ownForm: {
+    pronouns: { title: 'Your pronouns', label: 'In your own words (30 characters)', placeholder: 'xe/xem' },
+    gender: { title: 'Your gender', label: 'In your own words (30 characters)', placeholder: 'Your own words' },
+    orientation: { title: 'Your orientation', label: 'In your own words (30 characters)', placeholder: 'Your own words' },
+  },
+  tooMany: '-# ⚠️ You can choose up to 3 in each list.',
+  identityClear: 'Clear all',
+  withdraw: 'Withdraw consent',
+  withdrawWarning:
+    '### 🧹 Withdraw your consent?\nAll your identity answers will be erased at once, and this page will ask for your consent again next time.',
+  withdrawConfirm: 'Withdraw and erase',
+  cancel: 'Cancel',
+  withdrawn: '### 🧹 Consent withdrawn\nYour identity answers have been erased. 💜',
+  identityRules: '-# Be yourself, kindly. Mocking anyone for who they are breaks the rules, and every card can be reported.',
   rules: '-# Keep it kind: no hate, no NSFW, no personal details like your address. Every card can be reported.',
 };

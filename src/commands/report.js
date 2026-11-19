@@ -9,6 +9,7 @@ import { CLASSES } from '../data/classes.js';
 import * as store from '../core/store.js';
 import { vibeLine } from '../data/vibes.js';
 import { tasteLines } from '../data/tastes.js';
+import { identityLine } from '../data/identity.js';
 import { showText } from '../core/text.js';
 import { moderationRow } from './moderation.js';
 
@@ -130,6 +131,8 @@ function snapshot(profile) {
   if (vibe) lines.push(RP.snapshot('🌙 Vibe', vibe));
   if (profile.about) lines.push(RP.snapshot('💬 About me', showText(profile.about)));
   lines.push(...tasteLines(profile));
+  // 🌈 Identity, only if the traveler made it public (otherwise nobody else could see it).
+  if (profile.identity_public === 1 && identityLine(profile)) lines.push(identityLine(profile));
   return `${RP.snapshotTitle}\n${lines.length ? lines.join('\n') : RP.nothingFilled}`;
 }
 
