@@ -26,6 +26,7 @@ export const updatesTexts = {
         '🔗 Links to the website, the Privacy Policy and the Terms of Service in Help, Privacy, the Codex and before the trial',
         '🎨 **Customize** in `/auracle`: choose a fantasy title for your card, among 15, an accent color for its border, an **About me** sentence, your **current vibe**, and your **tastes**: games, anime, music, favorite people, what you are looking for and your DM preference, and **practical** info: your local time, the languages you speak (more than 150, from Swahili to Māori) and your birthday, and, if you wish, your **identity**: pronouns, gender and orientation, only with your consent and private by default',
         "🚩 **Report**: every traveler's card now has a Report button. Pick a reason, and your report goes privately to Zenckoo",
+        '📖 A new Codex page, **Identity words**: pronouns, genders and orientations explained simply',
       ],
     },
     {

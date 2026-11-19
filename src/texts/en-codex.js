@@ -63,6 +63,20 @@ export const codexTexts = {
       ],
     },
     {
+      emoji: '🏷️',
+      name: 'Identity words',
+      body:
+        'In 🎨 Customize > 🌈 Identity, you can show your pronouns, gender, orientation and origins, only if you want. Here is what the words mean, simply. Everyone defines themselves: these are short guides, not boxes.\n\n' +
+        '🏷️ **Pronouns**: the words people use to talk about you. *They/them* can be for one person. **Neopronouns** (like xe/xem) are newer ones. **Any pronouns**: all are fine. **Ask me**: just ask!\n\n' +
+        '🌈 **Gender**\n' +
+        '**Non-binary**: not only a woman or a man · **Transgender**: a gender different from the one given at birth · **Genderfluid**: a gender that changes over time · **Genderqueer**: outside the usual boxes · **Agender**: no gender · **Bigender**: two genders · **Demigirl / Demiboy**: partly a girl, or partly a boy · **Two-Spirit**: an identity and role from some Indigenous cultures of North America\n\n' +
+        '💞 **Orientation**\n' +
+        '**Bisexual**: attracted to more than one gender · **Pansexual**: attraction whatever the gender · **Queer**: a broad, open word · **Asexual**: little or no sexual attraction · **Demisexual**: attraction only after a strong bond · **Grey-asexual**: somewhere in between · **Aromantic**: little or no romantic attraction · **Biromantic, panromantic, homoromantic, demiromantic**: the same ideas, for romantic attraction\n\n' +
+        '❓ **Questioning**: still exploring, and that is completely okay.\n\n' +
+        '-# Never guess or label someone else: use the words people choose for themselves. 💜',
+      links: [{ label: 'LGBTQ+ key terms', url: 'https://www.thetrevorproject.org/resources/guide/allyship-in-action/' }],
+    },
+    {
       emoji: '🔒',
       name: 'Your data',
       body:
