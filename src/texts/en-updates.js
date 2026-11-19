@@ -12,7 +12,7 @@ export const updatesTexts = {
   page: (n, total) => `Page ${n} / ${total}`,
   versions: [
     {
-      name: 'v1.6',
+      name: 'v2.0',
       items: [
         '🌍 Auracle is now open to every server, in public beta',
         '🏰 **Guild roles**: server staff can turn them on in ⚙️ Server settings, in `/auracle`. Each traveler with a public card gets the role of their guild',
