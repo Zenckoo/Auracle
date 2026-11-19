@@ -153,8 +153,8 @@ export async function setIdentityPublic(env, userId, isPublic) {
     .run();
 }
 
-// field: 'pronouns', 'gender' or 'orientation'. keys: an array. text: own words or null.
-const IDENTITY_COLUMNS = ['pronouns', 'gender', 'orientation'];
+// field: 'pronouns', 'gender', 'orientation' or 'origins'. keys: an array. text: own words or null.
+const IDENTITY_COLUMNS = ['pronouns', 'gender', 'orientation', 'origins'];
 
 export async function setIdentityField(env, userId, field, keys, text) {
   if (!IDENTITY_COLUMNS.includes(field)) return;
@@ -367,6 +367,8 @@ export async function exportData(env, userId) {
         gender_own_words: profile.gender_text ?? null,
         orientation: profile.orientation ? profile.orientation.split(',') : [],
         orientation_own_words: profile.orientation_text ?? null,
+        origins: profile.origins ? profile.origins.split(',') : [],
+        origins_own_words: profile.origins_text ?? null,
       },
       accent_color: profile.accent == null ? null : '#' + profile.accent.toString(16).padStart(6, '0').toUpperCase(),
       completed_at: date(profile.completed_at),

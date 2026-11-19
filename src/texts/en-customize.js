@@ -76,7 +76,7 @@ export const customizeTexts = {
   identityPage: 'Identity',
   consentTitle: '### 🌈 Identity',
   consentBody:
-    'Here you can share your **pronouns**, your **gender** and your **orientation** on your card, if you wish. Everything is optional.\n\n' +
+    'Here you can share your **pronouns**, your **gender**, your **orientation** and your **origins** on your card, if you wish. Everything is optional.\n\n' +
     '🔒 **Private by default.** This part has its own switch: even if your card is public, it stays hidden until you decide otherwise.\n' +
     '🚫 **Never used elsewhere.** Not in Compare, Guilds, guild roles or statistics, and never linked to your results.\n' +
     '🧹 **Your choice, always.** You can withdraw your consent anytime, and everything here is erased at once.\n' +
@@ -85,7 +85,7 @@ export const customizeTexts = {
   consentAgree: 'I agree',
   consentPolicy: 'Read the Privacy Policy',
   identityTitle: '### 🌈 Identity',
-  identityIntro: '-# Pronouns, gender and orientation. All optional. Pick up to 3 in each list, or write your own words.',
+  identityIntro: '-# Pronouns, gender, orientation and origins. All optional. Pick up to 3 in each, or write your own words.',
   visibilityLine: (isPublic, cardPublic) =>
     `**👁️ Visibility**: ${isPublic ? '🌍 Shown on your public card' : '🔒 Private, only you can see it'}` +
     (isPublic && !cardPublic ? '\n-# Your card is private right now, so nobody else sees it anyway.' : ''),
@@ -99,6 +99,7 @@ export const customizeTexts = {
     pronouns: (names) => `**🏷️ Pronouns**: ${names.length ? names.join(', ') : 'None'}`,
     gender: (names) => `**🌈 Gender**: ${names.length ? names.join(', ') : 'None'}`,
     orientation: (names) => `**💞 Orientation**: ${names.length ? names.join(', ') : 'None'}`,
+    origins: (names) => `**🌍 Origins**: ${names.length ? names.join(', ') : 'None'}\n-# Up to 3. Pick a region, then your countries. Never a city.`,
   },
   fieldPlaceholder: {
     pronouns: 'Your pronouns',
@@ -110,8 +111,13 @@ export const customizeTexts = {
     pronouns: { title: 'Your pronouns', label: 'In your own words (30 characters)', placeholder: 'xe/xem' },
     gender: { title: 'Your gender', label: 'In your own words (30 characters)', placeholder: 'Your own words' },
     orientation: { title: 'Your orientation', label: 'In your own words (30 characters)', placeholder: 'Your own words' },
+    origins: { title: 'Your origins', label: 'A heritage in your own words (30 characters)', placeholder: 'Kurdish, Romani, Mapuche...' },
   },
-  tooMany: '-# ⚠️ You can choose up to 3 in each list.',
+  originRegionPlaceholder: 'Pick a region for your origins',
+  originPlaceholder: (region) => `Your origins: ${region}`,
+  originOwn: 'My own words',
+  originClear: 'Clear origins',
+  tooMany: '-# ⚠️ You can choose up to 3 in each list. Remove one before adding another.',
   identityClear: 'Clear all',
   withdraw: 'Withdraw consent',
   withdrawWarning:
