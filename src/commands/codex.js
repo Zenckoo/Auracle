@@ -4,6 +4,8 @@
 import { ui } from '../core/ui.js';
 import { codexTexts as X } from '../texts/en-codex.js';
 import { CLASSES, GUILDS } from '../data/classes.js';
+import { earn, announce } from '../core/badges.js';
+import * as store from '../core/store.js';
 
 const S = ui.ButtonStyle;
 const PAGES = X.pages;
@@ -58,12 +60,29 @@ function pageScreen(index) {
   return [ui.container(ui.COLORS.auracle, parts)];
 }
 
-export function codexCommand() {
-  return ui.message(pageScreen(0));
+// 🏅 Lorekeeper: once every page has been opened. Until then, only which pages were opened is kept.
+async function readPage(interaction, env, index) {
+  const userId = interaction?.member?.user?.id ?? interaction?.user?.id;
+  if (!env || !userId) return [];
+  const mask = await store.seeCodexPage(env, userId, index);
+  if (mask == null || mask !== 2 ** PAGES.length - 1) return [];
+  const fresh = await earn(env, userId, 'lorekeeper');
+  await store.forgetCodexPages(env, userId);
+  return fresh;
 }
 
-export function codexComponent(interaction) {
+function clampPage(n) {
+  return Math.max(0, Math.min(PAGES.length - 1, Number(n) || 0));
+}
+
+export async function codexCommand(interaction, env) {
+  const fresh = await readPage(interaction, env, 0);
+  return announce(ui.message(pageScreen(0)), fresh);
+}
+
+export async function codexComponent(interaction, env) {
   const [, action, value] = interaction.data.custom_id.split(':');
-  if (action === 'jump') return ui.update(pageScreen(Number(interaction.data.values?.[0]) || 0));
-  return ui.update(pageScreen(Number(value) || 0));
+  const page = clampPage(action === 'jump' ? interaction.data.values?.[0] : value);
+  const fresh = await readPage(interaction, env, page);
+  return announce(ui.update(pageScreen(page)), fresh);
 }

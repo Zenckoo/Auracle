@@ -7,6 +7,8 @@ import { compareTexts as C } from '../texts/en-social.js';
 import { CLASSES, GUILDS } from '../data/classes.js';
 import * as store from '../core/store.js';
 import * as scoring from '../core/scoring.js';
+import { earn, announce } from '../core/badges.js';
+import { KINDRED_GOAL } from '../data/badges.js';
 
 const R = texts.results;
 const GUILD_ORDER = ['dreamers', 'scholars', 'guardians', 'wanderers'];
@@ -61,7 +63,11 @@ export async function compareCommand(interaction, env) {
   const g1 = CLASSES[mine.type_code].guild;
   const g2 = CLASSES[theirs.type_code].guild;
 
-  return ui.message(
+  // 🏅 Kindred Spirits after 5 comparisons (only the number is kept, never with whom).
+  const count = await store.countCompare(env, me.id);
+  const fresh = count >= KINDRED_GOAL ? await earn(env, me.id, 'kindred') : [];
+
+  const answer = ui.message(
     [
       ui.container(ui.COLORS.auracle, [ui.text(`${C.title}\n${C.score(pct)}\n${scoring.bar(pct)}\n*${duoPhrase(g1, g2)}*`)]),
       classBlock(mine, me, displayName(me, interaction.member)),
@@ -70,4 +76,5 @@ export async function compareCommand(interaction, env) {
     ],
     { ephemeral: false },
   );
+  return announce(answer, fresh, displayName(me, interaction.member));
 }

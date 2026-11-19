@@ -4,6 +4,7 @@ import { ui } from '../core/ui.js';
 import { config } from '../config.js';
 import { feedbackTexts as F, banTexts } from '../texts/en-feedback.js';
 import * as store from '../core/store.js';
+import { earn, announce } from '../core/badges.js';
 
 // Anti-spam: 5 messages every 24 hours. Trying to send more blocks Auracle for 30 days.
 const FEEDBACK_LIMIT = 5;
@@ -108,6 +109,8 @@ export async function feedbackModal(interaction, env) {
     }),
   });
 
-  if (response.ok) await store.logFeedback(env, user.id);
-  return ui.update(box(response.ok ? F.thanks : F.failed));
+  if (!response.ok) return ui.update(box(F.failed));
+  await store.logFeedback(env, user.id);
+  // 🏅 Messenger for the first Feedback.
+  return announce(ui.update(box(F.thanks)), await earn(env, user.id, 'messenger'));
 }

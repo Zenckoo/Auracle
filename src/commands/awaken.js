@@ -11,6 +11,8 @@ import { trialItems } from '../data/trials.js';
 import { CLASSES, GUILDS, article } from '../data/classes.js';
 import * as store from '../core/store.js';
 import * as scoring from '../core/scoring.js';
+import { earn, announce } from '../core/badges.js';
+import { BETA } from '../data/badges.js';
 
 const T = texts.awaken;
 const R = texts.results;
@@ -432,7 +434,9 @@ export async function awakenComponent(interaction, env, later) {
       // Just after the reveal, a second small message asks Public or Private.
       later(ui.followUp(interaction, privacyChoiceScreen(typeCode)));
 
-      return ui.update(revealScreen({ type_code: typeCode, scores }, user));
+      // 🏅 Badges: 🌱 Early Traveler during the public beta, 📚 Grand Trial for the 300 questions.
+      const fresh = await earn(env, userId, ...(BETA ? ['early'] : []), ...(trial.version === 'grand' ? ['grand'] : []));
+      return announce(ui.update(revealScreen({ type_code: typeCode, scores }, user)), fresh);
     }
 
     case 'results': {
@@ -475,7 +479,9 @@ export async function awakenComponent(interaction, env, later) {
       return ui.update(warningScreen());
 
     case 'anew':
-      await store.deleteProfile(env, userId);
+      // The card becomes private until the new trial is finished, then the new class replaces the old one.
+      // Customization and badges are kept: only /forget erases them.
+      await store.setPublic(env, userId, false);
       await store.deleteTrial(env, userId);
       return ui.update(welcomeScreen());
 
