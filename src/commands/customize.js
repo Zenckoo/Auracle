@@ -5,7 +5,7 @@
 //   practical: 🕰️ Practical (time zone, languages by region, birthday)
 //   identity: 🌈 Identity (pronouns, gender, orientation, origins), only after explicit consent, private by default
 //   badges: 🏅 Badges (all badges, and up to 3 shown on the card)
-//   💌 Blessings and 🖼️ Banner have their own files (blessings.js, banner.js), opened from the main page.
+//   💌 Blessings, 🖼️ Banner and 🗂️ Organize have their own files (blessings.js, banner.js, organize.js), opened from the main page.
 // Opened from the /auracle menu. Buttons, menus and forms are named "cz:...".
 
 import { ui } from '../core/ui.js';
@@ -24,6 +24,7 @@ import { BADGES, SHOW_MAX, KINDRED_GOAL, KIND_SOUL_GOAL, earnedBadges, shownBadg
 import { badgeTexts as B } from '../texts/en-badges.js';
 import { blessingTexts } from '../texts/en-blessings.js';
 import { bannerTexts } from '../texts/en-banner.js';
+import { organizeTexts } from '../texts/en-organize.js';
 import { codexTexts } from '../texts/en-codex.js';
 import { earn, announce } from '../core/badges.js';
 import { cleanText, showText } from '../core/text.js';
@@ -109,6 +110,7 @@ function mainPage(profile, state = {}) {
       ui.row(
         ui.button({ id: 'bn:page', label: bannerTexts.page, emoji: '🖼️', style: S.PRIMARY }),
         ui.button({ id: 'bl:page', label: blessingTexts.page, emoji: '💌', style: S.PRIMARY }),
+        ui.button({ id: 'og:page', label: organizeTexts.page, emoji: '🗂️', style: S.PRIMARY }),
         cardButton(),
       ),
     ]),
