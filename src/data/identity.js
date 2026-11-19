@@ -1,8 +1,9 @@
-// 🌈 Identity: pronouns, gender and orientation. Optional, private by default, only with explicit consent.
+// 🌈 Identity: pronouns, gender, orientation (and origins, see origins.js). Optional, private by default, only with explicit consent.
 // Each field keeps a list of keys (comma-separated) and, if "own" is chosen, the traveler's own words.
 // Never used in Compare, Guilds, guild roles or statistics.
 
 import { showText } from '../core/text.js';
+import { originNames } from './origins.js';
 
 export const OWN_MAX = 30;
 
@@ -81,10 +82,10 @@ export function identityNames(profile, field, { escape = true } = {}) {
 }
 
 export function hasIdentity(profile) {
-  return Object.keys(IDENTITY_FIELDS).some((f) => identityNames(profile, f).length);
+  return Object.keys(IDENTITY_FIELDS).some((f) => identityNames(profile, f).length) || originNames(profile).length > 0;
 }
 
-// The small line on the card: -# 🏷️ she/they · 🌈 Non-binary · 💞 Bisexual
+// The small line on the card: -# 🏷️ she/they · 🌈 Non-binary · 💞 Bisexual · 🌍 🇫🇷 France
 export function identityLine(profile) {
   const parts = Object.entries(IDENTITY_FIELDS)
     .map(([field, f]) => {
@@ -92,5 +93,7 @@ export function identityLine(profile) {
       return names.length ? `${f.emoji} ${names.join(', ')}` : null;
     })
     .filter(Boolean);
+  const origins = originNames(profile);
+  if (origins.length) parts.push(`🌍 ${origins.join(', ')}`);
   return parts.length ? `-# ${parts.join(' · ')}` : null;
 }
