@@ -70,8 +70,9 @@ export const codexTexts = {
         'Auracle only keeps what it needs:\n' +
         '- Your answers and results, until you use `/forget`\n' +
         '- Unfinished trials, erased 30 days after your last answer\n' +
-        '- Which server you used Auracle on, only for 🏰 Guilds\n\n' +
-        'Your card and your hidden secret are **private by default**. Your facets are never shown to others. `/forget` erases everything, anytime.',
+        '- Which server you used Auracle on, only for 🏰 Guilds and guild roles\n\n' +
+        'Your card and your hidden secret are **private by default**. Your facets are never shown to others. `/forget` erases everything, anytime, and **📦 My data** in 🔒 Privacy sends you a copy of everything Auracle keeps.\n\n' +
+        '-# All the details are in the Privacy Policy: **auracle-site.pages.dev/privacy**',
       links: [],
     },
     {
@@ -147,7 +148,7 @@ export const codexTexts = {
         '*A few words from Zenckoo:*\n\n' +
         'Every new technology raised the same doubts at first. I believe we have to live with our time: AI is a useful tool, worth exploring. It lets me build ideas I could never build alone, and Auracle is one of them.\n\n' +
         'But a tool should help people, not replace them, especially in art and audiovisual work. UNESCO\'s Recommendation on the Ethics of AI, adopted by 193 countries, agrees: AI must never *"displace ultimate human responsibility."* It also asks for transparency, and for everyone to understand AI. That is why this page exists.\n\n' +
-        '🛠️ **In Auracle:** AI helps with code and texts, always checked by me. The art will always be made by humans.\n' +
+        '🛠️ **In Auracle:** **Claude**, an AI by Anthropic, helps with code and texts, always checked by me. It never sees your data. The art will always be made by humans.\n' +
         '🔒 **Privacy:** your answers never go to an AI, and Auracle keeps only what it needs.\n' +
         '⚖️ **Fairness:** AI can carry bias. Your results come from a fixed formula based on public research, the same for everyone.\n\n' +
         '**💡 Use AI in a healthy way**\n' +
@@ -180,10 +181,11 @@ export const codexTexts = {
       name: 'About Auracle',
       body:
         'Auracle is crafted with care by **Zenckoo**. It is in **public beta**: open to everyone, still growing, and shaped by your feedback.\n\n' +
-        '🤖 Parts of its code and texts are created with the help of AI. Its art and illustrations will always be made by human hands, never by AI. More in **Auracle and AI**.\n\n' +
+        '🤖 Parts of its code and texts are created with the help of **Claude**, an AI by Anthropic. Its art and illustrations will always be made by human hands, never by AI. More in **Auracle and AI**.\n\n' +
         "💡 Spotted a bug or have an idea? Use **📬 Feedback** in `/auracle`. Curious about what's coming? Check **📜 Updates**.\n\n" +
         '🌐 Auracle has its own website: **auracle-site.pages.dev**\n\n' +
-        '-# Crystal ball icon by Lorc, from game-icons.net, under the CC BY 3.0 license.',
+        '-# Crystal ball icon by Lorc, from game-icons.net, under the CC BY 3.0 license.\n' +
+        '-# Auracle is not affiliated with Discord or Anthropic.',
       links: [],
     },
   ],

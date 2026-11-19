@@ -61,7 +61,7 @@ export const texts = {
         '💡 **Trust your instinct.** Answer with your first thought. If a word is unclear, choose *In between*.\n\n' +
         '💾 **Your data.** Unfinished trials are erased after 30 days. Finished profiles are kept until you use `/forget`. Change what others see anytime with 🔒 Privacy in `/auracle`.\n\n' +
         "🤝 **Respect.** The rules of this server apply to Auracle too: no mocking, no discrimination, no using someone's results against them.\n\n" +
-        "🤖 **Built with AI assistance.** Auracle embraces today's tools: parts of its code and texts are created with the help of AI. Its art and illustrations, however, will always be made by human hands, never by AI.\n\n" +
+        "🤖 **Built with AI assistance.** Auracle embraces today's tools: parts of its code and texts are created with the help of **Claude**, an AI by Anthropic. Its art and illustrations, however, will always be made by human hands, never by AI.\n\n" +
         '🔞 **Discretion is advised.** If you are under 18, keep your results private and talk to a trusted adult if anything feels heavy.\n\n' +
         '-# You are always more than a test result. 💜',
       button: 'I understand',
