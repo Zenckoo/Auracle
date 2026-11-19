@@ -1,6 +1,7 @@
 // 🎨 Customize: everything a traveler can change on their card, page by page.
 //   main  : 🖌️ Appearance (fantasy title, accent color) and buttons to the other pages
 //   about : 💬 About me (a short sentence) and 🌙 Current vibe
+//   tastes: 🎮 Tastes & fun (games, shows, music, characters, Ask me about, Looking for, DMs)
 // Opened from the /auracle menu. Buttons, menus and forms are named "cz:...".
 
 import { ui } from '../core/ui.js';
@@ -10,6 +11,7 @@ import { CLASSES, GUILDS } from '../data/classes.js';
 import { TITLES, titleName } from '../data/titles.js';
 import { PALETTE, parseHex, colorName } from '../data/colors.js';
 import { VIBES, vibeLine } from '../data/vibes.js';
+import { TASTE_FIELDS, TASTE_MAX, LOOKING_FOR, DMS, lookingList, tasteLines } from '../data/tastes.js';
 import { cleanText, showText } from '../core/text.js';
 import * as store from '../core/store.js';
 
@@ -83,7 +85,11 @@ function mainPage(profile, state = {}) {
       colorSelect(profile.accent),
       ui.separator(),
       ui.text(C.pagesTitle),
-      ui.row(ui.button({ id: 'cz:page:about', label: C.aboutPage, emoji: '💬', style: S.PRIMARY }), cardButton()),
+      ui.row(
+        ui.button({ id: 'cz:page:about', label: C.aboutPage, emoji: '💬', style: S.PRIMARY }),
+        ui.button({ id: 'cz:page:tastes', label: C.tastesPage, emoji: '🎮', style: S.PRIMARY }),
+        cardButton(),
+      ),
     ]),
   ];
 }
@@ -109,7 +115,59 @@ function aboutPage(profile, state = {}) {
   ];
 }
 
-const PAGES = { main: mainPage, about: aboutPage };
+// The Tastes & fun form: the five free fields at once, already filled with what is saved.
+function tastesForm(profile) {
+  const rows = TASTE_FIELDS.map((f) => {
+    const input = { type: 4, custom_id: f.key, style: 1, label: f.label, placeholder: f.placeholder, max_length: TASTE_MAX, required: false };
+    if (profile[f.key]) input.value = profile[f.key];
+    return { type: 1, components: [input] };
+  });
+  return { type: 9, data: { custom_id: 'cz:tastes', title: C.tastesForm, components: rows } };
+}
+
+function lookingSelect(profile) {
+  const chosen = lookingList(profile);
+  const options = Object.entries(LOOKING_FOR).map(([value, l]) => ({ label: l.name, value, emoji: { name: l.emoji }, default: chosen.includes(value) }));
+  return { type: 1, components: [{ type: 3, custom_id: 'cz:looking', placeholder: C.lookingPlaceholder, min_values: 0, max_values: 3, options }] };
+}
+
+function dmsSelect(profile) {
+  return select('cz:dms', C.dmsPlaceholder, [
+    { label: C.dmsNone, value: 'none', emoji: { name: '🚫' }, default: !DMS[profile.dms] },
+    ...Object.entries(DMS).map(([value, d]) => ({ label: d.name, value, emoji: { name: d.emoji }, default: profile.dms === value })),
+  ]);
+}
+
+function hasTastes(profile) {
+  return TASTE_FIELDS.some((f) => profile[f.key]);
+}
+
+function tastesPage(profile, state = {}) {
+  // Only the free fields here: Looking for and DMs have their own menus below.
+  const free = tasteLines({ ...profile, looking_for: null, dms: null });
+  return [
+    ui.container(color(profile), [
+      ...notice(state),
+      ui.text(`${C.tastesTitle}\n${C.tastesIntro}`),
+      ui.separator(),
+      ui.text(C.tastesLines(free)),
+      ui.row(
+        ui.button({ id: 'cz:tastesedit', label: C.tastesEdit, emoji: '✏️', style: S.PRIMARY }),
+        ui.button({ id: 'cz:tastesclear', label: C.tastesClear, emoji: '🧹', style: S.SECONDARY, disabled: !hasTastes(profile) }),
+      ),
+      ui.separator(),
+      ui.text(C.lookingLine),
+      lookingSelect(profile),
+      ui.text(C.dmsLine),
+      dmsSelect(profile),
+      ui.separator(),
+      ui.text(C.rules),
+      ui.row(ui.button({ id: 'cz:page:main', label: C.back, emoji: '◀️', style: S.SECONDARY }), cardButton()),
+    ]),
+  ];
+}
+
+const PAGES = { main: mainPage, about: aboutPage, tastes: tastesPage };
 
 function noProfile() {
   return [ui.container(ui.COLORS.auracle, [ui.text(profileTexts.notAwakenedSelf)])];
@@ -163,9 +221,40 @@ export async function customizeComponent(interaction, env) {
       return ui.update(aboutPage(profile, { sealed: true }));
     }
 
+    case 'tastesedit':
+      return tastesForm(profile);
+
+    case 'tastesclear':
+      await store.setTastes(env, userId, {});
+      for (const f of TASTE_FIELDS) profile[f.key] = null;
+      return ui.update(tastesPage(profile, { sealed: true }));
+
+    case 'looking': {
+      const chosen = (interaction.data.values ?? []).filter((k) => k in LOOKING_FOR).slice(0, 3);
+      await store.setLookingFor(env, userId, chosen);
+      profile.looking_for = chosen.length ? chosen.join(',') : null;
+      return ui.update(tastesPage(profile, { sealed: true }));
+    }
+
+    case 'dms': {
+      const dms = value in DMS ? value : null;
+      await store.setDms(env, userId, dms);
+      profile.dms = dms;
+      return ui.update(tastesPage(profile, { sealed: true }));
+    }
+
     default:
       return ui.update(mainPage(profile));
   }
+}
+
+// All the text fields of a form, by their custom_id.
+function formValues(components, out = {}) {
+  for (const c of components ?? []) {
+    if (c.custom_id && typeof c.value === 'string') out[c.custom_id] = c.value;
+    formValues(c.components ?? (c.component ? [c.component] : []), out);
+  }
+  return out;
 }
 
 function findValue(components) {
@@ -177,7 +266,7 @@ function findValue(components) {
   return null;
 }
 
-// Forms: cz:hex (own color), cz:about (About me), cz:vibetext (own vibe).
+// Forms: cz:hex (own color), cz:about (About me), cz:vibetext (own vibe), cz:tastes (Tastes & fun).
 export async function customizeModal(interaction, env) {
   const userId = userOf(interaction).id;
   const action = interaction.data.custom_id.split(':')[1];
@@ -208,6 +297,19 @@ export async function customizeModal(interaction, env) {
     await store.setVibe(env, userId, vibe, text);
     Object.assign(profile, { vibe, vibe_text: text });
     return ui.update(aboutPage(profile, { sealed: true }));
+  }
+
+  if (action === 'tastes') {
+    const values = formValues(interaction.data.components);
+    const fields = {};
+    for (const f of TASTE_FIELDS) {
+      const { text, error } = cleanText(values[f.key], TASTE_MAX);
+      if (error) return ui.update(tastesPage(profile, { warning: C.noLinks }));
+      fields[f.key] = text;
+    }
+    await store.setTastes(env, userId, fields);
+    Object.assign(profile, fields);
+    return ui.update(tastesPage(profile, { sealed: true }));
   }
 
   return ui.update(mainPage(profile));

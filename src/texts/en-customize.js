@@ -25,6 +25,7 @@ export const customizeTexts = {
   appearance: '**🖌️ Appearance**',
   pagesTitle: '**📖 More pages**',
   aboutPage: 'About me',
+  tastesPage: 'Tastes & fun',
   back: 'Back',
 
   // 💬 About me page
@@ -40,5 +41,18 @@ export const customizeTexts = {
   customVibe: 'My own vibe...',
   vibeForm: { title: 'Your own vibe', label: 'Your vibe (40 characters)', placeholder: 'Learning to bake bread' },
   noLinks: '-# ⚠️ Links are not allowed on cards. Please write it without a link.',
+
+  // 🎮 Tastes & fun page
+  tastesTitle: '### 🎮 Tastes & fun',
+  tastesIntro: '-# What you love, and what kind of company you are looking for. Everything is optional.',
+  tastesLines: (lines) => `**🎮 Your tastes**\n${lines.length ? lines.join('\n') : '-# Empty'}`,
+  tastesEdit: 'Edit my tastes',
+  tastesClear: 'Clear',
+  tastesForm: 'Tastes & fun',
+  lookingLine: '**🤝 Looking for**\n-# Up to 3. Friendship and hobbies only.',
+  lookingPlaceholder: 'What kind of company are you looking for?',
+  dmsLine: '**✉️ Direct messages**',
+  dmsPlaceholder: 'Your DM preference',
+  dmsNone: 'Not shown',
   rules: '-# Keep it kind: no hate, no NSFW, no personal details like your address. Every card can be reported.',
 };

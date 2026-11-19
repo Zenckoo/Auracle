@@ -12,6 +12,7 @@ export function moderationRow(targetId) {
   return ui.row(
     ui.button({ id: `md:clear:about:${targetId}`, label: M.clearAbout, emoji: '🧹', style: S.DANGER }),
     ui.button({ id: `md:clear:vibe:${targetId}`, label: M.clearVibe, emoji: '🧹', style: S.DANGER }),
+    ui.button({ id: `md:clear:tastes:${targetId}`, label: M.clearTastes, emoji: '🧹', style: S.DANGER }),
   );
 }
 
@@ -31,5 +32,6 @@ export async function moderationComponent(interaction, env) {
 
   if (field === 'about') await store.setAbout(env, targetId, null);
   if (field === 'vibe') await store.setVibe(env, targetId, null);
+  if (field === 'tastes') await store.setTastes(env, targetId, {});
   return ui.message(box(M.done(M.what[field], targetId)));
 }
