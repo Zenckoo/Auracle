@@ -6,11 +6,12 @@ Crafted with care by Zenckoo ✨ · Code et textes écrits avec l'aide de Claude
 
 ## Comment il fonctionne
 
-- Hébergé gratuitement sur Cloudflare : le bot sur Workers, la base de données sur D1, le site sur Pages
+- Hébergé gratuitement sur Cloudflare : le bot sur Workers, la base de données sur D1, les bannières sur R2 (vérifiées par Workers AI), le site sur Pages
 - Uniquement des commandes slash et des boutons, pas besoin d'être allumé en permanence
 - 4 commandes : `/auracle` (le menu avec tous les boutons), `/awaken`, `/profile`, `/forget`
 - Chaque nuit, un nettoyage automatique efface les vieilles données (voir `scheduled()` dans `src/index.js`)
 - La seule partie liée à Cloudflare est `src/index.js` : le reste peut déménager chez un autre hébergeur
+- Versions : 0.x pendant la bêta (v0.7 = bêta publique), v1.0 à la sortie de bêta. Chaque version est notée dans `src/texts/en-updates.js`
 
 ## Organisation
 

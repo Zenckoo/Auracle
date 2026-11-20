@@ -10,7 +10,12 @@ const LINKS = {
   terms: { url: SITE.terms, emoji: '📜' },
 };
 
+// One link button, for example siteLink('home').
+export function siteLink(key) {
+  return ui.linkButton({ url: LINKS[key].url, label: texts.common.links[key], emoji: LINKS[key].emoji });
+}
+
 // A row of link buttons, for example siteLinks('terms', 'privacy').
 export function siteLinks(...keys) {
-  return ui.row(...keys.map((k) => ui.linkButton({ url: LINKS[k].url, label: texts.common.links[k], emoji: LINKS[k].emoji })));
+  return ui.row(...keys.map(siteLink));
 }

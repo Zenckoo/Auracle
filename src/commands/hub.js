@@ -17,6 +17,7 @@ import { codexTexts } from '../texts/en-codex.js';
 import { serverTexts } from '../texts/en-server.js';
 import { serverCommand } from './server.js';
 import { isStaff } from '../core/roles.js';
+import { siteLink } from '../core/links.js';
 import { customizeCommand } from './customize.js';
 import { customizeTexts } from '../texts/en-customize.js';
 import { isBirthday } from '../data/practical.js';
@@ -30,11 +31,12 @@ function userSelect(id, placeholder) {
 }
 
 export async function hubCommand(interaction, env) {
-  // ⚙️ Server settings only shows for staff (people who can manage the server).
-  const staffRow =
-    interaction?.guild_id && isStaff(interaction)
-      ? [ui.row(ui.button({ id: 'hub:server', label: serverTexts.hubButton, emoji: '⚙️', style: S.SECONDARY }))]
-      : [];
+  // 🌐 The website, at the bottom. ⚙️ Server settings joins it only for staff (people who can manage the server).
+  const staff = interaction?.guild_id && isStaff(interaction);
+  const bottomRow = ui.row(
+    siteLink('home'),
+    ...(staff ? [ui.button({ id: 'hub:server', label: serverTexts.hubButton, emoji: '⚙️', style: S.SECONDARY })] : []),
+  );
   // 🎂 On the traveler's birthday (day and month they chose in Customize), a small greeting on top.
   const userId = interaction?.member?.user?.id ?? interaction?.user?.id;
   const profile = env && userId ? await store.getProfile(env, userId) : null;
@@ -65,7 +67,7 @@ export async function hubCommand(interaction, env) {
       ),
       userSelect('hub:view', H.viewPlaceholder),
       userSelect('hub:compare', H.comparePlaceholder),
-      ...staffRow,
+      bottomRow,
     ]),
   ]);
 }
