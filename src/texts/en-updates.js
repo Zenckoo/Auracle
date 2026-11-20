@@ -95,7 +95,9 @@ export const updatesTexts = {
     },
   ],
   soon: [
-    'More languages: French, German and Japanese',
+    '🔑 **Log in with Discord** on the website',
+    '🎨 **Customize your card on the website**, with even more options, like moving and cropping your banner',
+    '🗣️ More languages: French, German and Japanese',
   ],
   footer: '-# Have an idea? Share it with 📬 Feedback in `/auracle`.',
 };
