@@ -1,5 +1,6 @@
-// English texts for /updates. Add a new block at the TOP of "versions" for each release
-// (v1.0.1 small fix, v1.1 new feature, v2.0 big change), and remove it from "soon".
+// English texts for 📜 Updates (a button in /auracle). Add a new block at the TOP of "versions" for each release.
+// During the beta, versions are 0.x: v0.7.1 small fix, v0.8 new feature. v1.0 will mark the end of the beta.
+// Remove the new features from "soon" once they are out.
 // Each version gets its own page in What's new, newest first.
 
 export const updatesTexts = {
@@ -12,7 +13,7 @@ export const updatesTexts = {
   page: (n, total) => `Page ${n} / ${total}`,
   versions: [
     {
-      name: 'v2.0',
+      name: 'v0.7 · Public beta 🌍',
       items: [
         '🌍 Auracle is now open to every server, in public beta',
         '🏰 **Guild roles**: server staff can turn them on in ⚙️ Server settings, in `/auracle`. Each traveler with a public card gets the role of their guild',
@@ -24,7 +25,10 @@ export const updatesTexts = {
         '🤖 Auracle now credits **Claude**, the AI by Anthropic that helps write its code and texts',
         '📬 Feedback is limited to 5 messages every 24 hours, to keep it spam-free',
         '🔗 Links to the website, the Privacy Policy and the Terms of Service in Help, Privacy, the Codex and before the trial',
-        '🎨 **Customize** in `/auracle`: choose a fantasy title for your card, among 15, an accent color for its border, an **About me** sentence, your **current vibe**, and your **tastes**: games, anime, music, favorite people, what you are looking for and your DM preference, and **practical** info: your local time, the languages you speak (more than 150, from Swahili to Māori) and your birthday, and, if you wish, your **identity**: pronouns, gender, orientation and origins, only with your consent and private by default',
+        '🎨 **Customize** in `/auracle`: a fantasy title among 15, an accent color for the border of your card, an **About me** sentence and your **current vibe**',
+        '🎮 **Tastes & fun**: games, anime, music, favorite people, the kind of company you are looking for, and your DM preference',
+        '🕰️ **Practical**: your local time, the languages you speak (more than 150, from Swahili to Māori) and your birthday',
+        '🌈 **Identity**, if you wish: pronouns, gender, orientation and origins, only with your consent and private by default',
         "🚩 **Report**: every traveler's card now has a Report button. Pick a reason, and your report goes privately to Zenckoo",
         '📖 A new Codex page, **Identity words**: pronouns, genders and orientations explained simply',
         '🏅 **Badges**: earn them along your journey and show up to 3 on your card. 🌱 **Early Traveler** is only for travelers of the public beta!',
@@ -38,7 +42,7 @@ export const updatesTexts = {
       ],
     },
     {
-      name: 'v1.5',
+      name: 'v0.6 · Private tests',
       items: [
         '🧭 Everything now lives in the `/auracle` menu: fewer commands, more buttons',
         'Only four commands remain: `/auracle`, `/awaken`, `/profile` and `/forget`',
@@ -46,7 +50,7 @@ export const updatesTexts = {
       ],
     },
     {
-      name: 'v1.4',
+      name: 'v0.5 · Private tests',
       items: [
         '📖 `/codex`: a small book explaining how Auracle works, the Big Five, the trials, your letters, the guilds, your data, with links to the sources',
         'The Codex is also in the `/auracle` menu',
@@ -55,7 +59,7 @@ export const updatesTexts = {
       ],
     },
     {
-      name: 'v1.3',
+      name: 'v0.4 · Private tests',
       items: [
         '📚 The **Grand Trial**: 300 questions, 10 per facet, for the deepest journey',
         'Choose your path before you begin: Standard Trial or Grand Trial',
@@ -63,7 +67,7 @@ export const updatesTexts = {
       ],
     },
     {
-      name: 'v1.2',
+      name: 'v0.3 · Private tests',
       items: [
         '🗝️ **Hidden secrets**: the facets that stand out the most from their trait, on a new page before your facets',
         'Choose to show your top secret on your card, or keep it hidden',
@@ -71,7 +75,7 @@ export const updatesTexts = {
       ],
     },
     {
-      name: 'v1.1',
+      name: 'v0.2 · Private tests',
       items: [
         '`/compare`: see how well you match with another traveler',
         '`/guilds`: how the guilds are spread across the server',
@@ -79,7 +83,7 @@ export const updatesTexts = {
       ],
     },
     {
-      name: 'v1.0',
+      name: 'v0.1 · Private tests',
       items: [
         'The **Standard Trial**: 120 questions to reveal your hero class',
         '16 classes across 4 guilds: 🌙 Dreamers, 📚 Scholars, 🏰 Guardians, 🗺️ Wanderers',

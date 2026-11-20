@@ -53,7 +53,7 @@ export const codexTexts = {
       emoji: '🌈',
       name: 'Everyone belongs here',
       body:
-        'Your personality is about how you tend to think, feel and act. It has nothing to do with your gender, who you love, your skin, your faith, your body, your age or where you come from. The trial never asks about any of these, and they never change your results. If one day you add something about yourself to your card, it will always be your choice, and only yours.\n\n' +
+        'Your personality is about how you tend to think, feel and act. It has nothing to do with your gender, who you love, your skin, your faith, your body, your age or where you come from. The trial never asks about any of these, and they never change your results. If you add something about yourself to your card, in 🎨 Customize > 🌈 Identity, it is always your choice, and only yours.\n\n' +
         'No class, no guild and no score is better than another. Being quiet, sensitive or messy is not a flaw: it is a way of being.\n\n' +
         '🚫 **Auracle must never be used to judge, mock or exclude anyone.** Treating someone unfairly because of who they are is discrimination, and it has no place here.\n\n' +
         '🛡️ If someone targets you on Discord, you can block them, tell the moderators of your server, and report it to Discord.',
@@ -83,8 +83,10 @@ export const codexTexts = {
         'Auracle only keeps what it needs:\n' +
         '- Your answers and results, until you use `/forget`\n' +
         '- Unfinished trials, erased 30 days after your last answer\n' +
-        '- Which server you used Auracle on, only for 🏰 Guilds and guild roles\n\n' +
-        'Your card and your hidden secret are **private by default**. Your facets are never shown to others. `/forget` erases everything, anytime, and **📦 My data** in 🔒 Privacy sends you a copy of everything Auracle keeps.\n\n' +
+        '- What you add to your card: customization, identity (only with your consent), badges, banner and blessings\n' +
+        '- Which servers you used Auracle on, only for 🏰 Guilds and guild roles\n\n' +
+        'Your card, your hidden secret and your identity are **private by default**. Your facets are never shown to others. A blessing appears only if its owner accepts it, and every banner is checked automatically for safety before it is saved.\n\n' +
+        '`/forget` erases everything, anytime, and **📦 My data** in 🔒 Privacy sends you a copy of everything Auracle keeps.\n\n' +
         '-# Every detail is in the Privacy Policy.',
       links: [{ label: 'Privacy Policy', url: 'https://auracle-site.pages.dev/privacy' }],
     },
@@ -165,7 +167,7 @@ export const codexTexts = {
         'Every new technology raised the same doubts at first. I believe we have to live with our time: AI is a useful tool, worth exploring. It lets me build ideas I could never build alone, and Auracle is one of them.\n\n' +
         'But a tool should help people, not replace them, especially in art and audiovisual work. UNESCO\'s Recommendation on the Ethics of AI, adopted by 193 countries, agrees: AI must never *"displace ultimate human responsibility."* It also asks for transparency, and for everyone to understand AI. That is why this page exists.\n\n' +
         '🛠️ **In Auracle:** **Claude**, an AI by Anthropic, helps with code and texts, always checked by me. It never sees your data. The art will always be made by humans.\n' +
-        '🔒 **Privacy:** your answers never go to an AI, and Auracle keeps only what it needs.\n' +
+        '🔒 **Privacy:** your answers never go to an AI, and Auracle keeps only what it needs. Only banners are checked by an AI, for safety, on Cloudflare\'s own servers.\n' +
         '⚖️ **Fairness:** AI can carry bias. Your results come from a fixed formula based on public research, the same for everyone.\n\n' +
         '**💡 Use AI in a healthy way**\n' +
         '🧠 Think your idea through before asking.\n' +
