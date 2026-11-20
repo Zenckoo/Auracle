@@ -24,7 +24,7 @@ export const updatesTexts = {
         '⚖️ A new, much more detailed Privacy Policy and Terms of Service, with full transparency on AI',
         '🤖 Auracle now credits **Claude**, the AI by Anthropic that helps write its code and texts',
         '📬 Feedback is limited to 5 messages every 24 hours, to keep it spam-free',
-        '🔗 Links to the website, the Privacy Policy and the Terms of Service in Help, Privacy, the Codex and before the trial',
+        '🔗 Links to the website, the Privacy Policy and the Terms of Service in the `/auracle` menu, Help, Privacy, the Codex and before the trial',
         '🎨 **Customize** in `/auracle`: a fantasy title among 15, an accent color for the border of your card, an **About me** sentence and your **current vibe**',
         '🎮 **Tastes & fun**: games, anime, music, favorite people, the kind of company you are looking for, and your DM preference',
         '🕰️ **Practical**: your local time, the languages you speak (more than 150, from Swahili to Māori) and your birthday',
