@@ -33,6 +33,8 @@ export const updatesTexts = {
         '🖼️ **Banners**: upload your own image or GIF on top of your card, in 🎨 Customize. Every banner is checked to keep Auracle safe for everyone',
         '🗂️ **Organize your card**: choose the order of its parts, and hide the ones you want',
         '♿ **Accessibility mode** in 🔒 Privacy: simpler messages for screen readers, with words instead of bars and no decorative emojis',
+        '🪪 A cleaner profile card: clear parts with a title each, fewer emojis, and everything about you gathered in one place',
+        '📊 More accurate trait percentiles, now based on a published study of 18,591 people (details in the 📖 Codex)',
       ],
     },
     {

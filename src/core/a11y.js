@@ -26,8 +26,9 @@ export function simplify(text) {
   return text
     .replace(/❝ ?/g, '"').replace(/ ?❞/g, '"')
     .replace(/^-# /gm, '')
-    // 🎮 after " · " is the "Gaming time" vibe, not the games: it is simply removed.
-    .replace(WORD_AT, (all, before, emoji) => (before && emoji === '🎮' ? all : `${before}${WORDS[emoji] ?? WORDS[`${emoji}️`]} `))
+    // 🎮 before "Gaming time" is the vibe, not the games: it is simply removed (with the other emojis, below).
+    .replace(WORD_AT, (all, before, emoji, offset, whole) =>
+      emoji === '🎮' && whole.startsWith('Gaming time', offset + all.length) ? all : `${before}${WORDS[emoji] ?? WORDS[`${emoji}️`]} `)
     .replace(new RegExp(`^\\s*${BAR}\\s*$\\n?`, 'gm'), '')
     .replace(new RegExp(`(${BAR}) (\\d+%)`, 'g'), '$2 done')
     .replace(new RegExp(`(${BAR}) ([A-Z][\\w-]*)`, 'g'), (_, bar, name) => `${name}: about ${percent(bar)}%`)
