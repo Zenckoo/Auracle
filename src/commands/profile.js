@@ -2,14 +2,14 @@
 // Facets are never shown here; only the hidden secret, if its owner chose to show it.
 
 import { ui } from '../core/ui.js';
-import { texts } from '../texts/en.js';
-import { profileTexts as P } from '../texts/en-profile.js';
-import { trialTexts as TT } from '../texts/en-trials.js';
+import { texts } from '../texts/main.js';
+import { profileTexts as P } from '../texts/profile.js';
+import { trialTexts as TT } from '../texts/trials.js';
 import { CLASSES, GUILDS } from '../data/classes.js';
 import * as store from '../core/store.js';
 import * as scoring from '../core/scoring.js';
 import { reportButton } from './report.js';
-import { customizeTexts as CZ } from '../texts/en-customize.js';
+import { customizeTexts as CZ } from '../texts/customize.js';
 import { titleName } from '../data/titles.js';
 import { GUILD_DOTS } from '../data/colors.js';
 import { vibeLine } from '../data/vibes.js';
@@ -20,7 +20,7 @@ import { IDENTITY_FIELDS, identityNames } from '../data/identity.js';
 import { originNames } from '../data/origins.js';
 import { badgeLine } from '../data/badges.js';
 import { blessButton } from './blessings.js';
-import { blessingTexts as BL } from '../texts/en-blessings.js';
+import { blessingTexts as BL } from '../texts/blessings.js';
 import { bannerUrl, bannerGallery } from '../core/banners.js';
 import { cardLayout } from '../data/layout.js';
 

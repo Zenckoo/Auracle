@@ -2,7 +2,7 @@
 
 import { ui } from './ui.js';
 import { SITE } from '../config.js';
-import { texts } from '../texts/en.js';
+import { texts } from '../texts/main.js';
 
 const LINKS = {
   home: { url: SITE.home, emoji: '🌐' },

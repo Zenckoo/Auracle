@@ -1,9 +1,9 @@
 // 🤝 Compare (the menu in /auracle): two public cards face to face, with a fun compatibility score.
 
 import { ui } from '../core/ui.js';
-import { texts } from '../texts/en.js';
-import { profileTexts } from '../texts/en-profile.js';
-import { compareTexts as C } from '../texts/en-social.js';
+import { texts } from '../texts/main.js';
+import { profileTexts } from '../texts/profile.js';
+import { compareTexts as C } from '../texts/social.js';
 import { CLASSES, GUILDS } from '../data/classes.js';
 import * as store from '../core/store.js';
 import * as scoring from '../core/scoring.js';

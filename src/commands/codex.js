@@ -2,7 +2,7 @@
 // One page at a time, with arrows and a menu to jump to any page.
 
 import { ui } from '../core/ui.js';
-import { codexTexts as X } from '../texts/en-codex.js';
+import { codexTexts as X } from '../texts/codex.js';
 import { CLASSES, GUILDS } from '../data/classes.js';
 import { earn, announce } from '../core/badges.js';
 import * as store from '../core/store.js';

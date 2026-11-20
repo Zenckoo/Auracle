@@ -1,6 +1,6 @@
 // English texts for 🗂️ Organize card (in Customize).
 
-import { customizeTexts } from './en-customize.js';
+import { customizeTexts } from './customize.js';
 
 export const organizeTexts = {
   page: 'Organize',

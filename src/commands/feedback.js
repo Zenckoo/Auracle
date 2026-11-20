@@ -2,7 +2,7 @@
 
 import { ui } from '../core/ui.js';
 import { config } from '../config.js';
-import { feedbackTexts as F, banTexts } from '../texts/en-feedback.js';
+import { feedbackTexts as F, banTexts } from '../texts/feedback.js';
 import * as store from '../core/store.js';
 import { earn, announce } from '../core/badges.js';
 

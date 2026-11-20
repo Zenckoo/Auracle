@@ -1,7 +1,7 @@
 // 📜 Updates (a button in /auracle): two tabs. What's new shows one version per page (newest first), Coming soon shows what's planned.
 
 import { ui } from '../core/ui.js';
-import { updatesTexts as U } from '../texts/en-updates.js';
+import { updatesTexts as U } from '../texts/updates.js';
 
 const S = ui.ButtonStyle;
 

@@ -3,9 +3,9 @@
 
 import { ui } from '../core/ui.js';
 import { siteLinks } from '../core/links.js';
-import { texts } from '../texts/en.js';
-import { secretTexts as SX } from '../texts/en-secrets.js';
-import { trialTexts as TT } from '../texts/en-trials.js';
+import { texts } from '../texts/main.js';
+import { secretTexts as SX } from '../texts/secrets.js';
+import { trialTexts as TT } from '../texts/trials.js';
 import { FACETS } from '../data/ipip120.js';
 import { trialItems } from '../data/trials.js';
 import { CLASSES, GUILDS, article } from '../data/classes.js';

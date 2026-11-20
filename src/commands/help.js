@@ -1,8 +1,8 @@
 // The Traveler's Guide (Help button in /auracle): the 4 commands, the menu buttons, and links to the website.
 
 import { ui } from '../core/ui.js';
-import { texts } from '../texts/en.js';
-import { serverTexts } from '../texts/en-server.js';
+import { texts } from '../texts/main.js';
+import { serverTexts } from '../texts/server.js';
 import { siteLinks } from '../core/links.js';
 
 export function helpCommand() {

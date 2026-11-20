@@ -3,7 +3,7 @@
 
 import { ui } from '../core/ui.js';
 import { config } from '../config.js';
-import { moderationTexts as M } from '../texts/en-moderation.js';
+import { moderationTexts as M } from '../texts/moderation.js';
 import * as store from '../core/store.js';
 import { deleteBannerFile } from '../core/banners.js';
 

@@ -4,7 +4,7 @@
 
 import { ui } from '../core/ui.js';
 import { config } from '../config.js';
-import { reportTexts as RP } from '../texts/en-report.js';
+import { reportTexts as RP } from '../texts/report.js';
 import { CLASSES } from '../data/classes.js';
 import * as store from '../core/store.js';
 import { vibeLine } from '../data/vibes.js';

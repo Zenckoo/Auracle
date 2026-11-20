@@ -8,6 +8,8 @@ export const config = {
   reportChannelId: '1572822029713809468',
 
   applicationId: '1572397022370078860',
+  // Zenckoo's HQ server, where languages still being translated can be tried before everyone gets them.
+  hqGuildId: '251393745386209281',
 
   // Discord user IDs allowed to use the moderation buttons under a 🚩 Report (only Zenckoo).
   moderatorIds: ['249869919292882944'],

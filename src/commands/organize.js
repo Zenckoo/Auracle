@@ -2,9 +2,9 @@
 //   og:page   og:up:<key>   og:toggle:<key>   og:reset
 
 import { ui } from '../core/ui.js';
-import { organizeTexts as O } from '../texts/en-organize.js';
-import { customizeTexts as C } from '../texts/en-customize.js';
-import { profileTexts } from '../texts/en-profile.js';
+import { organizeTexts as O } from '../texts/organize.js';
+import { customizeTexts as C } from '../texts/customize.js';
+import { profileTexts } from '../texts/profile.js';
 import { CLASSES, GUILDS } from '../data/classes.js';
 import { PARTS, cardLayout, layoutText } from '../data/layout.js';
 import * as store from '../core/store.js';

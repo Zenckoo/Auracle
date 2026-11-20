@@ -2,7 +2,7 @@
 // Each button opens its answer as a new message; the menu stays open.
 
 import { ui } from '../core/ui.js';
-import { hubTexts as H } from '../texts/en-hub.js';
+import { hubTexts as H } from '../texts/hub.js';
 import { helpCommand } from './help.js';
 import { awakenCommand } from './awaken.js';
 import { profileCommand } from './profile.js';
@@ -13,16 +13,16 @@ import { feedbackCommand } from './feedback.js';
 import { compareCommand } from './compare.js';
 import { guildsCommand } from './guilds.js';
 import { codexCommand } from './codex.js';
-import { codexTexts } from '../texts/en-codex.js';
-import { serverTexts } from '../texts/en-server.js';
+import { codexTexts } from '../texts/codex.js';
+import { serverTexts } from '../texts/server.js';
 import { serverCommand } from './server.js';
 import { isStaff } from '../core/roles.js';
 import { siteLink } from '../core/links.js';
 import { customizeCommand } from './customize.js';
-import { customizeTexts } from '../texts/en-customize.js';
+import { customizeTexts } from '../texts/customize.js';
 import { isBirthday } from '../data/practical.js';
 import * as store from '../core/store.js';
-import { blessingTexts } from '../texts/en-blessings.js';
+import { blessingTexts } from '../texts/blessings.js';
 
 const S = ui.ButtonStyle;
 

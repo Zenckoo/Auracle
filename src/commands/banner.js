@@ -6,9 +6,9 @@
 
 import { ui } from '../core/ui.js';
 import { config, BANNER_BASE } from '../config.js';
-import { bannerTexts as BN } from '../texts/en-banner.js';
-import { customizeTexts as C } from '../texts/en-customize.js';
-import { profileTexts } from '../texts/en-profile.js';
+import { bannerTexts as BN } from '../texts/banner.js';
+import { customizeTexts as C } from '../texts/customize.js';
+import { profileTexts } from '../texts/profile.js';
 import { CLASSES, GUILDS } from '../data/classes.js';
 import { bannerUrl, bannerGallery, bannerProblem, checkBanner, storeBanner, deleteBannerFile } from '../core/banners.js';
 import { earn, announce } from '../core/badges.js';

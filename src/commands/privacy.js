@@ -1,14 +1,14 @@
 // 🔒 Privacy (in the /auracle menu): public or private card, hidden secret, guild role, and My data.
 
 import { ui } from '../core/ui.js';
-import { profileTexts } from '../texts/en-profile.js';
-import { privacyTexts as P } from '../texts/en-privacy.js';
-import { secretTexts as SX } from '../texts/en-secrets.js';
+import { profileTexts } from '../texts/profile.js';
+import { privacyTexts as P } from '../texts/privacy.js';
+import { secretTexts as SX } from '../texts/secrets.js';
 import { CLASSES, GUILDS } from '../data/classes.js';
 import * as store from '../core/store.js';
 import * as roles from '../core/roles.js';
 import { SITE } from '../config.js';
-import { texts } from '../texts/en.js';
+import { texts } from '../texts/main.js';
 
 const S = ui.ButtonStyle;
 

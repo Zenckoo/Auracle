@@ -8,6 +8,14 @@ export const serverTexts = {
   notStaff: '### 🔒 Staff only\nOnly members who can manage this server can open these settings.',
   serverOnly: '### 🏰 Servers only\nServer settings can only be opened inside a server.',
 
+  languageTitle: '**🌍 Language**',
+  languageExplain: '-# The language Auracle speaks on this server: menus, trial, cards and Codex. What travelers write themselves stays as they wrote it.',
+  languageStatus: (name, auto) => `Language: **${name}**${auto ? ' · automatic' : ''}`,
+  languagePlaceholder: 'Choose a language',
+  languageAuto: 'Automatic',
+  languageAutoHint: 'Follows the language of your server on Discord',
+  languageSaved: (name) => `### 🌍 Auracle now speaks ${name} here`,
+
   rolesTitle: '**🏰 Guild roles**',
   rolesExplain:
     'Auracle can create the four guild roles and give each traveler the role of their guild.\n' +

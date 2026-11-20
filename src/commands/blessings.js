@@ -7,9 +7,9 @@
 // new blessings are announced in /auracle and on the owner's private card.
 
 import { ui } from '../core/ui.js';
-import { blessingTexts as BL } from '../texts/en-blessings.js';
-import { profileTexts } from '../texts/en-profile.js';
-import { customizeTexts as C } from '../texts/en-customize.js';
+import { blessingTexts as BL } from '../texts/blessings.js';
+import { profileTexts } from '../texts/profile.js';
+import { customizeTexts as C } from '../texts/customize.js';
 import { CLASSES, GUILDS } from '../data/classes.js';
 import { KIND_SOUL_GOAL } from '../data/badges.js';
 import { earn } from '../core/badges.js';

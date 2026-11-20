@@ -1,7 +1,7 @@
 // /forget: erase everything Auracle knows about you (right to be forgotten).
 
 import { ui } from '../core/ui.js';
-import { forgetTexts as F } from '../texts/en-privacy.js';
+import { forgetTexts as F } from '../texts/privacy.js';
 import * as store from '../core/store.js';
 import * as roles from '../core/roles.js';
 import { deleteBannerFile } from '../core/banners.js';

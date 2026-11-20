@@ -262,6 +262,19 @@ export async function getServerSettings(env, guildId) {
   return env.DB.prepare('SELECT * FROM server_settings WHERE guild_id = ?').bind(guildId).first();
 }
 
+// 🌍 The language chosen for a server, or null (then Auracle follows the server's Discord language).
+export async function getServerLanguage(env, guildId) {
+  const row = await env.DB.prepare('SELECT language FROM server_settings WHERE guild_id = ?').bind(guildId).first();
+  return row?.language ?? null;
+}
+
+export async function setServerLanguage(env, guildId, language) {
+  await env.DB.prepare(
+    `INSERT INTO server_settings (guild_id, language, updated_at) VALUES (?, ?, ?)
+     ON CONFLICT(guild_id) DO UPDATE SET language = excluded.language, updated_at = excluded.updated_at`,
+  ).bind(guildId, language, Date.now()).run();
+}
+
 // ids: { dreamers, scholars, guardians, wanderers } (null to forget them).
 export async function saveServerRoles(env, guildId, enabled, ids = {}) {
   await env.DB.prepare(

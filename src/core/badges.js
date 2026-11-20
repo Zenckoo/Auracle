@@ -3,7 +3,7 @@
 import { ui } from './ui.js';
 import { showText } from './text.js';
 import { BADGES, badgeName } from '../data/badges.js';
-import { badgeTexts as B } from '../texts/en-badges.js';
+import { badgeTexts as B } from '../texts/badges.js';
 import * as store from './store.js';
 
 // Gives each badge in the list. Returns the keys that are new.

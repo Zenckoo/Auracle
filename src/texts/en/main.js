@@ -1,4 +1,4 @@
-// All of Auracle's English texts live here, so other languages can be added later.
+// The main English texts (Help, the trial, results). Other languages: fr/main.js and de/main.js, same shape.
 
 export const CHANGE_LATER = '-# You can change this anytime with 🔒 Privacy in `/auracle`.';
 

@@ -5,6 +5,8 @@
 name = "auracle"
 main = "src/index.js"
 compatibility_date = "2026-11-01"
+# 🌍 Lets each Discord request remember its language (see src/core/i18n.js).
+compatibility_flags = ["nodejs_als"]
 keep_vars = true
 
 [[d1_databases]]

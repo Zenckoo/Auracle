@@ -19,7 +19,7 @@ import { syncEverywhere } from './core/roles.js';
 import { accessible } from './core/a11y.js';
 import { getAccessibility } from './core/store.js';
 import { ui } from './core/ui.js';
-import { texts } from './texts/en.js';
+import { texts } from './texts/main.js';
 
 // The 4 slash commands. Everything else is a button in the /auracle menu (see hub.js).
 const commandHandlers = {

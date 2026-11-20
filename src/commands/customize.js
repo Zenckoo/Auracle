@@ -9,8 +9,8 @@
 // Opened from the /auracle menu. Buttons, menus and forms are named "cz:...".
 
 import { ui } from '../core/ui.js';
-import { customizeTexts as C } from '../texts/en-customize.js';
-import { profileTexts } from '../texts/en-profile.js';
+import { customizeTexts as C } from '../texts/customize.js';
+import { profileTexts } from '../texts/profile.js';
 import { CLASSES, GUILDS } from '../data/classes.js';
 import { TITLES, titleName } from '../data/titles.js';
 import { PALETTE, parseHex, colorName } from '../data/colors.js';
@@ -21,11 +21,11 @@ import { IDENTITY_FIELDS, OWN_MAX, identityKeys, identityNames, hasIdentity } fr
 import { ORIGIN_REGIONS, ORIGIN_MAX, flag, originKeys, originNames } from '../data/origins.js';
 import { SITE } from '../config.js';
 import { BADGES, SHOW_MAX, KINDRED_GOAL, KIND_SOUL_GOAL, earnedBadges, shownBadges, pagesSeen } from '../data/badges.js';
-import { badgeTexts as B } from '../texts/en-badges.js';
-import { blessingTexts } from '../texts/en-blessings.js';
-import { bannerTexts } from '../texts/en-banner.js';
-import { organizeTexts } from '../texts/en-organize.js';
-import { codexTexts } from '../texts/en-codex.js';
+import { badgeTexts as B } from '../texts/badges.js';
+import { blessingTexts } from '../texts/blessings.js';
+import { bannerTexts } from '../texts/banner.js';
+import { organizeTexts } from '../texts/organize.js';
+import { codexTexts } from '../texts/codex.js';
 import { earn, announce } from '../core/badges.js';
 import { cleanText, showText } from '../core/text.js';
 import * as store from '../core/store.js';

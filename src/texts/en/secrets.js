@@ -1,6 +1,6 @@
 // English texts for Hidden secrets.
 
-import { CHANGE_LATER } from './en.js';
+import { CHANGE_LATER } from './main.js';
 
 export const secretTexts = {
   pageLabel: 'Secrets',
