@@ -90,17 +90,23 @@
   .guild li span { color: var(--muted); font-size: 13px; }
 
   /* Example card (same layout as the Discord card) */
-  .card { max-width: 440px; margin: 0 auto; background: var(--night-2); border: 1px solid var(--line); border-left: 4px solid var(--dreamers); border-radius: 6px; padding: 18px 20px; }
+  .card { max-width: 460px; margin: 0 auto; background: var(--night-2); border: 1px solid var(--line); border-left: 4px solid #9b59b6; border-radius: 8px; padding: 14px 16px 16px; font-size: 15px; line-height: 1.5; }
+  /* Banner: a starry sky photo from Unsplash (Unsplash License). */
+  .card .banner { height: 0; padding-bottom: 33.33%; border-radius: 6px; background: var(--night-3) url('https://images.unsplash.com/photo-1465101162946-4377e57745c3?w=960&h=320&fit=crop&q=75&auto=format') center / cover no-repeat; margin-bottom: 12px; }
   .card-top { display: flex; justify-content: space-between; gap: 14px; }
-  .card .label { font-size: 12px; color: var(--muted); margin: 0; }
-  .card .cls { font-size: 24px; color: var(--ink); margin: 2px 0 0; font-weight: 500; }
-  .card .sub { margin: 0 0 6px; color: var(--soft); }
-  .card .meta { font-size: 14px; margin: 0; }
-  .avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--night-3); display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
-  .card hr { border: none; border-top: 1px solid var(--line); margin: 14px 0; }
-  .bars { font-size: 14px; line-height: 1.9; }
-  .bars .b { color: var(--dreamers); letter-spacing: 1px; }
-  .card .foot { font-size: 12px; color: var(--muted); margin: 0; }
+  .card p { margin: 0; }
+  .card .small { font-size: 12.5px; color: var(--muted); }
+  .card .cls { font-size: 24px; color: var(--ink); margin: 0 0 6px; font-weight: 600; line-height: 1.25; }
+  .card b { color: var(--ink); font-weight: 600; }
+  .card .avatar { width: 68px; height: 68px; border-radius: 50%; flex-shrink: 0; }
+  .card hr { border: none; border-top: 1px solid var(--line); margin: 12px 0; }
+  .card .quote { color: var(--ink); font-style: italic; }
+  .card .who { color: var(--ink); }
+  .card .bars .b { color: var(--dreamers); letter-spacing: 1px; }
+  .card .mention { background: rgba(88, 101, 242, .3); color: #c9cdff; border-radius: 3px; padding: 0 3px; font-weight: 500; }
+  /* Private details are replaced by placeholder text, then blurred. */
+  .card .hidden { filter: blur(5px); user-select: none; }
+  .card .note { font-size: 12px; color: var(--muted); text-align: center; margin: 12px auto 0; max-width: 460px; }
 
   /* Privacy */
   .promises { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
@@ -140,7 +146,7 @@
       <p class="lead">Auracle is a social companion for Discord. It starts with a personality trial based on the Big Five, then lets you build a profile card that truly feels like you, and connect with your community in a kind, inclusive and safe way.</p>
       <div class="steps">
         <div class="step"><div class="icon">📜</div><h3>Discover yourself</h3><p>Take the trial with <b>/awaken</b> and reveal your hero class among 16, with your five traits and 30 facets.</p></div>
-        <div class="step"><div class="icon">🎨</div><h3>Make your card yours</h3><p>Title, color, banner, badges, pronouns, the things you love...</p></div>
+        <div class="step"><div class="icon">🎨</div><h3>Make your card yours</h3><p>Title, color, banner, badges, blessings, pronouns, the things you love...</p></div>
         <div class="step"><div class="icon">🤝</div><h3>Connect with others</h3><p>Compare with your friends and see how the guilds spread across your server. Leave kind words on other travelers' cards too.</p></div>
       </div>
     </div>
@@ -159,26 +165,47 @@
       <h2>Your traveler card</h2>
       <p class="lead">The same card on Discord and here. Yours to show, or to keep private.</p>
       <div class="card">
+        <div class="banner" role="img" aria-label="Banner: a starry night sky"></div>
         <div class="card-top">
           <div>
-            <p class="label">Léa's traveler card</p>
+            <p class="small">Zenckoo's traveler card</p>
+            <p class="small">✨ <i>Dreamweaver</i></p>
             <p class="cls">🎶 Bard</p>
-            <p class="sub">the Peacemaker</p>
-            <p class="meta"><b>INFP</b> · 🌙 The Dreamers · 🔥 Restless flame</p>
+            <p><b>INFP</b> · 🟣 🌙 The Dreamers</p>
+            <p class="small">the Peacemaker · 🔥 Restless flame</p>
           </div>
-          <div class="avatar" aria-hidden="true">🦊</div>
+          <svg class="avatar" viewBox="0 0 512 512" role="img" aria-label="Avatar: an elf face"><defs><linearGradient id="exbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b0f22"/><stop offset="1" stop-color="#1c244d"/></linearGradient><linearGradient id="exfg" x1="0" y1="20" x2="0" y2="492" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#d8d1ff"/><stop offset="1" stop-color="#917ef0"/></linearGradient></defs><rect width="512" height="512" fill="url(#exbg)"/><path transform="translate(56 60) scale(.78)" fill="url(#exfg)" d="M256 41c-28.25 0-58.36 18.25-81.166 44.857-3.138 3.66-6.123 7.477-8.947 11.403L208 69.184l23.127 15.418c.506-6.936 2.568-13.312 6.07-18.565C241.265 59.937 247.934 55 256 55s14.735 4.936 18.803 11.037c3.502 5.253 5.564 11.63 6.07 18.565L304 69.184l42.113 28.076c-2.824-3.926-5.81-7.742-8.947-11.403C314.36 59.25 284.25 41 256 41zm0 32c-.77 0-2.103.436-3.826 3.02C250.45 78.608 249 82.995 249 88c0 3.83.85 7.290 2.02 9.865l4.98 3.32 4.98-3.32C262.15 95.29 263 91.83 263 88c0-5.006-1.45-9.393-3.174-11.98C258.103 73.437 256.770 73 256 73zm-48 17.816l-28.623 19.08 5.336 1.067c16.922 2.09 36.528 3.426 56.605 3.867-1.384-1.3-2.626-2.74-3.7-4.268L208 90.817zm96 0l-29.617 19.747c-1.075 1.527-2.317 2.968-3.7 4.267 20.077-.442 39.685-1.777 56.608-3.867l5.333-1.067L304 90.816zM32 112c33.318 33.318 58.914 89.742 71.463 126.506 3.176-25.792 7.433-52.057 12.54-74.658 1.177-5.203 2.363-10.177 3.585-14.922C98.66 132.53 44.818 112 32 112zm448 0c-12.818 0-66.66 20.53-87.588 36.926 1.222 4.745 2.408 9.72 3.584 14.922 5.108 22.6 9.365 48.866 12.54 74.658C421.087 201.742 446.683 145.318 480 112zm-331.47 10.086c-4.642 8.756-10.375 25.398-14.97 45.730-5.475 24.23-10.06 53.44-13.257 81.444-2.72 23.812-4.36 46.505-4.832 64.775 6.863-23.28 15.328-51.522 26.116-79.943 14.948-39.38 33.48-78.513 59.758-101.444l-52.813-10.562zm214.94 0l-52.814 10.562c26.277 22.930 44.810 62.063 59.758 101.444 10.788 28.420 19.253 56.664 26.115 79.943-.474-18.27-2.114-40.963-4.833-64.775-3.197-28.003-7.782-57.213-13.258-81.444-4.595-20.332-10.328-36.974-14.970-45.730zm-128.755 10.62l-6.690 3.345c-6.370 3.187-12.575 8.020-18.574 14.118 6.667.820 12.990 2.112 18.590 3.863 8.714 2.728 16.785 5.412 20.364 14.750l-16.808 6.440c.716 1.868-2.263-1.923-8.932-4.010-6.670-2.085-15.925-3.606-25.332-3.990-.636-.025-1.273-.033-1.910-.048-3.230 4.555-6.380 9.440-9.442 14.596 4.823-1.175 9.422-1.768 14.020-1.768 12 0 24 4 40 12 0 16-16 32-32 32-9.860 0-25.784-6.078-36.563-14.484-4.653 9.970-9.010 20.393-13.023 30.964-2.324 6.122-4.538 12.267-6.662 18.380 9.174 24.796 21.778 46.163 35.352 63.615 13.475 17.326 27.913 30.755 40.576 39.666C240.342 371.050 251.750 375 256 375s15.658-3.950 28.320-12.860c12.663-8.910 27.100-22.340 40.576-39.665 13.574-17.452 26.178-38.820 35.352-63.614-2.124-6.113-4.338-12.258-6.662-18.380-4.013-10.570-8.370-20.995-13.024-30.964C329.784 217.922 313.860 224 304 224c-16 0-32-16-32-32 16-8 28-12 40-12 4.598 0 9.197.593 14.020 1.768-3.043-5.124-6.173-9.980-9.383-14.512-9.190.424-18.187 1.915-24.707 3.955-6.670 2.087-9.648 5.878-8.932 4.010l-16.810-6.440c3.580-9.338 11.653-12.022 20.370-14.750 4.950-1.548 10.476-2.728 16.296-3.550-6.093-6.248-12.400-11.190-18.880-14.430l-6.690-3.345c-7.034.196-14.150.295-21.284.295-7.133 0-14.250-.100-21.285-.295zM200 192a8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8 8 8 0 0 0-8-8zm111.648 0a8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8 8 8 0 0 0-8-8zM240 256l16 4.098L272 256c0 16-16 16-16 16s-16 0-16-16zm-96.836 28.870c-4.490 14.250-8.274 27.123-11.822 39.160-9.370 62.528-29.578 99.060-52.650 146.353 4.716-.480 9.643-1.316 14.462-2.922 10.293-3.430 19.870-9.632 26.795-23.485l8.050-16.100 8.050 16.100c7.835 15.668 12.134 21.143 14.272 22.773 1.070.815 1.840 1.144 3.942 1.793.250.080.683.214.984.308 12.907-29.755 25.753-81.982 27.535-123.414-3.330-3.765-6.635-7.728-9.887-11.910-10.863-13.966-21.126-30.270-29.732-48.655zm225.672 0c-8.606 18.385-18.870 34.688-29.732 48.655-3.252 4.180-6.557 8.144-9.887 11.910 1.824 42.395 15.232 96.096 28.435 125.454.942-.053 1.702-.120 2.155-.210 1.098-.223.900-.080 1.836-1.022 1.873-1.886 6.306-9.683 14.306-25.683l8.050-16.100 8.050 16.100c6.927 13.853 16.503 20.055 26.796 23.486 5.303 1.770 10.720 2.630 15.857 3.073-17.650-45.806-38.750-79.500-50.510-134.562-4.353-14.547-9.390-32.163-15.357-51.100zM240 288s16 0 16 6.693C256 288 272 288 272 288c16 0 32 16 48 16 0 0-28.900 29.780-48 32-5.653.657-16-5.960-16-5.960s-10.347 6.617-16 5.960c-19.100-2.220-48-32-48-32 16 0 32.012-15.997 48-16zm-40.482 74.475c-.435 4.700-.954 9.440-1.580 14.207l1.550 2.326 25.910 38.865 24.240-24.236 1.048-1.050c-10.230-1.496-21.165-7.142-33.366-15.728-5.783-4.070-11.770-8.882-17.802-14.385zm112.964 0c-6.033 5.503-12.020 10.314-17.802 14.384-12.200 8.585-23.134 14.230-33.364 15.728l25.286 25.285 25.910-38.865 1.550-2.326c-.626-4.767-1.145-9.508-1.580-14.207zm-118.820 40.242c-4.950 25.170-12.022 49.390-19.780 68.283h70.358l-28.166-35.072-22.412-33.210zm124.676 0l-22.412 33.210L267.760 471h70.360c-7.760-18.893-14.830-43.113-19.782-68.283zM256 412.727l-19.880 19.882L256 456.942l19.880-24.334L256 412.726z"/></svg>
         </div>
         <hr>
+        <p class="quote">❝ Here to make friends and share good vibes ❞</p>
+        <p class="small">☕ Cozy mode</p>
+        <p class="who">he/him · Man · <span class="hidden" aria-hidden="true">Hidden</span> · 🇫🇷 France · <span class="hidden" aria-hidden="true">Some more · Some languages</span></p>
+        <p class="small"><span class="hidden" aria-hidden="true">00:00 in Somewhere · Birthday Month 00</span></p>
+        <p class="small">Looking for friends, someone to chat with · DMs: ask first</p>
+        <hr>
+        <p><b>🎮 Tastes</b></p>
+        <p><b>Games</b> · Minecraft, Stardew Valley</p>
+        <p><b>Anime &amp; series</b> · One Piece, Arcane</p>
+        <p><b>Music</b> · Pop, Lo-fi</p>
+        <p><b>Favorites</b> · Luffy, Taylor Swift</p>
+        <p class="small">Ask me about video games and cozy nights</p>
+        <hr>
+        <p><b>💌 Blessings</b></p>
+        <p><i>"Always brings good energy to the server"</i> · <span class="mention">@Traveler</span></p>
+        <hr>
+        <p><b>📊 Traits</b></p>
         <div class="bars">
-          <div>🎨 <span class="b">▰▰▰▰▰▰▰▰▱▱</span> Openness</div>
-          <div>📋 <span class="b">▰▰▰▱▱▱▱▱▱▱</span> Conscientiousness</div>
-          <div>🎉 <span class="b">▰▰▱▱▱▱▱▱▱▱</span> Extraversion</div>
-          <div>🤝 <span class="b">▰▰▰▰▰▰▰▱▱▱</span> Agreeableness</div>
+          <div>🎨 <span class="b">▰▰▰▰▰▰▰▰▰▱</span> Openness</div>
+          <div>📋 <span class="b">▰▰▱▱▱▱▱▱▱▱</span> Conscientiousness</div>
+          <div>🎉 <span class="b">▰▰▰▰▰▱▱▱▱▱</span> Extraversion</div>
+          <div>🤝 <span class="b">▰▰▰▰▰▰▰▰▰▰</span> Agreeableness</div>
           <div>🌪️ <span class="b">▰▰▰▰▰▰▱▱▱▱</span> Neuroticism</div>
         </div>
         <hr>
-        <p class="foot">📜 Standard Trial · Awakened November 19, 2026<br>Your type is an estimate based on your Big Five results.</p>
+        <p class="small">🏅 🌱 Early Traveler · 🎨 Apprentice Painter</p>
+        <p class="small">📚 Grand Trial · Awakened November 19, 2026 · A fun estimate, not a diagnosis</p>
       </div>
+      <p class="note">The creator's own card, with private details hidden and tastes swapped for examples.</p>
     </div>
   </section>
 
@@ -211,7 +238,7 @@
       <a href="/terms">📜 Terms of Service</a>
     </nav>
     <p class="sign">Crafted with care by Zenckoo ✨</p>
-    <p class="credit">Crystal ball icon by <a href="https://lorcblog.blogspot.com" target="_blank" rel="noopener">Lorc</a>, from <a href="https://game-icons.net" target="_blank" rel="noopener">game-icons.net</a>, under <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>.<br>Auracle is not affiliated with Discord or Anthropic.</p>
+    <p class="credit">Crystal ball icon by <a href="https://lorcblog.blogspot.com" target="_blank" rel="noopener">Lorc</a> and elf icon by <a href="https://delapouite.com" target="_blank" rel="noopener">Delapouite</a>, from <a href="https://game-icons.net" target="_blank" rel="noopener">game-icons.net</a>, under <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>.<br>Auracle is not affiliated with Discord or Anthropic.</p>
   </div>
 </footer>
 
