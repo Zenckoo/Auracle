@@ -34,7 +34,7 @@ function displayName(user, member) {
   return member?.nick || user.global_name || user.username;
 }
 
-// The 🗂️ About me part: the quote, the vibe, then who the traveler is, in small lines without emojis.
+// The 🗂️ About me part: the quote, the vibe, who the traveler is (in normal text), then small details.
 // identity: pronouns, gender, orientation and origins, only if the traveler chose to show them.
 function aboutLines(profile, showIdentity, now = new Date()) {
   const lines = [];
@@ -49,7 +49,7 @@ function aboutLines(profile, showIdentity, now = new Date()) {
   }
   const langs = langList(profile);
   if (langs.length) who.push(langs.map(langName).join(', '));
-  if (who.length) lines.push(`-# ${who.join(' · ')}`);
+  if (who.length) lines.push(who.join(' · '));
 
   const when = [];
   const time = localTime(profile, now);
@@ -66,10 +66,10 @@ function aboutLines(profile, showIdentity, now = new Date()) {
   return lines;
 }
 
-// The 🎮 Tastes part: a title, then "Games · ..." lines, and Ask me about in small.
+// The 🎮 Tastes part: a title, then "**Games** · ..." lines, and Ask me about in small.
 function tasteBlock(profile) {
   const lines = TASTE_FIELDS.filter((f) => f.key !== 'ask_about' && profile[f.key]).map(
-    (f) => `${P.tasteLabels[f.key]} · ${showText(profile[f.key])}`,
+    (f) => `**${P.tasteLabels[f.key]}** · ${showText(profile[f.key])}`,
   );
   if (profile.ask_about) lines.push(P.askAbout(showText(profile.ask_about)));
   return lines.length ? [P.tastesTitle, ...lines] : [];
@@ -108,10 +108,10 @@ function card(profile, user, name, isOwnPrivate, reportable = false, extra = {})
     ? [ui.separator(), ui.text([P.blessingsTitle, ...shown.map((b) => P.blessing(showText(b.text), b.author_id))].join('\n'))]
     : [];
 
-  // 📊 Traits: bars without emojis, then the hidden secret if its owner shows it.
+  // 📊 Traits: each trait's emoji, its bar and its name, then the hidden secret if its owner shows it.
   const traitList = [
     P.traitsTitle,
-    ...scoring.DOMAIN_ORDER.map((d) => `${scoring.bar(scores.domains[d].percentile)} ${R.traitNames[d]}`),
+    ...scoring.DOMAIN_ORDER.map((d) => `${R.traitEmojis[d]} ${scoring.bar(scores.domains[d].percentile)} ${R.traitNames[d]}`),
   ];
   if (profile.secret_public === 1) {
     const [s] = scoring.hiddenSecrets(scores, 1);
