@@ -19,7 +19,7 @@ export const texts = {
     menu: [
       '✨ **Awaken**: begin your trial',
       '🪪 **My card**: view your profile card',
-      '🎨 **Customize**: make your card truly yours: fantasy title, accent color, About me, vibe, tastes, practical info, identity, badges',
+      '🎨 **Customize**: make your card truly yours: fantasy title, accent color, About me, vibe, tastes, practical info, identity, badges, blessings, banner, organize your card',
       '🏰 **Guilds**: how the guilds are spread across the server',
       '🔒 **Privacy**: choose what you share, and get a copy of your data',
       "📜 **Updates**: see what's new and what's coming",
