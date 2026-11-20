@@ -4,9 +4,9 @@
 
 import { BANNER_BASE } from '../config.js';
 
-export const BANNER_TYPES = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/webp': 'webp', 'image/gif': 'gif' };
-export const BANNER_MAX_BYTES = 10 * 1024 * 1024;
-export const BANNER_MIN = { width: 600, height: 200 };
+const BANNER_TYPES = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/webp': 'webp', 'image/gif': 'gif' };
+const BANNER_MAX_BYTES = 10 * 1024 * 1024;
+const BANNER_MIN = { width: 600, height: 200 };
 
 const MODEL = '@cf/meta/llama-3.2-11b-vision-instruct';
 const CHECK =

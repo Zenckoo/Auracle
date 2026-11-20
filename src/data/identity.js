@@ -85,7 +85,7 @@ export function hasIdentity(profile) {
   return Object.keys(IDENTITY_FIELDS).some((f) => identityNames(profile, f).length) || originNames(profile).length > 0;
 }
 
-// The small line on the card: -# 🏷️ she/they · 🌈 Non-binary · 💞 Bisexual · 🌍 🇫🇷 France
+// The small identity line of a reported card: -# 🏷️ she/they · 🌈 Non-binary · 💞 Bisexual · 🌍 🇫🇷 France
 export function identityLine(profile) {
   const parts = Object.entries(IDENTITY_FIELDS)
     .map(([field, f]) => {

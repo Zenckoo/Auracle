@@ -1,4 +1,4 @@
-// /compare @member: two public cards face to face, with a fun compatibility score.
+// 🤝 Compare (the menu in /auracle): two public cards face to face, with a fun compatibility score.
 
 import { ui } from '../core/ui.js';
 import { texts } from '../texts/en.js';

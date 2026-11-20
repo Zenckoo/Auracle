@@ -1,4 +1,4 @@
-// /guilds: how the four guilds are spread across this server (public cards only, numbers only).
+// 🏰 Guilds (a button in /auracle): how the four guilds are spread across this server (public cards only, numbers only).
 
 import { ui } from '../core/ui.js';
 import { guildsTexts as G } from '../texts/en-social.js';

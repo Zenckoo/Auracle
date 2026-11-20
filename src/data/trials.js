@@ -3,7 +3,7 @@
 import { IPIP120 } from './ipip120.js';
 import { IPIP300 } from './ipip300.js';
 
-export const TRIALS = {
+const TRIALS = {
   standard: { items: IPIP120 },
   grand: { items: IPIP300 },
 };

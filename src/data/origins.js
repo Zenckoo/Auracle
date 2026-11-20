@@ -76,10 +76,6 @@ export function flag(code) {
   return String.fromCodePoint(...[...code].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65));
 }
 
-export function countryName(code) {
-  return ALL_COUNTRIES[code] ?? null;
-}
-
 // The codes chosen ("own" included if the traveler wrote their own words).
 export function originKeys(profile) {
   return (profile.origins ?? '').split(',').filter((c) => c in ALL_COUNTRIES || c === 'own');

@@ -24,7 +24,7 @@ export function parseHex(text) {
   return m ? parseInt(m[1], 16) : null;
 }
 
-export function toHex(color) {
+function toHex(color) {
   return '#' + color.toString(16).padStart(6, '0').toUpperCase();
 }
 

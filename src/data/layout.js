@@ -9,7 +9,7 @@ export const PARTS = {
   traits: { emoji: '📊', name: 'Traits' },
 };
 
-export const DEFAULT_ORDER = ['about', 'tastes', 'blessings', 'traits'];
+const DEFAULT_ORDER = ['about', 'tastes', 'blessings', 'traits'];
 
 // [{ key, hidden }] in the traveler's order. Unknown keys are dropped, missing ones added at the end.
 export function cardLayout(profile) {

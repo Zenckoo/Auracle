@@ -1,4 +1,4 @@
-// /feedback: two buttons, a small form, and the message goes to the HQ channel.
+// 📬 Feedback (a button in /auracle): two buttons, a small form, and the message goes to the HQ channel.
 
 import { ui } from '../core/ui.js';
 import { config } from '../config.js';

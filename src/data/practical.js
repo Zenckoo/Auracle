@@ -112,15 +112,3 @@ export function localTime(profile, now = new Date()) {
   if (!tz) return null;
   return new Intl.DateTimeFormat('en-GB', { timeZone: tz.zone, hour: '2-digit', minute: '2-digit' }).format(now);
 }
-
-// The small Practical line of a card, or null.
-export function practicalLine(profile, now = new Date()) {
-  const parts = [];
-  const time = localTime(profile, now);
-  if (time) parts.push(`🕰️ ${time} in ${TIMEZONES[profile.timezone].name.split(',')[0]}`);
-  const langs = langList(profile);
-  if (langs.length) parts.push(`🗣️ ${langs.map(langName).join(', ')}`);
-  if (isBirthday(profile, now)) parts.push('🎂 **Birthday today!**');
-  else if (birthdayName(profile)) parts.push(`🎂 ${birthdayName(profile)}`);
-  return parts.length ? `-# ${parts.join(' · ')}` : null;
-}

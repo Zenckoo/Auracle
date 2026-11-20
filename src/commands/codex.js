@@ -1,4 +1,4 @@
-// /codex: a small book in Discord explaining how Auracle works, with links to sources.
+// 📖 Codex (a button in /auracle): a small book in Discord explaining how Auracle works, with links to sources.
 // One page at a time, with arrows and a menu to jump to any page.
 
 import { ui } from '../core/ui.js';
