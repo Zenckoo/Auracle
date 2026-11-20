@@ -1,4 +1,4 @@
-// English texts for /feedback.
+// English texts for 📬 Feedback (a button in /auracle).
 
 export const feedbackTexts = {
   question: '### 📬 Speak, traveler.\nDid something break, or do you have an idea for Auracle?',

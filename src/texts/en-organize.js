@@ -1,5 +1,7 @@
 // English texts for 🗂️ Organize card (in Customize).
 
+import { customizeTexts } from './en-customize.js';
+
 export const organizeTexts = {
   page: 'Organize',
   title: '### 🗂️ Organize your card',
@@ -9,5 +11,5 @@ export const organizeTexts = {
   hide: 'Hide',
   show: 'Show',
   reset: 'Default order',
-  saved: '### ✨ Your card has been updated.',
+  saved: customizeTexts.sealed,
 };

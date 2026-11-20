@@ -38,11 +38,6 @@ export function blessButton(targetId) {
   return ui.button({ id: `bl:open:${targetId}`, label: BL.button, emoji: '💌', style: S.SECONDARY });
 }
 
-// Card lines for the blessings its owner chose to show.
-export function blessingLines(blessings) {
-  return blessings.map((b) => BL.cardLine(showText(b.text), b.author_id));
-}
-
 // Returns a text to show if this blessing cannot be sent, or null if it can.
 // A blocked traveler sees the same message as "blessings closed", so they never know they were blocked.
 async function refusal(env, authorId, targetId) {

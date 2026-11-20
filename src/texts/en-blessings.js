@@ -18,7 +18,6 @@ export const blessingTexts = {
   empty: '### ⚠️ A little too short\nWrite at least a few words for your blessing.',
 
   // On the card
-  cardLine: (text, authorId) => `💌 *${text}*\n-# from <@${authorId}>`,
   newOnCard: (n) => `-# 💌 ${n} new blessing${n > 1 ? 's' : ''} waiting in 🎨 Customize > 💌 Blessings`,
   hub: (n) => `### 💌 ${n} new blessing${n > 1 ? 's' : ''}!\n-# Kind words from other travelers. Open 🎨 Customize > 💌 Blessings to read them.`,
 

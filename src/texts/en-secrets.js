@@ -1,5 +1,7 @@
 // English texts for Hidden secrets.
 
+import { CHANGE_LATER } from './en.js';
+
 export const secretTexts = {
   pageLabel: 'Secrets',
   title: '### 🗝️ Hidden secrets',
@@ -13,8 +15,7 @@ export const secretTexts = {
     'Shall this secret appear on your card?',
   show: 'Show it',
   hide: 'Keep it hidden',
-  shown: '### 🗝️ Your secret now shines on your card\n-# You can change this anytime with 🔒 Privacy in `/auracle`.',
-  hidden: '### 🤫 Your secret stays hidden\n-# You can change this anytime with 🔒 Privacy in `/auracle`.',
-  cardLine: (facet, pct) => `🗝️ Hidden secret: **${facet}** · higher than ${pct}% of travelers`,
+  shown: `### 🗝️ Your secret now shines on your card\n${CHANGE_LATER}`,
+  hidden: `### 🤫 Your secret stays hidden\n${CHANGE_LATER}`,
   privacyLine: (shown) => `Hidden secret: **${shown ? '🗝️ Shown' : '🤫 Hidden'}**`,
 };

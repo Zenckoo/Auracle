@@ -1,4 +1,4 @@
-// English texts for /privacy and /forget (as validated in the plan).
+// English texts for 🔒 Privacy (a button in /auracle) and /forget.
 
 export const privacyTexts = {
   title: '### 🔒 Your secrets, your choice, traveler.',
@@ -25,12 +25,12 @@ export const privacyTexts = {
 export const forgetTexts = {
   question:
     '### ⚠️ Are you sure, traveler?\n' +
-    'All your answers, your class, and your secrets will vanish forever.',
+    'Your answers, your class, your card and everything on it (customization, badges, banner), and the blessings you wrote, will vanish forever.',
   erase: 'Erase everything',
   keep: 'Keep my journey',
   erased:
     '### 🌫️ Your journey has been erased\n' +
-    'Every answer, your class and your secrets are gone. You can begin again anytime with `/awaken`.',
+    'Your answers, your class, your card and your blessings are gone. You can begin again anytime with `/awaken`.',
   kept: 'Your journey remains yours, traveler. 💜',
   nothing: '### 🌫️ Nothing to forget\nYou have no saved data, traveler.',
 };

@@ -1,5 +1,7 @@
 // All of Auracle's English texts live here, so other languages can be added later.
 
+export const CHANGE_LATER = '-# You can change this anytime with 🔒 Privacy in `/auracle`.';
+
 export const texts = {
   common: {
     unknownCommand: 'This spell is not known yet, traveler.',
@@ -19,7 +21,7 @@ export const texts = {
     menu: [
       '✨ **Awaken**: begin your trial',
       '🪪 **My card**: view your profile card',
-      '🎨 **Customize**: make your card truly yours: fantasy title, accent color, About me, vibe, tastes, practical info, identity, badges, blessings, banner, organize your card',
+      '🎨 **Customize**: title, color, About me, tastes, identity, badges, blessings, banner, and the order of your card',
       '🏰 **Guilds**: how the guilds are spread across the server',
       '🔒 **Privacy**: choose what you share, and get a copy of your data',
       "📜 **Updates**: see what's new and what's coming",
@@ -175,9 +177,9 @@ export const texts = {
         '-# Public cards can be seen by anyone with /profile. Your facets always stay private.',
       public: 'Public',
       private: 'Private',
-      changeLater: '-# You can change this anytime with 🔒 Privacy in `/auracle`.',
-      nowPublic: '### 🌍 Your class is now known to all\n-# You can change this anytime with 🔒 Privacy in `/auracle`.',
-      nowPrivate: '### 🔒 Your class stays a secret\n-# You can change this anytime with 🔒 Privacy in `/auracle`.',
+      changeLater: CHANGE_LATER,
+      nowPublic: `### 🌍 Your class is now known to all\n${CHANGE_LATER}`,
+      nowPrivate: `### 🔒 Your class stays a secret\n${CHANGE_LATER}`,
     },
   },
 };
