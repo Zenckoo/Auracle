@@ -136,10 +136,13 @@ export const codexTexts = {
       emoji: '📊',
       name: 'Percentiles and facets',
       body:
-        '"Higher than X% of travelers" compares your scores with a reference group of about 3,000 people who took the IPIP-NEO-120 online (JobCannon, 2026, shared under the CC BY 4.0 license). It is not a sample of the whole population, so see it as a friendly comparison.\n\n' +
+        '"Higher than X% of travelers" compares your scores with reference groups. For your **5 traits**: 18,591 people who took the IPIP-NEO-300, aged 14 to 29, from a study by Twomey and Johnson (2022), with open tables free to reuse. For your **facets**: about 3,000 people who took the IPIP-NEO-120 online (JobCannon, 2026, CC BY 4.0). Different tests and groups can place you a little differently, so see it as a friendly comparison.\n\n' +
         'Each trait is split into **6 facets**, 30 in total, for a finer picture. 🗝️ **Hidden secrets** are the facets that stand out the most from their own trait.\n\n' +
         'Once enough travelers have taken the trial, Auracle will compare you with its own community.',
-      links: [{ label: 'Reference data', url: 'https://jobcannon.io/research/ipip-neo-120' }],
+      links: [
+        { label: 'Trait reference (study)', url: 'https://doi.org/10.1027/1015-5759/a000644' },
+        { label: 'Facet reference', url: 'https://jobcannon.io/research/ipip-neo-120' },
+      ],
     },
     {
       emoji: '📜',

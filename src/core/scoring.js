@@ -2,7 +2,7 @@
 
 import { FACETS } from '../data/ipip120.js';
 import { trialItems } from '../data/trials.js';
-import { DOMAIN_CUTS, FACET_NORMS } from '../data/norms.js';
+import { DOMAIN_NORMS, FACET_NORMS } from '../data/norms.js';
 
 export const DOMAIN_ORDER = ['O', 'C', 'E', 'A', 'N'];
 
@@ -10,22 +10,13 @@ function clampPercentile(p) {
   return Math.max(1, Math.min(99, Math.round(p)));
 }
 
-// Place a 0-100 domain score between the reference cut-points.
+// Place a 0-100 domain score in the reference group (mean and standard deviation, normal distribution).
 function domainPercentile(domain, score) {
-  const [p10, p25, p50, p75, p90] = DOMAIN_CUTS[domain];
-  const points = [[0, 0], [p10, 10], [p25, 25], [p50, 50], [p75, 75], [p90, 90], [100, 100]];
-  for (let i = 1; i < points.length; i++) {
-    const [x1, y1] = points[i];
-    const [x0, y0] = points[i - 1];
-    if (score <= x1) {
-      if (x1 === x0) return clampPercentile(y1);
-      return clampPercentile(y0 + ((score - x0) / (x1 - x0)) * (y1 - y0));
-    }
-  }
-  return 99;
+  const [mean, sd] = DOMAIN_NORMS[domain];
+  return clampPercentile(normalCdf((score - mean) / sd) * 100);
 }
 
-// Normal distribution, for facets (mean and standard deviation).
+// Normal distribution, for domains and facets (mean and standard deviation).
 function normalCdf(z) {
   const t = 1 / (1 + 0.2316419 * Math.abs(z));
   const d = 0.3989423 * Math.exp((-z * z) / 2);

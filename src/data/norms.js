@@ -1,19 +1,24 @@
-// Reference group used to say "Higher than X% of travelers".
-// Source: JobCannon (2026), IPIP-NEO-120 technical manual, edition 2026-10-23,
-// https://jobcannon.io/research/ipip-neo-120, licensed CC BY 4.0.
-// Sample: about 3,000 self-selected online test takers (not a general-population norm).
-// Plan: switch to Auracle's own local norms once enough travelers have taken the trial.
+// Reference groups used to say "Higher than X% of travelers".
 //
-// Domain scores are on a 0-100 scale: (sum of 24 answers scored 0-4) / 96 * 100.
+// Traits (domains): Twomey, C., & Johnson, J. A. (2022). Open-source personality trait norms for the
+// United Kingdom and Ireland. European Journal of Psychological Assessment, 38(6), 432-439.
+// https://doi.org/10.1027/1015-5759/a000644 . Open tables (free to reuse and modify): https://osf.io/tbmh5
+// IPIP-NEO-300, 18,591 people. Auracle uses the average of the two youngest groups (14-17 and 18-29 years),
+// closest to Discord travelers. Their sums (60-300) are turned into Auracle's 0-100 scale: (sum - 60) / 240 * 100.
+//
+// Facets: JobCannon (2026), IPIP-NEO-120 technical manual, edition 2026-10-23,
+// https://jobcannon.io/research/ipip-neo-120, licensed CC BY 4.0 (about 3,000 online test takers).
+//
+// Domain scores are on a 0-100 scale: (sum of the answers scored 0-4) / (4 x number of answers) * 100.
 // Facet scores are raw sums of 4 answers scored 0-4, so 0-16.
 
-// Percentile cut-points for each domain: P10, P25, P50, P75, P90.
-export const DOMAIN_CUTS = {
-  O: [49, 57, 66, 74, 81],
-  C: [43, 53, 65, 75, 84],
-  E: [31, 42, 52, 64, 73],
-  A: [47, 57, 68, 76, 83],
-  N: [23, 33, 46, 58, 69],
+// Mean and standard deviation for each domain (0-100).
+export const DOMAIN_NORMS = {
+  O: [67.7, 10.8],
+  C: [55.9, 12.8],
+  E: [59.4, 13.9],
+  A: [60.5, 12.3],
+  N: [51.4, 15.5],
 };
 
 // Mean and standard deviation for each facet (0-16), in facet order 1 to 6.
