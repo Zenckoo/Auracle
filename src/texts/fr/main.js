@@ -79,7 +79,7 @@ export const texts = {
       back: 'Retour',
       pause: 'Pause',
       milestones: {
-        30: '-# 🌫️ Les brumes se dissipent... continue.',
+        30: '-# 🌫️ La brume se dissipe... continue.',
         60: "-# 🌫️ À mi-chemin ! Je commence à voir quelque chose d'intéressant.",
         90: '-# 🌫️ Presque fini. Ta classe prend forme...',
       },
@@ -121,7 +121,7 @@ export const texts = {
   },
 
   results: {
-    revealIntro: '*Les brumes se lèvent... ta vraie nature se révèle.*',
+    revealIntro: '*La brume se lève... ta vraie nature se révèle.*',
     calmWaters: '🌊 Eaux calmes',
     restlessFlame: '🔥 Flamme agitée',
     closeLetter: (pair, alternate) => `-# Ton équilibre ${pair} est serré : certains jours, tu te sentiras peut-être plutôt ${alternate}.`,
@@ -148,7 +148,7 @@ export const texts = {
         high: "La tête dans les étoiles : des idées sans fin, des questions sans fin... et peut-être trop de projets inachevés.",
       },
       C: {
-        low: 'Au fil du courant : les plans sont plutôt des suggestions... et les dates limites, de vagues rumeurs.',
+        low: "Au gré du vent : tes plans, c'est plutôt des idées en l'air... et les dates limites, de lointaines rumeurs.",
         average: "Aventurier·e équilibré·e : organisé·e quand ça compte, souple quand ça ne compte pas.",
         high: "Maître de l'ordre : listes, plans et objectifs... tu as sûrement une liste de tes listes.",
       },
