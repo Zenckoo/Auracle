@@ -277,7 +277,9 @@ function identitySelect(profile, field) {
   const f = IDENTITY_FIELDS[field];
   const chosen = identityKeys(profile, field);
   const options = [
-    ...Object.entries(f.options).map(([value, label]) => ({ label, value, emoji: { name: f.emoji }, default: chosen.includes(value) })),
+    ...Object.entries(f.options)
+      .filter(([, label]) => label) // A language can hide a choice it has no word for (null).
+      .map(([value, label]) => ({ label, value, emoji: { name: f.emoji }, default: chosen.includes(value) })),
     { label: C.ownWords, value: 'own', emoji: { name: '💭' }, default: chosen.includes('own') && !!profile[`${field}_text`] },
   ];
   return { type: 1, components: [{ type: 3, custom_id: `cz:idf:${field}`, placeholder: C.fieldPlaceholder[field], min_values: 0, max_values: f.max, options }] };
