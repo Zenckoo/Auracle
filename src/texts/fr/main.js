@@ -122,6 +122,7 @@ export const texts = {
 
   results: {
     revealIntro: '*La brume se lève... ta vraie nature se révèle.*',
+    behold: () => 'Voici ta classe',
     calmWaters: '🌊 Eaux calmes',
     restlessFlame: '🔥 Flamme agitée',
     closeLetter: (pair, alternate) => `-# Ton équilibre ${pair} est serré : certains jours, tu te sentiras peut-être plutôt ${alternate}.`,

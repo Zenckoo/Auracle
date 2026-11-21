@@ -122,6 +122,7 @@ export const texts = {
 
   results: {
     revealIntro: '*The mists part... your true nature is revealed.*',
+    behold: (name) => `Behold, ${/^[AEIOU]/.test(name) ? 'an' : 'a'}`,
     calmWaters: '🌊 Calm waters',
     restlessFlame: '🔥 Restless flame',
     closeLetter: (pair, alternate) => `-# Your ${pair} balance is close: you may feel like an ${alternate} some days.`,

@@ -8,7 +8,7 @@ import { secretTexts as SX } from '../texts/secrets.js';
 import { trialTexts as TT } from '../texts/trials.js';
 import { FACETS } from '../data/ipip120.js';
 import { trialItems } from '../data/trials.js';
-import { CLASSES, GUILDS, article } from '../data/classes.js';
+import { CLASSES, GUILDS } from '../data/classes.js';
 import * as store from '../core/store.js';
 import * as scoring from '../core/scoring.js';
 import { earn, announce } from '../core/badges.js';
@@ -194,7 +194,7 @@ function revealScreen(profile, user) {
     ui.separator(),
     ui.section(
       [
-        `-# Behold, ${article(cls.name)}`,
+        `-# ${R.behold(cls.name)}`,
         `## ${cls.emoji} ${cls.name}\n${cls.subtitle}`,
         `**${type}** · ${guild.emoji} ${guild.name} · ${flame}`,
       ],

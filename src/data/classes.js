@@ -1,13 +1,17 @@
 // The 4 guilds and 16 classes. Names and texts are Auracle's own (never 16Personalities' names).
 
-export const GUILDS = {
+import { localized } from '../core/i18n.js';
+import * as fr from '../texts/fr/classes.js';
+import * as de from '../texts/de/classes.js';
+
+const EN_GUILDS = {
   dreamers: { name: 'The Dreamers', emoji: '🌙', colorKey: 'dreamers' },
   scholars: { name: 'The Scholars', emoji: '📚', colorKey: 'scholars' },
   guardians: { name: 'The Guardians', emoji: '🏰', colorKey: 'guardians' },
   wanderers: { name: 'The Wanderers', emoji: '🗺️', colorKey: 'wanderers' },
 };
 
-export const CLASSES = {
+const EN_CLASSES = {
   INFP: { name: 'Bard', subtitle: 'the Peacemaker', emoji: '🎶', guild: 'dreamers',
     description: 'Like a Bard, you turn feelings into stories and seek harmony wherever you go. Kind, imaginative, and loyal to your values... and probably has 47 tabs open right now.' },
   ENFP: { name: 'Enchanter', subtitle: 'the Inspirer', emoji: '✨', guild: 'dreamers',
@@ -45,6 +49,6 @@ export const CLASSES = {
     description: "Like a Jester, you light up every room and turn any moment into a celebration. Fun, warm, and spontaneous... and 'just one more song' is never just one." },
 };
 
-export function article(word) {
-  return /^[AEIOU]/.test(word) ? 'an' : 'a';
-}
+// Names and texts follow the server's language (texts/fr/classes.js, texts/de/classes.js).
+export const GUILDS = localized({ en: EN_GUILDS, fr: fr.guilds, de: de.guilds });
+export const CLASSES = localized({ en: EN_CLASSES, fr: fr.classes, de: de.classes });
