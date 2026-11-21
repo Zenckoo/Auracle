@@ -8,6 +8,10 @@
 //   "Tend to vote for liberal political candidates" -> "Tend to support progressive ideas"
 //   "Tend to vote for conservative political candidates" -> "Tend to support traditional values"
 
+import { localized } from '../core/i18n.js';
+import * as fr from '../texts/fr/names.js';
+import * as de from '../texts/de/names.js';
+
 export const IPIP120 = [
   ['Worry about things', 'N', 1, 1],
   ['Make friends easily', 'E', 1, 1],
@@ -132,10 +136,13 @@ export const IPIP120 = [
 ];
 
 // Facet names, in order 1 to 6, for each domain.
-export const FACETS = {
+const EN_FACETS = {
   N: ['Anxiety', 'Anger', 'Depression', 'Self-Consciousness', 'Immoderation', 'Vulnerability'],
   E: ['Friendliness', 'Gregariousness', 'Assertiveness', 'Activity Level', 'Excitement-Seeking', 'Cheerfulness'],
   O: ['Imagination', 'Artistic Interests', 'Emotionality', 'Adventurousness', 'Intellect', 'Liberalism'],
   A: ['Trust', 'Morality', 'Altruism', 'Cooperation', 'Modesty', 'Sympathy'],
   C: ['Self-Efficacy', 'Orderliness', 'Dutifulness', 'Achievement-Striving', 'Self-Discipline', 'Cautiousness'],
 };
+
+// Facet names follow the server's language (texts/fr/names.js, texts/de/names.js).
+export const FACETS = localized({ en: EN_FACETS, fr: fr.facets, de: de.facets });
