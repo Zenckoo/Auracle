@@ -1,3 +1,45 @@
 // blessings (fr): translations of en/blessings.js, same shape. Missing keys fall back to English.
 
-export const blessingTexts = {};
+export const blessingTexts = {
+  button: 'Bénir',
+  form: {
+    title: 'Laisser une bénédiction',
+    label: 'Un mot gentil pour cette personne (100 caractères)',
+    placeholder: 'Toujours là pour accueillir les nouveaux 💜',
+  },
+  sent: (targetId) => `### 💌 Bénédiction envoyée !\nTes mots gentils sont en route vers <@${targetId}>. Ils apparaîtront sur sa carte si elle choisit de les afficher.\n-# Écrire une nouvelle bénédiction pour cette carte remplace la précédente.`,
+  self: '### 🪞 Ta propre carte\nTu ne peux pas bénir ta propre carte, voyageur·se. Mais toi aussi, tu mérites des mots gentils. 💜',
+  noProfile: '### 🌫️ Pas encore, voyageur·se\nTermine ton épreuve avec `/eveil` avant de laisser des bénédictions sur les autres cartes.',
+  gone: "### 🌫️ Carte introuvable\nCette carte est privée ou n'existe plus.",
+  closed: '### 🔕 Bénédictions fermées\nCette personne ne reçoit pas de bénédictions en ce moment.',
+  limit: "### ⏳ Que de gentillesse !\nTu peux envoyer jusqu'à 5 bénédictions toutes les 24 heures. Réessaie plus tard.",
+  noLinks: '### ⚠️ Pas de liens, s\'il te plaît\nLes bénédictions ne peuvent pas contenir de liens. Réessaie avec seulement des mots gentils.',
+  empty: '### ⚠️ Un peu trop court\nÉcris au moins quelques mots pour ta bénédiction.',
+
+  newOnCard: (n) => `-# 💌 ${n} ${n > 1 ? 'nouvelles bénédictions t\'attendent' : 'nouvelle bénédiction t\'attend'} dans 🎨 Personnaliser > 💌 Bénédictions`,
+  hub: (n) => `### 💌 ${n} ${n > 1 ? 'nouvelles bénédictions' : 'nouvelle bénédiction'} !\n-# Des mots gentils d'autres voyageur·ses. Ouvre 🎨 Personnaliser > 💌 Bénédictions pour les lire.`,
+
+  page: 'Bénédictions',
+  title: '### 💌 Bénédictions',
+  intro: "-# Des mots gentils laissés sur ta carte par d'autres voyageur·ses. Rien n'apparaît sur ta carte avant que tu l'acceptes, et tu en choisis jusqu'à 3 à afficher.",
+  newTitle: (n) => `**✉️ Nouvelles (${n})**`,
+  newLine: (text, authorId) => `❝ *${text}* ❞\n-# de <@${authorId}>`,
+  more: (n) => `-# Et ${n} de plus après celles-ci.`,
+  noNew: '-# Pas de nouvelle bénédiction pour le moment.',
+  accept: 'Accepter',
+  decline: 'Refuser',
+  block: 'Bloquer',
+  acceptedTitle: (n) => `**💜 Acceptées (${n})**`,
+  noAccepted: '-# Pas encore de bénédiction acceptée.',
+  showPlaceholder: 'Bénédictions affichées sur ta carte (3 max)',
+  removePlaceholder: '🗑️ Retirer une bénédiction',
+  full: "### ⚠️ Ta carte déborde de gentillesse\nTu peux garder jusqu'à 10 bénédictions acceptées. Retires-en une d'abord.",
+  settingsTitle: '**⚙️ Réglages**',
+  status: (on, blocked) => `Recevoir des bénédictions : **${on ? '🔔 Oui' : '🔕 Non'}**${blocked ? ` · 🚫 ${blocked} ${blocked > 1 ? 'bloqués' : 'bloqué'}` : ''}`,
+  turnOff: 'Ne plus en recevoir',
+  turnOn: 'Recevoir des bénédictions',
+  unblock: 'Débloquer tout le monde',
+  saved: '### ✨ Tes bénédictions ont été mises à jour.',
+  blocked: '### 🚫 Bloqué\nCette personne ne peut plus t\'envoyer de bénédictions. Tu peux annuler ça avec Débloquer tout le monde.',
+  rules: "-# 💜 Les bénédictions suivent les règles du serveur et les Conditions d'utilisation d'Auracle. Tu en vois une méchante sur une carte ? Utilise 🚩 Signaler.",
+};

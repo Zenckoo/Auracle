@@ -1,3 +1,124 @@
 // customize (fr): translations of en/customize.js, same shape. Missing keys fall back to English.
 
-export const customizeTexts = {};
+export const customizeTexts = {
+  hubButton: 'Personnaliser',
+  title: '### 🎨 Personnalise ta carte',
+  intro: "-# Rends ta carte vraiment à toi. Tout est facultatif, et suit ta carte : privé si ta carte est privée.",
+  sealed: '### ✨ Ta carte a été mise à jour.',
+  titleLine: (name) => `**✨ Titre fantasy** : ${name ? `*${name}*` : 'Aucun'}\n-# Affiché sous ta classe.`,
+  titlePlaceholder: 'Choisis un titre fantasy',
+  noTitle: 'Pas de titre',
+  colorLine: (name) => `**🎨 Couleur d'accent** : ${name ?? 'Couleur de la guilde'}\n-# Le contour de ta carte. Ta guilde garde sa couleur grâce à une pastille devant son nom.`,
+  colorPlaceholder: "Choisis une couleur d'accent",
+  guildColor: 'Couleur de la guilde',
+  customColor: 'Mon propre code hex...',
+  colorForm: {
+    title: 'Ta propre couleur',
+    label: 'Code hex',
+  },
+  badColor: "-# ⚠️ Ce code hex n'a pas l'air bon. Utilise 6 caractères, comme **#FF6FAE**.",
+  viewCard: 'Voir ma carte',
+
+  appearance: '**🖌️ Apparence**',
+  pagesTitle: '**📖 Autres pages**',
+  aboutPage: 'À propos de moi',
+  tastesPage: 'Goûts & fun',
+  practicalPage: 'Infos pratiques',
+  back: 'Retour',
+
+  aboutTitle: '### 💬 À propos de moi',
+  aboutIntro: "-# Quelques mots sur toi, affichés sur ta carte. Laisse vide pour ne rien afficher.",
+  aboutLine: (text) => `**💬 À propos de moi**\n${text ?? '-# Vide'}`,
+  aboutWrite: 'Écrire',
+  aboutClear: 'Effacer',
+  aboutForm: { title: 'À propos de moi', label: 'Quelques mots sur toi (150 caractères)', placeholder: 'Fan de thé, oiseau de nuit, toujours en train de dessiner...' },
+  vibeLine: (text) => `**🌙 Vibe du moment** : ${text ?? 'Aucune'}\n-# Comment tu te sens en ce moment. Change-la quand tu veux.`,
+  vibePlaceholder: 'Choisis ta vibe du moment',
+  noVibe: 'Pas de vibe',
+  customVibe: 'Ma propre vibe...',
+  vibeForm: { title: 'Ta propre vibe', label: 'Ta vibe (40 caractères)', placeholder: 'J\'apprends à faire du pain' },
+  noLinks: '-# ⚠️ Les liens ne sont pas autorisés sur les cartes. Écris-le sans lien, s\'il te plaît.',
+
+  tastesTitle: '### 🎮 Goûts & fun',
+  tastesIntro: '-# Ce que tu aimes, et le genre de compagnie que tu cherches. Tout est facultatif.',
+  tastesLines: (lines) => `**🎮 Tes goûts**\n${lines.length ? lines.join('\n') : '-# Vide'}`,
+  tastesEdit: 'Modifier mes goûts',
+  tastesClear: 'Effacer',
+  tastesForm: 'Goûts & fun',
+  lookingLine: "**🤝 Je cherche**\n-# Jusqu'à 3. Amitié et loisirs uniquement.",
+  lookingPlaceholder: 'Quel genre de compagnie cherches-tu ?',
+  dmsLine: '**✉️ Messages privés**',
+  dmsPlaceholder: 'Ta préférence pour les MP',
+  dmsNone: 'Pas affiché',
+
+  practicalTitle: '### 🕰️ Infos pratiques',
+  practicalIntro: '-# Des petites choses qui aident les autres à te joindre. Tout est facultatif.',
+  timeLine: (name) => `**🕰️ Heure locale** : ${name ?? 'Pas affichée'}\n-# Ta carte montre ton heure actuelle. Juste un grand fuseau horaire, jamais ta ville.`,
+  timePlaceholder: 'Choisis ton fuseau horaire',
+  timeNone: 'Pas affichée',
+  langLine: (names, max) => `**🗣️ Langues** : ${names.length ? names.join(', ') : 'Aucune'}\n-# Jusqu'à ${max}. Choisis une région, puis tes langues.`,
+  regionPlaceholder: 'Choisis une région du monde',
+  langPlaceholder: (region) => `Tes langues : ${region}`,
+  langClear: 'Effacer les langues',
+  langFull: (max) => `-# ⚠️ Tu peux afficher jusqu'à ${max} langues. Retires-en une avant d'en ajouter une autre.`,
+  birthdayLine: (date) => `**🎂 Anniversaire** : ${date ?? 'Pas affiché'}\n-# Le jour et le mois seulement, jamais l'année. Le jour J, ta carte le fête.`,
+  birthdaySet: 'Indiquer mon anniversaire',
+  birthdayClear: 'Effacer',
+  birthdayForm: { title: 'Ton anniversaire', day: 'Jour (1 à 31)', month: 'Mois (1 à 12)' },
+  badBirthday: "-# ⚠️ Cette date n'existe pas. Utilise des chiffres, comme **14** et **3** pour le 14 mars.",
+
+  identityPage: 'Identité',
+  consentTitle: '### 🌈 Identité',
+  consentBody:
+    "Ici, tu peux partager tes **pronoms**, ton **genre**, ton **orientation** et tes **origines** sur ta carte, si tu le souhaites. Tout est facultatif.\n\n" +
+    "🔒 **Privé par défaut.** Cette partie a son propre interrupteur : même si ta carte est publique, elle reste cachée jusqu'à ce que tu en décides autrement.\n" +
+    "🚫 **Jamais utilisé ailleurs.** Ni dans la Comparaison, ni dans les Guildes, les rôles de guilde ou les statistiques, et jamais relié à tes résultats.\n" +
+    "🧹 **Ton choix, toujours.** Tu peux retirer ton consentement quand tu veux, et tout ce qui est ici est effacé d'un coup.\n" +
+    "🌱 **Jeunes voyageur·ses.** Dans certains pays (en France, avant 15 ans), il faut d'abord l'accord d'un parent. Dans le doute, laisse simplement vide.\n\n" +
+    "-# Ce sont des données sensibles au sens du RGPD. Auracle ne les enregistre qu'avec ton consentement explicite, et garde la date de ton accord comme preuve.",
+  consentAgree: "J'accepte",
+  consentPolicy: 'Lire la Politique de confidentialité',
+  identityTitle: '### 🌈 Identité',
+  identityIntro: "-# Pronoms, genre, orientation et origines. Tout est facultatif. Choisis-en jusqu'à 3 pour chacun, ou écris avec tes propres mots.",
+  visibilityLine: (isPublic, cardPublic) =>
+    `**👁️ Visibilité** : ${isPublic ? '🌍 Affichée sur ta carte publique' : '🔒 Privée, toi seul·e peux la voir'}` +
+    (isPublic && !cardPublic ? "\n-# Ta carte est privée en ce moment, donc personne d'autre ne la voit de toute façon." : ''),
+  makePublic: 'Afficher sur ma carte',
+  makePrivate: 'Rendre privée',
+  publicWarning:
+    "### 🌍 Afficher ton identité ?\nElle sera visible par tout le monde sur le serveur. Tu peux changer ça quand tu veux.\n-# Seulement si ta carte est publique aussi.",
+  publicConfirm: "L'afficher",
+  keepPrivate: 'Garder privée',
+  fieldLine: {
+    pronouns: (names) => `**🏷️ Pronoms** : ${names.length ? names.join(', ') : 'Aucun'}`,
+    gender: (names) => `**🌈 Genre** : ${names.length ? names.join(', ') : 'Aucun'}`,
+    orientation: (names) => `**💞 Orientation** : ${names.length ? names.join(', ') : 'Aucune'}`,
+    origins: (names) => `**🌍 Origines** : ${names.length ? names.join(', ') : 'Aucune'}\n-# Jusqu'à 3. Choisis une région, puis tes pays. Jamais une ville.`,
+  },
+  fieldPlaceholder: {
+    pronouns: 'Tes pronoms',
+    gender: 'Ton genre',
+    orientation: 'Ton orientation',
+  },
+  ownWords: 'Mes propres mots...',
+  ownForm: {
+    pronouns: { title: 'Tes pronoms', label: 'Avec tes propres mots (30 caractères)', placeholder: 'iel, ael, ul...' },
+    gender: { title: 'Ton genre', label: 'Avec tes propres mots (30 caractères)', placeholder: 'Tes propres mots' },
+    orientation: { title: 'Ton orientation', label: 'Avec tes propres mots (30 caractères)', placeholder: 'Tes propres mots' },
+    origins: { title: 'Tes origines', label: 'Un héritage avec tes propres mots (30 caractères)', placeholder: 'Kurde, Rom, Mapuche...' },
+  },
+  originRegionPlaceholder: 'Choisis une région pour tes origines',
+  originPlaceholder: (region) => `Tes origines : ${region}`,
+  originOwn: 'Mes propres mots',
+  originClear: 'Effacer les origines',
+  tooMany: "-# ⚠️ Tu peux en choisir jusqu'à 3 dans chaque liste. Retires-en un avant d'en ajouter un autre.",
+  identityClear: 'Tout effacer',
+  withdraw: 'Retirer mon consentement',
+  withdrawWarning:
+    '### 🧹 Retirer ton consentement ?\nToutes tes réponses sur ton identité seront effacées d\'un coup, et cette page te redemandera ton consentement la prochaine fois.',
+  withdrawConfirm: 'Retirer et effacer',
+  cancel: 'Annuler',
+  withdrawn: '### 🧹 Consentement retiré\nTes réponses sur ton identité ont été effacées. 💜',
+  identityRules: "-# Sois toi-même, avec bienveillance. Se moquer de quelqu'un pour qui il est enfreint les règles, et chaque carte peut être signalée.",
+  rules: "-# Reste bienveillant·e : pas de haine, pas de NSFW, pas d'infos personnelles comme ton adresse. Chaque carte peut être signalée.",
+};
