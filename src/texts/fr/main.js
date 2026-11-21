@@ -124,7 +124,7 @@ export const texts = {
     revealIntro: '*La brume se lève... ta vraie nature se révèle.*',
     behold: () => 'Voici ta classe',
     calmWaters: '🌊 Eaux calmes',
-    restlessFlame: '🔥 Flamme agitée',
+    restlessFlame: '🔥 Flamme ardente',
     closeLetter: (pair, alternate) => `-# Ton équilibre ${pair} est serré : certains jours, tu te sentiras peut-être plutôt ${alternate}.`,
     estimate: '-# Ton type est une estimation basée sur tes résultats du Big Five.',
     seeTraits: 'Voir mes traits',
@@ -166,7 +166,7 @@ export const texts = {
       N: {
         low: 'Eaux calmes : tu restes stable quand les tempêtes arrivent.',
         average: 'Marées changeantes : certaines tempêtes te secouent, mais tu retrouves toujours le chemin du rivage.',
-        high: 'Flamme agitée : tu ressens tout intensément et tu cherches toujours à grandir.',
+        high: 'Flamme ardente : tu ressens tout intensément et tu cherches toujours à grandir.',
       },
     },
 
