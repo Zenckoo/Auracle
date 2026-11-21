@@ -56,12 +56,12 @@ export const timezones = {
 export const identity = {
   pronouns: {
     options: {
-      she: 'elle',
-      he: 'il',
-      they: 'iel',
+      she: 'elle/elle',
+      he: 'il/lui',
+      they: 'iel/iel',
       she_they: 'elle/iel',
       he_they: 'il/iel',
-      it: 'ça',
+      it: 'ça/ça',
       any: "N'importe quel pronom",
       ask: 'Demande-moi',
       questioning: 'En questionnement',
