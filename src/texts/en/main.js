@@ -73,6 +73,7 @@ export const texts = {
     },
 
     question: {
+      statement: (text) => `"${text}."`,
       prompt: '-# How accurately does this describe you?',
       answers: ['Not me at all', 'Mostly not me', 'In between', 'Mostly me', 'Exactly me'],
       back: 'Back',

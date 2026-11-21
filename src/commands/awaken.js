@@ -7,7 +7,7 @@ import { texts } from '../texts/main.js';
 import { secretTexts as SX } from '../texts/secrets.js';
 import { trialTexts as TT } from '../texts/trials.js';
 import { FACETS } from '../data/ipip120.js';
-import { trialItems } from '../data/trials.js';
+import { statement, trialItems } from '../data/trials.js';
 import { CLASSES, GUILDS } from '../data/classes.js';
 import * as store from '../core/store.js';
 import * as scoring from '../core/scoring.js';
@@ -107,7 +107,6 @@ function chooseScreen() {
 function questionScreen(trial) {
   const index = trial.current_index;
   const total = totalOf(trial);
-  const [statement] = trialItems(trial.version)[index];
   const mark = milestone(index, total);
 
   let header = `${trialName(trial.version)} · ${index + 1} / ${total}\n${progressBar(index, total)}`;
@@ -120,7 +119,7 @@ function questionScreen(trial) {
   return box([
     ui.text(header),
     ui.separator(),
-    ui.text(`### "${statement}."\n${T.question.prompt}`),
+    ui.text(`### ${T.question.statement(statement(trial.version, index))}\n${T.question.prompt}`),
     ui.separator(),
     ui.row(...answers),
     ui.row(

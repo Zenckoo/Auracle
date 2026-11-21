@@ -74,6 +74,7 @@ export const texts = {
     },
 
     question: {
+      statement: (text) => `« ${text}. »`,
       prompt: '-# À quel point ça te décrit ?',
       answers: ['Pas du tout moi', 'Plutôt pas moi', 'Entre les deux', 'Plutôt moi', 'Tout à fait moi'],
       back: 'Retour',
