@@ -121,9 +121,17 @@
   .sign { font-family: 'Marcellus', serif; color: var(--soft); }
   .credit { margin-top: 8px; font-size: 12px; color: var(--muted); }
   .credit a { color: var(--muted); }
+  /* Language switcher (EN · FR), top right of every page. */
+  .lang { position: absolute; top: 14px; right: 16px; z-index: 5; font-size: 13px; letter-spacing: .04em; color: var(--muted); background: rgba(14, 19, 40, .6); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; }
+  .lang a { color: var(--muted); text-decoration: none; }
+  .lang a:hover { color: var(--ink); }
+  .lang b { color: var(--ink); font-weight: 500; }
 </style>
+<link rel="alternate" hreflang="en" href="https://auracle-site.pages.dev/">
+<link rel="alternate" hreflang="fr" href="https://auracle-site.pages.dev/fr/">
 </head>
 <body>
+<nav class="lang" aria-label="Language"><b>EN</b> · <a href="/fr/" hreflang="fr" lang="fr">FR</a></nav>
 <div class="sky" id="sky" aria-hidden="true"></div>
 <canvas class="wind" id="wind" aria-hidden="true"></canvas>
 

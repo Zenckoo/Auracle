@@ -87,9 +87,17 @@
   .table th, .table td { text-align: left; vertical-align: top; padding: 8px 10px; border-top: 1px solid var(--line); }
   .table th { color: var(--ink); font-weight: 500; border-top: none; }
   .table-wrap { overflow-x: auto; }
+  /* Language switcher (EN · FR), top right of every page. */
+  .lang { position: absolute; top: 14px; right: 16px; z-index: 5; font-size: 13px; letter-spacing: .04em; color: var(--muted); background: rgba(14, 19, 40, .6); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; }
+  .lang a { color: var(--muted); text-decoration: none; }
+  .lang a:hover { color: var(--ink); }
+  .lang b { color: var(--ink); font-weight: 500; }
 </style>
+<link rel="alternate" hreflang="en" href="https://auracle-site.pages.dev/terms">
+<link rel="alternate" hreflang="fr" href="https://auracle-site.pages.dev/fr/terms">
 </head>
 <body>
+<nav class="lang" aria-label="Language"><b>EN</b> · <a href="/fr/terms" hreflang="fr" lang="fr">FR</a></nav>
 <div class="sky" id="sky" aria-hidden="true"></div>
 
 <header class="wrap">
@@ -97,7 +105,7 @@
   <div class="hero">
     <h1>📜 Terms of Service</h1>
     <p>The rules for using Auracle, so it stays a kind, safe and fair place for every traveler.</p>
-    <p class="updated">Last updated: November 20, 2026</p>
+    <p class="updated">Last updated: November 21, 2026</p>
   </div>
 </header>
 
@@ -171,7 +179,7 @@
       <p class="num">Part 6 / 16</p>
       <h2>🛡️ For server staff</h2>
       <p class="short">In short: guild roles are optional, and staff stay in charge of their server.</p>
-<ul><li>⚙️ <b>Guild roles</b> can be turned on or off at any time in ⚙️ Server settings, by members who can manage the server.</li><li>🔑 To create and give these roles, Auracle asks for the <b>Manage Roles</b> permission. It only ever uses it for its own four guild roles, and never touches any other role.</li><li>🎨 Staff may rename, recolor or move the guild roles. They must <b>never</b> use them to grant extra permissions, channel access or privileges, since that would sort members by their results (see part 5).</li><li>📏 Staff remain responsible for their server, its rules and its moderation. Auracle is not a moderation tool.</li><li>🚪 Staff can remove Auracle from their server at any time.</li></ul>
+<ul><li>🌍 <b>Language</b>: Auracle follows the server's language on Discord. Members who can manage the server can choose another one in ⚙️ Server settings.</li><li>⚙️ <b>Guild roles</b> can be turned on or off at any time in ⚙️ Server settings, by members who can manage the server.</li><li>🔑 To create and give these roles, Auracle asks for the <b>Manage Roles</b> permission. It only ever uses it for its own four guild roles, and never touches any other role.</li><li>🎨 Staff may rename, recolor or move the guild roles. They must <b>never</b> use them to grant extra permissions, channel access or privileges, since that would sort members by their results (see part 5).</li><li>📏 Staff remain responsible for their server, its rules and its moderation. Auracle is not a moderation tool.</li><li>🚪 Staff can remove Auracle from their server at any time.</li></ul>
       <a class="top" href="#contents">↑ Back to contents</a>
     </article>
     <article class="page" id="not-a-diagnosis">
@@ -186,7 +194,7 @@
       <p class="num">Part 8 / 16</p>
       <h2>🎨 Content and ownership</h2>
       <p class="short">In short: Auracle belongs to Zenckoo, and the free sources it uses are credited.</p>
-<ul><li>© Auracle's name, code, texts, classes, designs and website belong to <b>Zenckoo</b>. All rights reserved.</li><li>📚 The trial statements come from the <b>International Personality Item Pool</b> (IPIP), which is in the public domain.</li><li>📊 The reference data for trait percentiles comes from <b>Twomey and Johnson</b> (2022), "Open-source personality trait norms for the United Kingdom and Ireland", whose tables are free to reuse. The reference data for facet percentiles comes from <b>JobCannon</b> (2026), under the CC BY 4.0 license.</li><li>🔮 The crystal ball icon is by <b>Lorc</b>, from game-icons.net, under the CC BY 3.0 license.</li><li>🧭 Auracle's four letters are its own estimate. Auracle is <b>not affiliated</b> with The Myers-Briggs Company. Myers-Briggs and MBTI are trademarks of their respective owners, and Discord is a trademark of Discord Inc.</li><li>💡 <b>Your Feedback</b>: if you share an idea, you allow Auracle to use it freely, without any obligation or payment.</li><li>🖼️ <b>Your card content</b>, including your banner and the blessings you write: it stays yours. You allow Auracle to store and display it inside the Service, to check banners automatically for safety, and to show them in its private moderation channel. You confirm you have the right to share it, and you are responsible for it.</li></ul>
+<ul><li>© Auracle's name, code, texts, classes, designs and website belong to <b>Zenckoo</b>. All rights reserved.</li><li>📚 The trial statements come from the <b>International Personality Item Pool</b> (IPIP), which is in the public domain. In French, they come from the translation of the IPIP-NEO-300 by <b>Thiry and Piolti</b> (2023).</li><li>📊 The reference data for trait percentiles comes from <b>Twomey and Johnson</b> (2022), "Open-source personality trait norms for the United Kingdom and Ireland", whose tables are free to reuse. The reference data for facet percentiles comes from <b>JobCannon</b> (2026), under the CC BY 4.0 license.</li><li>🔮 The crystal ball icon is by <b>Lorc</b>, from game-icons.net, under the CC BY 3.0 license.</li><li>🧭 Auracle's four letters are its own estimate. Auracle is <b>not affiliated</b> with The Myers-Briggs Company. Myers-Briggs and MBTI are trademarks of their respective owners, and Discord is a trademark of Discord Inc.</li><li>💡 <b>Your Feedback</b>: if you share an idea, you allow Auracle to use it freely, without any obligation or payment.</li><li>🖼️ <b>Your card content</b>, including your banner and the blessings you write: it stays yours. You allow Auracle to store and display it inside the Service, to check banners automatically for safety, and to show them in its private moderation channel. You confirm you have the right to share it, and you are responsible for it.</li></ul>
       <a class="top" href="#contents">↑ Back to contents</a>
     </article>
     <article class="page" id="ai-disclosure">
@@ -238,7 +246,7 @@
       <p class="short">In short: French law applies, and you keep the protections of your own country.</p>
 <p>These Terms are governed by <b>French law</b>. If you live in another country, you keep the protection of the mandatory rules of your country of residence.</p>
 <p>In case of a disagreement, please contact us first: we will always try to find a friendly solution. If none is found, the dispute will go to the competent courts under applicable law.</p>
-<p>If any part of these Terms is found invalid, the rest stays in force. These Terms are written in English. If a translation is ever offered, the English version prevails.</p>
+<p>If any part of these Terms is found invalid, the rest stays in force. These Terms are written in English, and also available in French. If the two versions ever differ, the English version prevails.</p>
       <a class="top" href="#contents">↑ Back to contents</a>
     </article>
     <article class="page" id="contact">

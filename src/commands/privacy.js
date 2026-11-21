@@ -7,8 +7,7 @@ import { secretTexts as SX } from '../texts/secrets.js';
 import { CLASSES, GUILDS } from '../data/classes.js';
 import * as store from '../core/store.js';
 import * as roles from '../core/roles.js';
-import { SITE } from '../config.js';
-import { texts } from '../texts/main.js';
+import { siteLink } from '../core/links.js';
 
 const S = ui.ButtonStyle;
 
@@ -24,7 +23,7 @@ function color(profile) {
 function dataRow() {
   return ui.row(
     ui.button({ id: 'pv:export', label: P.dataButton, emoji: '📦', style: S.SECONDARY }),
-    ui.linkButton({ url: SITE.privacy, label: texts.common.links.privacy, emoji: '🔒' }),
+    siteLink('privacy'),
   );
 }
 

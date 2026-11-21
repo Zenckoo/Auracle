@@ -89,7 +89,7 @@ export const codexTexts = {
         "Ta carte, ton secret caché et ton identité sont **privés par défaut**. Tes facettes ne sont jamais montrées aux autres. Une bénédiction n'apparaît que si la personne concernée l'accepte, et chaque bannière est vérifiée automatiquement avant d'être enregistrée.\n\n" +
         "`/forget` efface tout, quand tu veux, et **📦 Mes données** dans 🔒 Confidentialité t'envoie une copie de tout ce qu'Auracle garde.\n\n" +
         "-# Tous les détails sont dans la Politique de confidentialité.",
-      links: [{ label: 'Politique de confidentialité', url: 'https://auracle-site.pages.dev/privacy' }],
+      links: [{ label: 'Politique de confidentialité', url: 'https://auracle-site.pages.dev/fr/privacy' }],
     },
     {
       emoji: '🌱',
@@ -196,8 +196,8 @@ export const codexTexts = {
         "🚫 **Ce que ce n'est pas :** un diagnostic, un outil de modération, ou un moyen de trier, classer ou sélectionner les membres. Ne vous servez jamais des résultats pour juger qui que ce soit.\n\n" +
         "💬 **Un problème ou une question ?** Utilise 📬 Avis dans `/auracle` : les messages arrivent directement à Zenckoo.",
       links: [
-        { label: "Conditions d'utilisation", url: 'https://auracle-site.pages.dev/terms' },
-        { label: 'Politique de confidentialité', url: 'https://auracle-site.pages.dev/privacy' },
+        { label: "Conditions d'utilisation", url: 'https://auracle-site.pages.dev/fr/terms' },
+        { label: 'Politique de confidentialité', url: 'https://auracle-site.pages.dev/fr/privacy' },
       ],
     },
     {
@@ -211,9 +211,9 @@ export const codexTexts = {
         '-# Icône de boule de cristal par Lorc, de game-icons.net, sous licence CC BY 3.0.\n' +
         "-# Auracle n'est affilié ni à Discord ni à Anthropic.",
       links: [
-        { label: 'Site web', url: 'https://auracle-site.pages.dev' },
-        { label: 'Politique de confidentialité', url: 'https://auracle-site.pages.dev/privacy' },
-        { label: "Conditions d'utilisation", url: 'https://auracle-site.pages.dev/terms' },
+        { label: 'Site web', url: 'https://auracle-site.pages.dev/fr/' },
+        { label: 'Politique de confidentialité', url: 'https://auracle-site.pages.dev/fr/privacy' },
+        { label: "Conditions d'utilisation", url: 'https://auracle-site.pages.dev/fr/terms' },
       ],
     },
   ],

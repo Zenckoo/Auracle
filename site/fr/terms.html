@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conditions d'utilisation · Auracle</title>
+<meta name="description" content="Les règles pour utiliser Auracle : respect, utilisations interdites, staff des serveurs, responsabilité et plus.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night: #0e1328;
+    --night-2: #151c3a;
+    --night-3: #1d2650;
+    --ink: #f3efe2;
+    --soft: #c9cdea;
+    --muted: #8f97c4;
+    --line: rgba(201, 205, 234, 0.16);
+    --accent: #4c6fff;
+    --dreamers: #9b87f5;
+    --scholars: #1fa67a;
+    --guardians: #e0a526;
+    --wanderers: #e0533d;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: 'Inter', system-ui, sans-serif; font-size: 16px; line-height: 1.65; color: var(--soft); background: var(--night); }
+  h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; color: var(--ink); line-height: 1.2; }
+  a { color: inherit; }
+  b { color: var(--ink); font-weight: 500; }
+  code { font-family: ui-monospace, monospace; font-size: .9em; background: var(--night-3); padding: 1px 6px; border-radius: 5px; color: var(--ink); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+  /* Stars, drawn in code */
+  .sky { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .star { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; opacity: .5; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%, 100% { opacity: .2; } 50% { opacity: .8; } }
+  @media (prefers-reduced-motion: reduce) { .star { animation: none; } }
+  header, main, footer { position: relative; z-index: 1; }
+
+  .home { display: inline-block; margin-top: 22px; font-size: 14px; color: var(--muted); text-decoration: none; }
+  .home:hover { color: var(--ink); }
+  .hero { text-align: center; padding: 36px 0 28px; }
+  .hero h1 { font-size: clamp(38px, 10vw, 60px); margin: 0 0 6px; }
+  .hero p { margin: 0 auto; max-width: 520px; }
+
+  .updated { font-size: 13px; color: var(--muted); margin-top: 10px !important; }
+  .contents { background: var(--night-2); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; margin-bottom: 28px; }
+  .contents h2 { font-size: 22px; margin: 0 0 10px; }
+  .contents ol { margin: 0; padding-left: 22px; columns: 2 220px; column-gap: 24px; }
+  .contents li { margin: 3px 0; break-inside: avoid; }
+  .contents a { text-decoration: none; }
+  .contents a:hover { color: var(--ink); text-decoration: underline; }
+
+  .page { background: var(--night-2); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 6px; padding: 18px 22px; margin-bottom: 18px; scroll-margin-top: 16px; }
+  .page .num { font-size: 12px; color: var(--muted); margin: 0; }
+  .page h2 { font-size: 26px; margin: 4px 0 12px; }
+  .page p { margin: 0 0 10px; }
+  .page ul { margin: 0 0 10px; padding-left: 20px; }
+  .page .small { font-size: 13px; color: var(--muted); }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 4px; }
+  .link { display: inline-block; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,.03); color: var(--ink); text-decoration: none; font-size: 14px; }
+  .link:hover { border-color: var(--accent); }
+  .top { display: inline-block; margin-top: 8px; font-size: 13px; color: var(--muted); text-decoration: none; }
+  .top:hover { color: var(--ink); }
+
+  /* Guilds */
+  .guilds { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); margin-bottom: 6px; }
+  .guild { background: var(--night-3); border: 1px solid var(--line); border-top: 4px solid var(--c); border-radius: 0 0 12px 12px; padding: 14px 16px; }
+  .guild h3 { font-size: 20px; margin: 0 0 8px; }
+  .guild h3 .dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; background: var(--c); margin-right: 8px; vertical-align: 2px; }
+  .guild ul { list-style: none; padding: 0; margin: 0; font-size: 15px; }
+  .guild li { padding: 4px 0; border-top: 1px solid var(--line); }
+  .guild li:first-child { border-top: none; }
+  .guild li span { color: var(--muted); font-size: 13px; }
+
+  footer { border-top: 1px solid var(--line); padding: 36px 0 48px; margin-top: 28px; text-align: center; font-size: 14px; color: var(--muted); }
+  footer nav { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px; }
+  footer nav a { color: var(--soft); text-decoration: none; }
+  footer nav a:hover { color: var(--ink); text-decoration: underline; }
+  .sign { font-family: 'Marcellus', serif; color: var(--soft); }
+  .credit { margin-top: 8px; font-size: 12px; color: var(--muted); }
+  .credit a { color: var(--muted); }
+  .short { font-style: italic; color: var(--muted); }
+  .table { width: 100%; border-collapse: collapse; margin: 4px 0 12px; font-size: 14px; }
+  .table th, .table td { text-align: left; vertical-align: top; padding: 8px 10px; border-top: 1px solid var(--line); }
+  .table th { color: var(--ink); font-weight: 500; border-top: none; }
+  .table-wrap { overflow-x: auto; }
+  /* Language switcher (EN · FR), top right of every page. */
+  .lang { position: absolute; top: 14px; right: 16px; z-index: 5; font-size: 13px; letter-spacing: .04em; color: var(--muted); background: rgba(14, 19, 40, .6); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; }
+  .lang a { color: var(--muted); text-decoration: none; }
+  .lang a:hover { color: var(--ink); }
+  .lang b { color: var(--ink); font-weight: 500; }
+</style>
+<link rel="alternate" hreflang="en" href="https://auracle-site.pages.dev/terms">
+<link rel="alternate" hreflang="fr" href="https://auracle-site.pages.dev/fr/terms">
+</head>
+<body>
+<nav class="lang" aria-label="Language"><a href="/terms" hreflang="en" lang="en">EN</a> · <b>FR</b></nav>
+<div class="sky" id="sky" aria-hidden="true"></div>
+
+<header class="wrap">
+  <a class="home" href="/fr/">← Retour à Auracle</a>
+  <div class="hero">
+    <h1>📜 Conditions d'utilisation</h1>
+    <p>Les règles pour utiliser Auracle, pour qu'il reste un endroit bienveillant, sûr et juste pour chaque voyageur·se.</p>
+    <p class="updated">Dernière mise à jour : 21 novembre 2026</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <nav class="contents" id="contents">
+    <h2>Sommaire</h2>
+    <ol>
+        <li><a href="#agreement">🤝 Acceptation</a></li>
+        <li><a href="#the-service">🔮 Le Service</a></li>
+        <li><a href="#who-can-use-auracle">🔞 Qui peut utiliser Auracle</a></li>
+        <li><a href="#respect">💜 Respect</a></li>
+        <li><a href="#forbidden-uses">🚫 Utilisations interdites</a></li>
+        <li><a href="#for-server-staff">🛡️ Pour le staff des serveurs</a></li>
+        <li><a href="#not-a-diagnosis">⚠️ Pas un diagnostic</a></li>
+        <li><a href="#content-and-ownership">🎨 Contenus et propriété</a></li>
+        <li><a href="#ai-disclosure">🤖 Utilisation de l'IA</a></li>
+        <li><a href="#beta-and-availability">🛠️ Bêta et disponibilité</a></li>
+        <li><a href="#limitation-of-liability">⚖️ Limitation de responsabilité</a></li>
+        <li><a href="#suspension-and-ending">🚪 Suspension et fin</a></li>
+        <li><a href="#reports">🚩 Signalements</a></li>
+        <li><a href="#changes-to-these-terms">📜 Modifications de ces conditions</a></li>
+        <li><a href="#governing-law">🏛️ Droit applicable</a></li>
+        <li><a href="#contact">📬 Contact</a></li>
+    </ol>
+  </nav>
+
+    <article class="page" id="agreement">
+      <p class="num">Partie 1 / 16</p>
+      <h2>🤝 Acceptation</h2>
+      <p class="short">En bref : utiliser Auracle, c'est accepter ces règles.</p>
+<p>Ces Conditions d'utilisation (les « Conditions ») encadrent ton utilisation d'Auracle (le « Service »), de son application Discord et de son site web, gérés par <b>Zenckoo</b> (« nous »). En utilisant une commande, un bouton ou un menu d'Auracle, ou en ajoutant Auracle à un serveur Discord, tu acceptes ces Conditions et la <a href="/fr/privacy">Politique de confidentialité</a>. Si tu n'es pas d'accord, merci de ne pas utiliser le Service.</p>
+<p>Si tu ajoutes Auracle à un serveur, tu confirmes que le propriétaire ou le staff de ce serveur t'y autorise.</p>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+    <article class="page" id="the-service">
+      <p class="num">Partie 2 / 16</p>
+      <h2>🔮 Le Service</h2>
+      <p class="short">En bref : un compagnon social gratuit pour Discord, toujours en train de grandir.</p>
+<p>Auracle est un compagnon social gratuit et non commercial pour Discord. Il propose une épreuve de personnalité basée sur le modèle du Big Five et des items scientifiques publics, des cartes de profil personnalisables (avec une bannière, des badges et des bénédictions, des mots gentils laissés par d'autres voyageur·ses), des comparaisons, des statistiques de guildes et des rôles de guilde facultatifs.</p>
+<p>Auracle est actuellement en <b>bêta publique</b> : des fonctions peuvent changer, être ajoutées ou retirées, et des bugs peuvent arriver. Auracle n'est ni affilié, ni approuvé, ni sponsorisé par Discord Inc. ou Anthropic.</p>
+<p><b>Rester gratuit.</b> Auracle est gratuit aujourd'hui, et l'objectif est qu'il le reste le plus longtemps possible. Si Auracle grandit et que ses coûts de fonctionnement deviennent trop élevés, nous nous réservons le droit d'ouvrir une page de <b>dons volontaires</b>, et de proposer certaines fonctions, nouvelles ou existantes, sous forme d'<b>options payantes facultatives</b>. Dans ce cas :</p><ul><li>🔮 l'épreuve, tes résultats et ton droit de voir, d'exporter et d'effacer tes données <b>resteront toujours gratuits</b> ;</li><li>📢 toute option payante sera annoncée à l'avance dans 📜 Nouveautés, avec son prix ;</li><li>🙅 tu ne seras <b>jamais</b> facturé·e sans ton accord clair ;</li><li>📜 les options payantes auront leurs propres conditions, et la <a href="/fr/privacy">Politique de confidentialité</a> sera mise à jour avant.</li></ul>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+    <article class="page" id="who-can-use-auracle">
+      <p class="num">Partie 3 / 16</p>
+      <h2>🔞 Qui peut utiliser Auracle</h2>
+      <p class="short">En bref : il te faut un compte Discord et tu dois respecter les règles de Discord.</p>
+<p>Pour utiliser Auracle, tu dois :</p><ul><li>avoir <b>l'âge minimum requis par Discord</b> dans ton pays, et l'accord d'un parent ou d'un tuteur quand la loi de ton pays l'exige ;</li><li>respecter les <b>Conditions d'utilisation</b> et les <b>Règles de la communauté</b> de Discord, qui s'appliquent aussi quand tu utilises Auracle ;</li><li>respecter les règles du serveur où tu l'utilises.</li></ul>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+    <article class="page" id="respect">
+      <p class="num">Partie 4 / 16</p>
+      <h2>💜 Respect</h2>
+      <p class="short">En bref : Auracle est un endroit bienveillant, et il doit le rester.</p>
+<p>En utilisant Auracle, tu t'engages à :</p><ul><li>traiter les autres voyageur·ses avec <b>gentillesse et respect</b> ;</li><li>ne <b>jamais</b> te moquer, humilier, harceler, menacer ou intimider qui que ce soit à cause de ses résultats, de sa classe ou de qui il est ;</li><li>ne <b>jamais</b> discriminer qui que ce soit à cause de son genre, de son orientation sexuelle, de son origine ethnique, de sa religion, de son handicap, de son âge, de son corps ou de ses origines ;</li><li>ne <b>jamais</b> partager ou faire de capture d'écran des informations privées de quelqu'un sans son accord.</li></ul>
+<p>Les comportements haineux, discriminatoires ou de harcèlement ne sont pas tolérés, et peuvent entraîner une suspension (voir la partie 12) et un signalement à Discord.</p>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+    <article class="page" id="forbidden-uses">
+      <p class="num">Partie 5 / 16</p>
+      <h2>🚫 Utilisations interdites</h2>
+      <p class="short">En bref : Auracle sert à s'amuser et à se rapprocher, jamais à juger, draguer ou abuser.</p>
+<p>Tu ne dois <b>jamais</b> utiliser Auracle ou ses résultats pour :</p><ul><li>🏢 <b>recruter, sélectionner, classer, noter, exclure ou récompenser</b> qui que ce soit, par exemple pour un emploi, une école, une équipe, un rôle de serveur ou une décision de modération ;</li><li>🩺 diagnostiquer, soigner ou évaluer la santé, la santé mentale ou les capacités de quelqu'un ;</li><li>💔 trouver un rendez-vous amoureux, ou pour quoi que ce soit de romantique ou de <b>sexuel</b>. Auracle n'est jamais une appli de rencontre ;</li><li>🎭 te faire passer pour quelqu'un, ou passer l'épreuve à la place de quelqu'un sans son accord.</li></ul>
+<p>Tu ne dois <b>jamais</b> non plus :</p><ul><li>🤖 spammer le bot, l'automatiser, aspirer ses données, ou le surcharger exprès ;</li><li>📬 <b>spammer les Avis</b> : les Avis sont limités à <b>5 messages toutes les 24 heures</b>. Essayer d'en envoyer plus déclenche un <b>blocage automatique d'Auracle pendant 30 jours</b>, sans avertissement. Des Avis insultants, abusifs ou sans aucun sens peuvent aussi entraîner un blocage ;</li><li>🐞 exploiter des bugs ou des failles de sécurité, ou essayer d'accéder à des données ou des systèmes qui ne sont pas les tiens (si tu trouves une faille, signale-la plutôt avec un Avis 💜) ;</li><li>🧩 copier, revendre ou redistribuer Auracle ou son contenu, ou créer un service qui se fait passer pour Auracle.</li></ul>
+<p><b>Ce que tu ajoutes à ta carte</b> ne doit jamais contenir : de contenu NSFW ou sexuel, de contenu choquant ou violent, de haine, de harcèlement ou d'insultes, d'informations privées sur quelqu'un d'autre, de spam ou de publicité, ni rien d'illégal.</p>
+<p><b>Les bannières</b> suivent les mêmes règles. En plus, tu ne dois envoyer qu'une image que tu as le droit d'utiliser, et <b>jamais</b> la photo de quelqu'un d'autre sans son accord, ni rien qui montre des informations privées (comme un visage, une école, une adresse ou une plaque d'immatriculation que tu n'as pas le droit de partager). Les envois sont limités à <b>5 toutes les 24 heures</b>.</p>
+<p><b>Les bénédictions</b> sont réservées aux mots gentils. Elles ne doivent <b>jamais</b> servir à draguer, proposer un rendez-vous, demander des informations privées ou des coordonnées, se moquer, mettre la pression, harceler qui que ce soit, ou faire de la publicité. Les bénédictions sont limitées à <b>5 toutes les 24 heures</b>.</p>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+    <article class="page" id="for-server-staff">
+      <p class="num">Partie 6 / 16</p>
+      <h2>🛡️ Pour le staff des serveurs</h2>
+      <p class="short">En bref : les rôles de guilde sont facultatifs, et le staff reste maître de son serveur.</p>
+<ul><li>🌍 <b>Langue</b> : Auracle suit la langue du serveur sur Discord. Les membres qui peuvent gérer le serveur peuvent en choisir une autre dans ⚙️ Réglages du serveur.</li><li>⚙️ <b>Les rôles de guilde</b> peuvent être activés ou désactivés à tout moment dans ⚙️ Réglages du serveur, par les membres qui peuvent gérer le serveur.</li><li>🔑 Pour créer et donner ces rôles, Auracle demande la permission <b>Gérer les rôles</b>. Il ne s'en sert que pour ses quatre rôles de guilde, et ne touche jamais aux autres rôles.</li><li>🎨 Le staff peut renommer, recolorer ou déplacer les rôles de guilde. Il ne doit <b>jamais</b> s'en servir pour donner des permissions, des accès à des salons ou des privilèges en plus, car cela trierait les membres selon leurs résultats (voir la partie 5).</li><li>📏 Le staff reste responsable de son serveur, de ses règles et de sa modération. Auracle n'est pas un outil de modération.</li><li>🚪 Le staff peut retirer Auracle de son serveur à tout moment.</li></ul>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+    <article class="page" id="not-a-diagnosis">
+      <p class="num">Partie 7 / 16</p>
+      <h2>⚠️ Pas un diagnostic</h2>
+      <p class="short">En bref : tes résultats sont une estimation pour le plaisir, jamais l'avis d'un professionnel.</p>
+<p>Auracle est proposé <b>uniquement pour le divertissement et la réflexion sur soi</b>. Ses résultats ne sont pas une évaluation psychologique, médicale, psychiatrique, scolaire ou professionnelle, et ne doivent pas être traités comme telle. Ils ne remplacent pas l'avis d'un professionnel qualifié.</p>
+<p>Si tu traverses un moment difficile, parle à quelqu'un de confiance ou à un professionnel. Des ressources de soutien gratuites sont listées dans le Codex, à la page <a href="/fr/codex#if-things-feel-heavy">Si les choses te pèsent</a>. En cas d'urgence, appelle le numéro d'urgence de ton pays.</p>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+    <article class="page" id="content-and-ownership">
+      <p class="num">Partie 8 / 16</p>
+      <h2>🎨 Contenus et propriété</h2>
+      <p class="short">En bref : Auracle appartient à Zenckoo, et les sources libres qu'il utilise sont créditées.</p>
+<ul><li>© Le nom, le code, les textes, les classes, les visuels et le site d'Auracle appartiennent à <b>Zenckoo</b>. Tous droits réservés.</li><li>📚 Les phrases de l'épreuve viennent de l'<b>International Personality Item Pool</b> (IPIP), qui est dans le domaine public. En français, elles viennent de la traduction de l'IPIP-NEO-300 par <b>Thiry et Piolti</b> (2023).</li><li>📊 Les données de référence pour les pourcentages des traits viennent de <b>Twomey et Johnson</b> (2022), « Open-source personality trait norms for the United Kingdom and Ireland », dont les tableaux sont libres de réutilisation. Les données de référence pour les pourcentages des facettes viennent de <b>JobCannon</b> (2026), sous licence CC BY 4.0.</li><li>🔮 L'icône de boule de cristal est de <b>Lorc</b>, de game-icons.net, sous licence CC BY 3.0.</li><li>🧭 Les quatre lettres d'Auracle sont sa propre estimation. Auracle n'est <b>pas affilié</b> à The Myers-Briggs Company. Myers-Briggs et MBTI sont des marques de leurs propriétaires respectifs, et Discord est une marque de Discord Inc.</li><li>💡 <b>Tes Avis</b> : si tu partages une idée, tu autorises Auracle à l'utiliser librement, sans aucune obligation ni paiement.</li><li>🖼️ <b>Le contenu de ta carte</b>, y compris ta bannière et les bénédictions que tu écris : il reste à toi. Tu autorises Auracle à le stocker et à l'afficher dans le Service, à vérifier automatiquement les bannières pour la sécurité, et à les montrer dans son salon de modération privé. Tu confirmes avoir le droit de le partager, et tu en es responsable.</li></ul>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+    <article class="page" id="ai-disclosure">
+      <p class="num">Partie 9 / 16</p>
+      <h2>🤖 Utilisation de l'IA</h2>
+      <p class="short">En bref : Claude aide à construire Auracle, mais ne voit jamais tes données.</p>
+<p>Le code et les textes d'Auracle sont écrits avec l'aide de <b>Claude</b>, un assistant IA créé par <b>Anthropic</b>, puis relus et validés par Zenckoo avant leur mise en ligne. Claude n'a jamais accès aux données personnelles des utilisateurs, et aucune IA ne traite jamais tes réponses ou tes résultats. La seule exception est la vérification automatique de sécurité des bannières, faite par un modèle d'IA qui tourne sur les propres serveurs de Cloudflare. Les dessins d'Auracle sont toujours faits par des humains. Plus de détails dans la <a href="/fr/privacy#ai-transparency">Politique de confidentialité</a> et dans la page du Codex <a href="/fr/codex#auracle-and-ai">Auracle et l'IA</a>.</p>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+    <article class="page" id="beta-and-availability">
+      <p class="num">Partie 10 / 16</p>
+      <h2>🛠️ Bêta et disponibilité</h2>
+      <p class="short">En bref : Auracle est fait avec soin, mais proposé tel quel.</p>
+<p>Auracle est fourni gratuitement, <b>« en l'état »</b> et <b>« selon sa disponibilité »</b>, sans aucune garantie, expresse ou implicite, notamment d'adéquation à un usage particulier, d'exactitude des résultats ou de disponibilité sans interruption. En particulier :</p><ul><li>🐞 des bugs peuvent arriver, et des fonctions peuvent changer, être mises en pause ou s'arrêter ;</li><li>🌙 Auracle peut parfois être hors ligne, pour de la maintenance ou à cause de Discord ou de Cloudflare ;</li><li>🌍 ce que tu choisis de rendre public peut être vu par les autres, alors ne partage que ce avec quoi tu es à l'aise.</li></ul>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+    <article class="page" id="limitation-of-liability">
+      <p class="num">Partie 11 / 16</p>
+      <h2>⚖️ Limitation de responsabilité</h2>
+      <p class="short">En bref : nous faisons de notre mieux, dans les limites de ce que la loi permet.</p>
+<p>Dans toute la mesure permise par la loi applicable, Zenckoo n'est pas responsable des dommages indirects ou consécutifs, des pertes de données, ou des préjudices résultant de l'utilisation du Service, de ses résultats, ou du comportement d'autres utilisateurs ou serveurs.</p>
+<p>Rien dans ces Conditions n'exclut ni ne limite une responsabilité qui ne peut pas l'être selon la loi, comme la responsabilité en cas de fraude, de faute lourde ou de dommage corporel, ni tes <b>droits légaux de consommateur</b> dans ton pays de résidence.</p>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+    <article class="page" id="suspension-and-ending">
+      <p class="num">Partie 12 / 16</p>
+      <h2>🚪 Suspension et fin</h2>
+      <p class="short">En bref : les abus peuvent être stoppés, et tu peux partir quand tu veux.</p>
+<ul><li>⛔ Si ces Conditions ne sont pas respectées, nous pouvons, selon la gravité : retirer du contenu, bloquer une fonction, suspendre ou supprimer définitivement l'accès à Auracle pour un utilisateur ou un serveur, et signaler le comportement à Discord.</li><li>🖼️ Une bannière que la vérification automatique juge dangereuse est <b>refusée</b> et jamais enregistrée. Zenckoo peut aussi retirer à tout moment une bannière ou des bénédictions de n'importe quelle carte si elles enfreignent ces Conditions.</li><li>🤖 Certains blocages sont <b>automatiques</b>, comme le blocage de 30 jours pour spam d'Avis (voir la partie 5). Pendant un blocage, tu peux toujours effacer tes données avec <code>/forget</code>. Si tu penses qu'un blocage est une erreur, écris à <b>auracle.contact@gmail.com</b> et un humain le réexaminera.</li><li>🧹 Tu peux arrêter d'utiliser Auracle à tout moment, et effacer toutes tes données instantanément avec <code>/forget</code>.</li><li>🚪 Le staff peut retirer Auracle de son serveur à tout moment.</li><li>🌙 Nous pouvons arrêter complètement le Service. Dans ce cas, nous l'annoncerons à l'avance dans 📜 Nouveautés quand c'est possible, et nous supprimerons toutes les données.</li></ul>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+    <article class="page" id="reports">
+      <p class="num">Partie 13 / 16</p>
+      <h2>🚩 Signalements</h2>
+      <p class="short">En bref : si quelque chose ne va pas, dis-le nous.</p>
+<ul><li>📬 Pour signaler un bug, une faille de sécurité, un abus d'Auracle ou tout contenu qui enfreint ces Conditions, utilise <b>Avis</b> dans <code>/auracle</code>, ou écris à <b>auracle.contact@gmail.com</b>. Chaque signalement est lu personnellement par Zenckoo.</li><li>🖼️ Chaque carte a aussi un bouton <b>Signaler</b>, qui couvre aussi sa bannière et ses bénédictions.</li><li>💌 Si tu reçois une bénédiction qui ne te plaît pas, tu peux la <b>refuser</b>, <b>bloquer</b> son auteur, ou désactiver complètement les bénédictions. Auracle ne prévient jamais l'auteur.</li><li>🛡️ Pour tout ce qui est dangereux sur Discord lui-même, tu peux bloquer la personne, prévenir les modérateurs de ton serveur, et le signaler à Discord.</li></ul>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+    <article class="page" id="changes-to-these-terms">
+      <p class="num">Partie 14 / 16</p>
+      <h2>📜 Modifications de ces conditions</h2>
+      <p class="short">En bref : si les règles changent, tu seras prévenu·e d'abord.</p>
+<p>Nous pouvons mettre à jour ces Conditions quand Auracle évolue ou quand la loi l'exige. La date en haut indique toujours la dernière version. Tout changement important est annoncé dans 📜 <b>Nouveautés</b> dans <code>/auracle</code> avant de s'appliquer. Si tu continues d'utiliser Auracle après un changement, tu acceptes les nouvelles Conditions. Si tu n'es pas d'accord, tu peux arrêter d'utiliser Auracle et effacer tes données avec <code>/forget</code>.</p>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+    <article class="page" id="governing-law">
+      <p class="num">Partie 15 / 16</p>
+      <h2>🏛️ Droit applicable</h2>
+      <p class="short">En bref : le droit français s'applique, et tu gardes les protections de ton propre pays.</p>
+<p>Ces Conditions sont régies par le <b>droit français</b>. Si tu vis dans un autre pays, tu gardes la protection des règles impératives de ton pays de résidence.</p>
+<p>En cas de désaccord, contacte-nous d'abord : nous essaierons toujours de trouver une solution à l'amiable. Si aucune n'est trouvée, le litige sera porté devant les tribunaux compétents selon la loi applicable.</p>
+<p>Si une partie de ces Conditions est jugée invalide, le reste reste en vigueur. Ces Conditions sont rédigées en anglais, et cette page en est la traduction française. Si les deux versions diffèrent un jour, la version anglaise fait foi.</p>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+    <article class="page" id="contact">
+      <p class="num">Partie 16 / 16</p>
+      <h2>📬 Contact</h2>
+      <p class="short">En bref : une question ? Il suffit de demander.</p>
+<ul><li>📬 Sur Discord : utilise <b>Avis</b> dans <code>/auracle</code>. Ton message arrive directement à Zenckoo.</li><li>✉️ Par e-mail : <b>auracle.contact@gmail.com</b></li><li>🔒 La façon dont Auracle traite tes données est expliquée dans la <a href="/fr/privacy">Politique de confidentialité</a>.</li></ul>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <nav>
+      <a href="/fr/">🔮 Accueil</a>
+      <a href="/fr/codex">📖 Codex</a>
+      <a href="/fr/privacy">🔒 Politique de confidentialité</a>
+      <a href="/fr/terms">📜 Conditions d'utilisation</a>
+    </nav>
+    <p class="sign">Créé avec soin par Zenckoo ✨</p>
+    <p class="credit">Icône de boule de cristal par <a href="https://lorcblog.blogspot.com" target="_blank" rel="noopener">Lorc</a>, de <a href="https://game-icons.net" target="_blank" rel="noopener">game-icons.net</a>, sous licence <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>.<br>Auracle n'est affilié ni à Discord ni à Anthropic.</p>
+  </div>
+</footer>
+
+<script>
+  // Stars, placed at random by code.
+  const sky = document.getElementById('sky');
+  for (let i = 0; i < 70; i++) {
+    const s = document.createElement('span');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.animationDelay = (Math.random() * 4).toFixed(2) + 's';
+    if (Math.random() < 0.15) { s.style.width = s.style.height = '3px'; }
+    sky.appendChild(s);
+  }
+</script>
+</body>
+</html>

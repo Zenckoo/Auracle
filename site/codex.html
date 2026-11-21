@@ -81,9 +81,17 @@
   .sign { font-family: 'Marcellus', serif; color: var(--soft); }
   .credit { margin-top: 8px; font-size: 12px; color: var(--muted); }
   .credit a { color: var(--muted); }
+  /* Language switcher (EN · FR), top right of every page. */
+  .lang { position: absolute; top: 14px; right: 16px; z-index: 5; font-size: 13px; letter-spacing: .04em; color: var(--muted); background: rgba(14, 19, 40, .6); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; }
+  .lang a { color: var(--muted); text-decoration: none; }
+  .lang a:hover { color: var(--ink); }
+  .lang b { color: var(--ink); font-weight: 500; }
 </style>
+<link rel="alternate" hreflang="en" href="https://auracle-site.pages.dev/codex">
+<link rel="alternate" hreflang="fr" href="https://auracle-site.pages.dev/fr/codex">
 </head>
 <body>
+<nav class="lang" aria-label="Language"><b>EN</b> · <a href="/fr/codex" hreflang="fr" lang="fr">FR</a></nav>
 <div class="sky" id="sky" aria-hidden="true"></div>
 
 <header class="wrap">
@@ -265,7 +273,8 @@
       <h2>🛡️ For server staff</h2>
       <p>Thinking of adding Auracle to your server? Here is what you should know:</p>
 <p>⚙️ <b>What it does:</b> Auracle only answers its own commands. It never reads your channels, never sends messages on its own, and needs no admin or moderation permission.</p>
-<p>🏰 <b>Guild roles (optional):</b> staff can turn them on in ⚙️ Server settings, in <code>/auracle</code>. Auracle then creates the four guild roles and gives each member with a public card the role of their guild. For this only, it asks for <b>Manage Roles</b>, and it never touches any other role.</p>
+<p>🌍 <b>Language:</b> Auracle follows your server's language on Discord. Staff can change it in ⚙️ Server settings, in <code>/auracle</code>.</p>
+<p>🏰 <b>Guild roles (optional):</b> staff can turn them on in ⚙️ Server settings. Auracle then creates the four guild roles and gives each member with a public card the role of their guild. For this only, it asks for <b>Manage Roles</b>, and it never touches any other role.</p>
 <p>👀 <b>What members see:</b> <b>Compare</b>, <b>Guilds</b> and public cards are posted in the channel. Everything else stays private to the member.</p>
 <p>🔒 <b>What it keeps:</b> a member's answers and results, and which servers they used Auracle on (only for Guilds and guild roles). Members can erase it all with <code>/forget</code>. Private cards are never shown to others or counted.</p>
 <p>🚫 <b>What it is not:</b> a diagnosis, a moderation tool, or a way to sort, rank or select members. Please never use results to judge anyone.</p>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Codex · Auracle</title>
+<meta name="description" content="Comment marche Auracle, le Big Five, les guildes, tes données, et où trouver du soutien si tu en as besoin.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night: #0e1328;
+    --night-2: #151c3a;
+    --night-3: #1d2650;
+    --ink: #f3efe2;
+    --soft: #c9cdea;
+    --muted: #8f97c4;
+    --line: rgba(201, 205, 234, 0.16);
+    --accent: #4c6fff;
+    --dreamers: #9b87f5;
+    --scholars: #1fa67a;
+    --guardians: #e0a526;
+    --wanderers: #e0533d;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: 'Inter', system-ui, sans-serif; font-size: 16px; line-height: 1.65; color: var(--soft); background: var(--night); }
+  h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; color: var(--ink); line-height: 1.2; }
+  a { color: inherit; }
+  b { color: var(--ink); font-weight: 500; }
+  code { font-family: ui-monospace, monospace; font-size: .9em; background: var(--night-3); padding: 1px 6px; border-radius: 5px; color: var(--ink); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+  /* Stars, drawn in code */
+  .sky { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .star { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; opacity: .5; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%, 100% { opacity: .2; } 50% { opacity: .8; } }
+  @media (prefers-reduced-motion: reduce) { .star { animation: none; } }
+  header, main, footer { position: relative; z-index: 1; }
+
+  .home { display: inline-block; margin-top: 22px; font-size: 14px; color: var(--muted); text-decoration: none; }
+  .home:hover { color: var(--ink); }
+  .hero { text-align: center; padding: 36px 0 28px; }
+  .hero h1 { font-size: clamp(38px, 10vw, 60px); margin: 0 0 6px; }
+  .hero p { margin: 0 auto; max-width: 520px; }
+
+  .contents { background: var(--night-2); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; margin-bottom: 28px; }
+  .contents h2 { font-size: 22px; margin: 0 0 10px; }
+  .contents ol { margin: 0; padding-left: 22px; columns: 2 220px; column-gap: 24px; }
+  .contents li { margin: 3px 0; break-inside: avoid; }
+  .contents a { text-decoration: none; }
+  .contents a:hover { color: var(--ink); text-decoration: underline; }
+
+  .page { background: var(--night-2); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 6px; padding: 18px 22px; margin-bottom: 18px; scroll-margin-top: 16px; }
+  .page .num { font-size: 12px; color: var(--muted); margin: 0; }
+  .page h2 { font-size: 26px; margin: 4px 0 12px; }
+  .page p { margin: 0 0 10px; }
+  .page ul { margin: 0 0 10px; padding-left: 20px; }
+  .page .small { font-size: 13px; color: var(--muted); }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 4px; }
+  .link { display: inline-block; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,.03); color: var(--ink); text-decoration: none; font-size: 14px; }
+  .link:hover { border-color: var(--accent); }
+  .top { display: inline-block; margin-top: 8px; font-size: 13px; color: var(--muted); text-decoration: none; }
+  .top:hover { color: var(--ink); }
+
+  /* Guilds */
+  .guilds { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); margin-bottom: 6px; }
+  .guild { background: var(--night-3); border: 1px solid var(--line); border-top: 4px solid var(--c); border-radius: 0 0 12px 12px; padding: 14px 16px; }
+  .guild h3 { font-size: 20px; margin: 0 0 8px; }
+  .guild h3 .dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; background: var(--c); margin-right: 8px; vertical-align: 2px; }
+  .guild ul { list-style: none; padding: 0; margin: 0; font-size: 15px; }
+  .guild li { padding: 4px 0; border-top: 1px solid var(--line); }
+  .guild li:first-child { border-top: none; }
+  .guild li span { color: var(--muted); font-size: 13px; }
+
+  footer { border-top: 1px solid var(--line); padding: 36px 0 48px; margin-top: 28px; text-align: center; font-size: 14px; color: var(--muted); }
+  footer nav { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px; }
+  footer nav a { color: var(--soft); text-decoration: none; }
+  footer nav a:hover { color: var(--ink); text-decoration: underline; }
+  .sign { font-family: 'Marcellus', serif; color: var(--soft); }
+  .credit { margin-top: 8px; font-size: 12px; color: var(--muted); }
+  .credit a { color: var(--muted); }
+  /* Language switcher (EN · FR), top right of every page. */
+  .lang { position: absolute; top: 14px; right: 16px; z-index: 5; font-size: 13px; letter-spacing: .04em; color: var(--muted); background: rgba(14, 19, 40, .6); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; }
+  .lang a { color: var(--muted); text-decoration: none; }
+  .lang a:hover { color: var(--ink); }
+  .lang b { color: var(--ink); font-weight: 500; }
+</style>
+<link rel="alternate" hreflang="en" href="https://auracle-site.pages.dev/codex">
+<link rel="alternate" hreflang="fr" href="https://auracle-site.pages.dev/fr/codex">
+</head>
+<body>
+<nav class="lang" aria-label="Language"><a href="/codex" hreflang="en" lang="en">EN</a> · <b>FR</b></nav>
+<div class="sky" id="sky" aria-hidden="true"></div>
+
+<header class="wrap">
+  <a class="home" href="/fr/">← Retour à Auracle</a>
+  <div class="hero">
+    <h1>📖 Le Codex</h1>
+    <p>Comment marche Auracle, d'où il vient, et où trouver du soutien si tu en as besoin un jour. Le même livre que tu peux ouvrir avec 📖 Codex dans <code>/auracle</code>.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <nav class="contents" id="contents">
+    <h2>Sommaire</h2>
+    <ol>
+        <li><a href="#what-is-auracle">🔮 C'est quoi, Auracle ?</a></li>
+        <li><a href="#if-things-feel-heavy">🌙 Si les choses te pèsent</a></li>
+        <li><a href="#lgbtq-support">🏳️‍🌈 Soutien LGBTQ+</a></li>
+        <li><a href="#everyone-belongs-here">🌈 Tout le monde a sa place ici</a></li>
+        <li><a href="#identity-words">🏷️ Les mots de l'identité</a></li>
+        <li><a href="#your-data">🔒 Tes données</a></li>
+        <li><a href="#understanding-your-results">🌱 Comprendre tes résultats</a></li>
+        <li><a href="#the-big-five">🧠 Le Big Five</a></li>
+        <li><a href="#your-class-and-four-letters">🧭 Ta classe et tes quatre lettres</a></li>
+        <li><a href="#the-four-guilds">🏰 Les quatre guildes</a></li>
+        <li><a href="#percentiles-and-facets">📊 Pourcentages et facettes</a></li>
+        <li><a href="#the-trials">📜 Les épreuves</a></li>
+        <li><a href="#auracle-and-ai">🤖 Auracle et l'IA</a></li>
+        <li><a href="#for-server-staff">🛡️ Pour le staff des serveurs</a></li>
+        <li><a href="#about-auracle">✨ À propos d'Auracle</a></li>
+    </ol>
+  </nav>
+
+    <article class="page" id="what-is-auracle">
+      <p class="num">Page 1 / 15</p>
+      <h2>🔮 C'est quoi, Auracle ?</h2>
+      <p>Auracle est un compagnon social pour Discord. Tout commence par une épreuve de personnalité : tu réponds à des phrases sur toi, et Auracle révèle tes <b>cinq grands traits</b>, tes <b>30 facettes</b>, et une <b>classe de héros</b> parmi 16, réparties en quatre guildes.</p>
+<p>Ensuite, place à toi et à ta communauté : compare-toi à tes amis, découvre les guildes de ton serveur, et rends ta carte vraiment à toi.</p>
+<p>⚠️ <b>Pas un diagnostic.</b> Auracle n'est pas une évaluation psychologique ou médicale. Ta classe est une estimation pour le plaisir, jamais une étiquette.</p>
+      
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+
+    <article class="page" id="if-things-feel-heavy">
+      <p class="num">Page 2 / 15</p>
+      <h2>🌙 Si les choses te pèsent</h2>
+      <p>Une épreuve de personnalité peut remuer des émotions, et la vie peut parfois sembler lourde. Tu n'es pas seul·e, et demander de l'aide est une force.</p>
+<p>💬 En parler à quelqu'un de confiance, ou à un·e professionnel·le, peut vraiment aider.<br>📞 <b>Find a Helpline</b> liste des lignes d'écoute gratuites et confidentielles dans ton pays, par téléphone, SMS ou chat.<br>🤝 <b>Befrienders Worldwide</b> offre un soutien émotionnel à toute personne en détresse.</p>
+<p>🚨 <b>Si tu es en danger en ce moment, appelle le numéro d'urgence de ton pays.</b></p>
+<p>Si tu as moins de 18 ans, garde tes résultats privés et parle à un adulte de confiance si quelque chose t'inquiète. 💜</p>
+      <div class="links"><a class="link" href="https://findahelpline.com" target="_blank" rel="noopener">🔗 Find a Helpline</a><a class="link" href="https://www.befrienders.org" target="_blank" rel="noopener">🔗 Befrienders Worldwide</a></div>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+
+    <article class="page" id="lgbtq-support">
+      <p class="num">Page 3 / 15</p>
+      <h2>🏳️‍🌈 Soutien LGBTQ+</h2>
+      <p>Qui que tu sois et qui que tu aimes, tu es légitime, et tu mérites de te sentir en sécurité. 💜</p>
+<p>Si tu te poses des questions, si tu fais ton coming out ou si tu traverses un moment difficile, ces endroits peuvent t'aider :<br>🌈 <b>TrevorSpace</b> : une communauté en ligne sûre pour les jeunes LGBTQ+ de 13 à 24 ans, partout dans le monde (en anglais)<br>📞 <b>Switchboard International</b> : une liste de lignes d'écoute LGBTQ+ dans de nombreux pays<br>🏳️‍⚧️ <b>Trans Lifeline</b> : des ressources pour les personnes trans, dans de nombreux pays</p>
+<p class="small">Ne partage que ce que tu veux, avec qui tu veux. Ton histoire t'appartient.</p>
+      <div class="links"><a class="link" href="https://www.trevorspace.org" target="_blank" rel="noopener">🔗 TrevorSpace</a><a class="link" href="https://international.switchboard.lgbt/" target="_blank" rel="noopener">🔗 Switchboard International</a><a class="link" href="https://translifeline.org/resource_category/international/" target="_blank" rel="noopener">🔗 Trans Lifeline</a></div>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+
+    <article class="page" id="everyone-belongs-here">
+      <p class="num">Page 4 / 15</p>
+      <h2>🌈 Tout le monde a sa place ici</h2>
+      <p>Ta personnalité, c'est ta façon de penser, de ressentir et d'agir. Elle n'a rien à voir avec ton genre, qui tu aimes, ta couleur de peau, ta religion, ton corps, ton âge ou d'où tu viens. L'épreuve ne pose jamais de questions là-dessus, et rien de tout ça ne change tes résultats. Si tu ajoutes quelque chose sur toi à ta carte, dans 🎨 Personnaliser &gt; 🌈 Identité, c'est toujours ton choix, et seulement le tien.</p>
+<p>Aucune classe, aucune guilde et aucun score ne vaut mieux qu'un autre. Être calme, sensible ou désordonné n'est pas un défaut : c'est une façon d'être.</p>
+<p>🚫 <b>Auracle ne doit jamais servir à juger, moquer ou exclure qui que ce soit.</b> Traiter quelqu'un injustement à cause de qui il est, c'est de la discrimination, et ça n'a pas sa place ici.</p>
+<p>🛡️ Si quelqu'un s'en prend à toi sur Discord, tu peux le bloquer, prévenir les modérateurs de ton serveur et le signaler à Discord.</p>
+      <div class="links"><a class="link" href="https://discord.com/safety/360044103651-reporting-abusive-behavior-to-discord" target="_blank" rel="noopener">🔗 Signaler sur Discord</a><a class="link" href="https://discord.com/safety/hateful-conduct-policy-explainer" target="_blank" rel="noopener">🔗 Les règles de Discord sur la haine</a></div>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+
+    <article class="page" id="identity-words">
+      <p class="num">Page 5 / 15</p>
+      <h2>🏷️ Les mots de l'identité</h2>
+      <p>Dans 🎨 Personnaliser &gt; 🌈 Identité, tu peux afficher tes pronoms, ton genre, ton orientation et tes origines, seulement si tu le veux. Voici ce que veulent dire les mots, simplement. Chacun·e se définit soi-même : ce sont de petits repères, pas des cases.</p>
+<p>🏷️ <b>Pronoms</b> : les mots qu'on utilise pour parler de toi. <b>Iel</b> est un pronom neutre, pour une seule personne. Les <b>néopronoms</b> (comme ael ou ul) sont plus récents. <b>N'importe quel pronom</b> : tous te vont. <b>Demande-moi</b> : il suffit de demander !</p>
+<p>🌈 <b>Genre</b><br><b>Non-binaire</b> : ni seulement femme, ni seulement homme · <b>Transgenre</b> : un genre différent de celui donné à la naissance · <b>Genderfluid</b> : un genre qui change avec le temps · <b>Genderqueer</b> : en dehors des cases habituelles · <b>Agenre</b> : sans genre · <b>Bigenre</b> : deux genres · <b>Demi-fille / Demi-garçon</b> : en partie fille, ou en partie garçon · <b>Bispirituel·le</b> : une identité et un rôle venant de certaines cultures autochtones d'Amérique du Nord</p>
+<p>💞 <b>Orientation</b><br><b>Bisexuel·le</b> : attiré·e par plus d'un genre · <b>Pansexuel·le</b> : une attirance peu importe le genre · <b>Queer</b> : un mot large et ouvert · <b>Asexuel·le</b> : peu ou pas d'attirance sexuelle · <b>Demisexuel·le</b> : une attirance seulement après un lien fort · <b>Grey-asexuel·le</b> : quelque part entre les deux · <b>Aromantique</b> : peu ou pas d'attirance romantique · <b>Biromantique, panromantique, homoromantique, demiromantique</b> : les mêmes idées, pour l'attirance romantique</p>
+<p>❓ <b>En questionnement</b> : encore en exploration, et c'est complètement OK.</p>
+<p class="small">Ne devine jamais et n'étiquette jamais quelqu'un d'autre : utilise les mots que chacun·e choisit pour soi. 💜</p>
+      <div class="links"><a class="link" href="https://www.thetrevorproject.org/resources/guide/allyship-in-action/" target="_blank" rel="noopener">🔗 Lexique LGBTQ+ (en anglais)</a></div>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+
+    <article class="page" id="your-data">
+      <p class="num">Page 6 / 15</p>
+      <h2>🔒 Tes données</h2>
+      <p>Auracle ne garde que ce dont il a besoin :<br>- Tes réponses et tes résultats, jusqu'à ce que tu utilises <code>/forget</code><br>- Les épreuves inachevées, effacées 30 jours après ta dernière réponse<br>- Ce que tu ajoutes à ta carte : personnalisation, identité (seulement avec ton consentement), badges, bannière et bénédictions<br>- Les serveurs où tu as utilisé Auracle, seulement pour les 🏰 Guildes et les rôles de guilde</p>
+<p>Ta carte, ton secret caché et ton identité sont <b>privés par défaut</b>. Tes facettes ne sont jamais montrées aux autres. Une bénédiction n'apparaît que si la personne concernée l'accepte, et chaque bannière est vérifiée automatiquement avant d'être enregistrée.</p>
+<p><code>/forget</code> efface tout, quand tu veux, et <b>📦 Mes données</b> dans 🔒 Confidentialité t'envoie une copie de tout ce qu'Auracle garde.</p>
+<p class="small">Tous les détails sont dans la Politique de confidentialité.</p>
+      <div class="links"><a class="link" href="https://auracle-site.pages.dev/fr/privacy" target="_blank" rel="noopener">🔗 Politique de confidentialité</a></div>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+
+    <article class="page" id="understanding-your-results">
+      <p class="num">Page 7 / 15</p>
+      <h2>🌱 Comprendre tes résultats</h2>
+      <p>Tes résultats sont une photo, pas une sentence. La personnalité change doucement au fil de la vie, et ton humeur du jour peut aussi influencer tes réponses.</p>
+<p>📉 <b>Un score bas n'est jamais un défaut.</b> Une Extraversion basse veut dire que tu te recharges dans le calme, pas que tu es moins doué·e avec les gens. Chaque niveau de chaque trait a ses forces.</p>
+<p>🔁 <b>Tu peux repasser l'épreuve</b> quand tu veux avec <code>/awaken</code>. Si ta nouvelle classe te semble différente, ça fait partie du voyage.</p>
+<p>🪞 <b>C'est toi qui te connais le mieux.</b> Si quelque chose ne te ressemble pas, fais-toi confiance plutôt qu'à l'épreuve.</p>
+<p class="small">Ta classe est une façon amusante de parler de qui tu es, jamais une case où rester.</p>
+      
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+
+    <article class="page" id="the-big-five">
+      <p class="num">Page 8 / 15</p>
+      <h2>🧠 Le Big Five</h2>
+      <p>Le <b>Big Five</b> est l'un des modèles de personnalité les plus étudiés en psychologie. Il décrit les gens avec cinq grands traits, chacun allant de bas à haut :</p>
+<p>🎨 <b>Ouverture</b> : curiosité, imagination, goût des idées nouvelles<br>📋 <b>Conscienciosité</b> : organisation, discipline, fiabilité<br>🎉 <b>Extraversion</b> : l'énergie puisée dans les gens et l'action<br>🤝 <b>Agréabilité</b> : gentillesse, confiance, coopération<br>🌪️ <b>Névrosisme</b> : à quel point tu ressens fort le stress et les émotions</p>
+<p>Aucun trait n'est bon ou mauvais : chacun vient avec ses forces et ses petites manies.</p>
+      <div class="links"><a class="link" href="https://fr.wikipedia.org/wiki/Mod%C3%A8le_des_Big_Five_(psychologie)" target="_blank" rel="noopener">🔗 Le Big Five sur Wikipédia</a></div>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+
+    <article class="page" id="your-class-and-four-letters">
+      <p class="num">Page 9 / 15</p>
+      <h2>🧭 Ta classe et tes quatre lettres</h2>
+      <p>Tes quatre lettres sont estimées à partir de tes résultats au Big Five :</p>
+<p><b>E / I</b> viennent de l'Extraversion<br><b>N / S</b> viennent de l'Ouverture<br><b>F / T</b> viennent de l'Agréabilité<br><b>J / P</b> viennent de la Conscienciosité</p>
+<p>Chaque lettre dépend de si ton score est au-dessus ou en dessous du milieu du groupe de référence. Quand tu es proche du milieu, Auracle te dit que certains jours, tu te sentiras peut-être plutôt l'autre lettre.</p>
+<p>Le Névrosisme ne change pas tes lettres : il ajoute 🌊 Eaux calmes ou 🔥 Flamme ardente à ta carte.</p>
+<p class="small">Ces lettres sont une estimation propre à Auracle, pas un type officiel d'un test commercial.</p>
+      
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+
+    <article class="page" id="the-four-guilds">
+      <p class="num">Page 10 / 15</p>
+      <h2>🏰 Les quatre guildes</h2>
+      <div class="guilds"><div class="guild" style="--c:var(--dreamers)"><h3><span class="dot"></span>🌙 Les Rêveurs</h3><ul><li>🎶 <b>Barde</b>, le Pacificateur <span>· INFP</span></li><li>✨ <b>Enchanteur</b>, l'Inspirateur <span>· ENFP</span></li><li>🔮 <b>Oracle</b>, l'Idéaliste <span>· INFJ</span></li><li>🛡️ <b>Paladin</b>, le Héros <span>· ENFJ</span></li></ul></div>
+<div class="guild" style="--c:var(--scholars)"><h3><span class="dot"></span>📚 Les Érudits</h3><ul><li>📜 <b>Sage</b>, l'Analyste <span>· INTP</span></li><li>🃏 <b>Filou</b>, le Provocateur <span>· ENTP</span></li><li>🌌 <b>Archimage</b>, le Stratège <span>· INTJ</span></li><li>⚔️ <b>Mage de bataille</b>, le Meneur <span>· ENTJ</span></li></ul></div>
+<div class="guild" style="--c:var(--guardians)"><h3><span class="dot"></span>🏰 Les Gardiens</h3><ul><li>🧘 <b>Moine</b>, l'Organisateur <span>· ISTJ</span></li><li>🐴 <b>Chevalier</b>, le Pilier <span>· ESTJ</span></li><li>🕯️ <b>Clerc</b>, le Protecteur <span>· ISFJ</span></li><li>🪶 <b>Chaman</b>, l'Hôte <span>· ESFJ</span></li></ul></div>
+<div class="guild" style="--c:var(--wanderers)"><h3><span class="dot"></span>🗺️ Les Vagabonds</h3><ul><li>⚙️ <b>Artificier</b>, le Prodige <span>· ISTP</span></li><li>🗝️ <b>Roublard</b>, le Casse-cou <span>· ESTP</span></li><li>🌿 <b>Druide</b>, l'Esprit libre <span>· ISFP</span></li><li>🎭 <b>Bouffon</b>, l'Âme de la fête <span>· ESFP</span></li></ul></div></div>
+      
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+
+    <article class="page" id="percentiles-and-facets">
+      <p class="num">Page 11 / 15</p>
+      <h2>📊 Pourcentages et facettes</h2>
+      <p>« Plus haut que X % des voyageur·ses » compare tes scores à des groupes de référence. Pour tes <b>5 traits</b> : 18 591 personnes ayant passé l'IPIP-NEO-300, de 14 à 29 ans, d'après une étude de Twomey et Johnson (2022), avec des tableaux ouverts et libres de réutilisation. Pour tes <b>facettes</b> : environ 3 000 personnes ayant passé l'IPIP-NEO-120 en ligne (JobCannon, 2026, CC BY 4.0). D'autres tests et d'autres groupes peuvent te placer un peu différemment, alors vois ça comme une comparaison amicale.</p>
+<p>Chaque trait est divisé en <b>6 facettes</b>, 30 au total, pour une image plus fine. Les 🗝️ <b>secrets cachés</b> sont les facettes qui se démarquent le plus de leur trait.</p>
+<p>Quand assez de voyageur·ses auront passé l'épreuve, Auracle te comparera à sa propre communauté.</p>
+      <div class="links"><a class="link" href="https://doi.org/10.1027/1015-5759/a000644" target="_blank" rel="noopener">🔗 Référence des traits (étude)</a><a class="link" href="https://jobcannon.io/research/ipip-neo-120" target="_blank" rel="noopener">🔗 Référence des facettes</a></div>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+
+    <article class="page" id="the-trials">
+      <p class="num">Page 12 / 15</p>
+      <h2>📜 Les épreuves</h2>
+      <p>Les deux épreuves utilisent des phrases de l'<b>International Personality Item Pool (IPIP)</b>, une collection libre et publique d'items de personnalité tenue par l'Oregon Research Institute.</p>
+<p>📜 <b>Épreuve classique</b> : l'IPIP-NEO-120, 120 phrases, 4 par facette (Johnson, 2014).<br>📚 <b>Grande Épreuve</b> : l'IPIP-NEO-300, 300 phrases, 10 par facette (Goldberg, 1999).</p>
+<p>🇫🇷 <b>En français</b>, les phrases viennent de la traduction de l'IPIP-NEO-300 par <b>Thiry et Piolti (2023)</b>. L'Épreuve classique reprend les mêmes phrases pour ses 120 questions.</p>
+<p>Auracle garde les phrases telles qu'elles ont été publiées, sauf deux phrases sur le vote, reformulées pour avoir du sens dans tous les pays.</p>
+      <div class="links"><a class="link" href="https://ipip.ori.org/" target="_blank" rel="noopener">🔗 Site officiel de l'IPIP</a><a class="link" href="https://doi.org/10.1016/j.jrp.2014.05.003" target="_blank" rel="noopener">🔗 Étude de Johnson (2014)</a></div>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+
+    <article class="page" id="auracle-and-ai">
+      <p class="num">Page 13 / 15</p>
+      <h2>🤖 Auracle et l'IA</h2>
+      <p><i>Quelques mots de Zenckoo :</i></p>
+<p>Chaque nouvelle technologie a soulevé les mêmes doutes au début. Je crois qu'il faut vivre avec son temps : l'IA est un outil utile, qui mérite d'être exploré. Elle me permet de construire des idées que je n'aurais jamais pu construire seul, et Auracle en fait partie.</p>
+<p>Mais un outil doit aider les gens, pas les remplacer, surtout dans l'art et l'audiovisuel. La Recommandation de l'UNESCO sur l'éthique de l'IA, adoptée par 193 pays, va dans ce sens : l'IA ne doit jamais remplacer la responsabilité finale des êtres humains. Elle demande aussi de la transparence, et que chacun puisse comprendre l'IA. C'est pour ça que cette page existe.</p>
+<p>🛠️ <b>Dans Auracle :</b> <b>Claude</b>, une IA d'Anthropic, aide pour le code et les textes, toujours vérifiés par moi. Elle ne voit jamais tes données. Les dessins seront toujours faits par des humains.<br>🔒 <b>Vie privée :</b> tes réponses ne passent jamais par une IA, et Auracle ne garde que ce dont il a besoin. Seules les bannières sont vérifiées par une IA, pour la sécurité, sur les serveurs de Cloudflare.<br>⚖️ <b>Équité :</b> une IA peut avoir des biais. Tes résultats viennent d'une formule fixe basée sur la recherche publique, la même pour tout le monde.</p>
+<p><b>💡 Utiliser l'IA sainement</b><br>🧠 Réfléchis à ton idée avant de demander.<br>🔍 Vérifie ce qu'elle dit : elle peut se tromper.<br>🎯 Garde le dernier mot.<br>🤝 Elle ne remplace jamais les amis, les artistes ou les professionnels.<br>🌱 Utilise-la quand elle aide vraiment : l'IA consomme beaucoup d'énergie.</p>
+<p class="small">Zenckoo 💜</p>
+      <div class="links"><a class="link" href="https://www.unesco.org/fr/artificial-intelligence/recommendation-ethics" target="_blank" rel="noopener">🔗 L'UNESCO et l'éthique de l'IA</a><a class="link" href="https://doi.org/10.1145/3706598.3713778" target="_blank" rel="noopener">🔗 IA et esprit critique (en anglais)</a></div>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+
+    <article class="page" id="for-server-staff">
+      <p class="num">Page 14 / 15</p>
+      <h2>🛡️ Pour le staff des serveurs</h2>
+      <p>Tu penses ajouter Auracle à ton serveur ? Voici ce qu'il faut savoir :</p>
+<p>⚙️ <b>Ce qu'il fait :</b> Auracle répond seulement à ses propres commandes. Il ne lit jamais tes salons, n'envoie jamais de messages de lui-même, et n'a besoin d'aucune permission d'admin ou de modération.</p>
+<p>🌍 <b>Langue :</b> Auracle suit la langue de ton serveur sur Discord. Le staff peut la changer dans ⚙️ Réglages du serveur, dans <code>/auracle</code>.</p>
+<p>🏰 <b>Rôles de guilde (facultatif) :</b> le staff peut les activer dans ⚙️ Réglages du serveur. Auracle crée alors les quatre rôles de guilde et donne à chaque membre avec une carte publique le rôle de sa guilde. Pour ça seulement, il demande <b>Gérer les rôles</b>, et il ne touche jamais aux autres rôles.</p>
+<p>👀 <b>Ce que voient les membres :</b> la <b>Comparaison</b>, les <b>Guildes</b> et les cartes publiques sont postées dans le salon. Tout le reste reste privé pour le membre.</p>
+<p>🔒 <b>Ce qu'il garde :</b> les réponses et résultats d'un membre, et les serveurs où il a utilisé Auracle (seulement pour les Guildes et les rôles de guilde). Les membres peuvent tout effacer avec <code>/forget</code>. Les cartes privées ne sont jamais montrées ni comptées.</p>
+<p>🚫 <b>Ce que ce n'est pas :</b> un diagnostic, un outil de modération, ou un moyen de trier, classer ou sélectionner les membres. Ne vous servez jamais des résultats pour juger qui que ce soit.</p>
+<p>💬 <b>Un problème ou une question ?</b> Utilise 📬 Avis dans <code>/auracle</code> : les messages arrivent directement à Zenckoo.</p>
+      <div class="links"><a class="link" href="https://auracle-site.pages.dev/fr/terms" target="_blank" rel="noopener">🔗 Conditions d'utilisation</a><a class="link" href="https://auracle-site.pages.dev/fr/privacy" target="_blank" rel="noopener">🔗 Politique de confidentialité</a></div>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+
+    <article class="page" id="about-auracle">
+      <p class="num">Page 15 / 15</p>
+      <h2>✨ À propos d'Auracle</h2>
+      <p>Auracle est créé avec soin par <b>Zenckoo</b>. Il est en <b>bêta publique</b> : ouvert à tout le monde, toujours en train de grandir, et façonné par vos retours.</p>
+<p>🤖 Une partie de son code et de ses textes est créée avec l'aide de <b>Claude</b>, une IA d'Anthropic. Ses dessins et illustrations seront toujours faits par des mains humaines, jamais par une IA. Plus de détails dans <b>Auracle et l'IA</b>.</p>
+<p>💡 Un bug ou une idée ? Utilise <b>📬 Avis</b> dans <code>/auracle</code>. Curieux·se de ce qui arrive ? Regarde les <b>📜 Nouveautés</b>.</p>
+<p>🌐 Auracle a son propre site web : <b>auracle-site.pages.dev</b></p>
+<p class="small">Icône de boule de cristal par Lorc, de game-icons.net, sous licence CC BY 3.0.</p>
+<p class="small">Auracle n'est affilié ni à Discord ni à Anthropic.</p>
+      <div class="links"><a class="link" href="https://auracle-site.pages.dev/fr/" target="_blank" rel="noopener">🔗 Site web</a><a class="link" href="https://auracle-site.pages.dev/fr/privacy" target="_blank" rel="noopener">🔗 Politique de confidentialité</a><a class="link" href="https://auracle-site.pages.dev/fr/terms" target="_blank" rel="noopener">🔗 Conditions d'utilisation</a></div>
+      <a class="top" href="#contents">↑ Retour au sommaire</a>
+    </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <nav>
+      <a href="/fr/">🔮 Accueil</a>
+      <a href="/fr/codex">📖 Codex</a>
+      <a href="/fr/privacy">🔒 Politique de confidentialité</a>
+      <a href="/fr/terms">📜 Conditions d'utilisation</a>
+    </nav>
+    <p class="sign">Créé avec soin par Zenckoo ✨</p>
+    <p class="credit">Icône de boule de cristal par <a href="https://lorcblog.blogspot.com" target="_blank" rel="noopener">Lorc</a>, de <a href="https://game-icons.net" target="_blank" rel="noopener">game-icons.net</a>, sous licence <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>.<br>Auracle n'est affilié ni à Discord ni à Anthropic.</p>
+  </div>
+</footer>
+
+<script>
+  // Stars, placed at random by code.
+  const sky = document.getElementById('sky');
+  for (let i = 0; i < 70; i++) {
+    const s = document.createElement('span');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.animationDelay = (Math.random() * 4).toFixed(2) + 's';
+    if (Math.random() < 0.15) { s.style.width = s.style.height = '3px'; }
+    sky.appendChild(s);
+  }
+</script>
+</body>
+</html>

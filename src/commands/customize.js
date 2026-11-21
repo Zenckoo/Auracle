@@ -19,7 +19,7 @@ import { TASTE_FIELDS, TASTE_MAX, LOOKING_FOR, DMS, lookingList, tasteLines } fr
 import { TIMEZONES, LANG_REGIONS, LANG_MAX, langList, langName, parseBirthday, birthdayName } from '../data/practical.js';
 import { IDENTITY_FIELDS, OWN_MAX, identityKeys, identityNames, hasIdentity } from '../data/identity.js';
 import { ORIGIN_REGIONS, ORIGIN_MAX, flag, originKeys, originNames } from '../data/origins.js';
-import { SITE } from '../config.js';
+import { siteUrl } from '../core/links.js';
 import { BADGES, SHOW_MAX, KINDRED_GOAL, KIND_SOUL_GOAL, earnedBadges, shownBadges, pagesSeen } from '../data/badges.js';
 import { badgeTexts as B } from '../texts/badges.js';
 import { blessingTexts } from '../texts/blessings.js';
@@ -266,7 +266,7 @@ function consentPage(profile, state = {}) {
       ui.separator(),
       ui.row(
         ui.button({ id: 'cz:idagree', label: C.consentAgree, emoji: '✅', style: S.PRIMARY }),
-        ui.linkButton({ url: `${SITE.privacy}#identity-and-origins`, label: C.consentPolicy, emoji: '🔒' }),
+        ui.linkButton({ url: `${siteUrl('privacy')}#identity-and-origins`, label: C.consentPolicy, emoji: '🔒' }),
       ),
       backRow(),
     ]),
