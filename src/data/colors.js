@@ -3,7 +3,6 @@
 
 import { localized } from '../core/i18n.js';
 import * as fr from '../texts/fr/data.js';
-import * as de from '../texts/de/data.js';
 
 const EN_PALETTE = {
   crimson: { name: 'Crimson', emoji: '❤️', color: 0xdc143c },
@@ -19,7 +18,7 @@ const EN_PALETTE = {
   bronze: { name: 'Bronze', emoji: '🤎', color: 0xa0703a },
   obsidian: { name: 'Obsidian', emoji: '🖤', color: 0x2b2b35 },
 };
-export const PALETTE = localized({ en: EN_PALETTE, fr: fr.palette, de: de.palette });
+export const PALETTE = localized({ en: EN_PALETTE, fr: fr.palette });
 
 export const GUILD_DOTS = { dreamers: '🟣', scholars: '🟢', guardians: '🟡', wanderers: '🔴' };
 

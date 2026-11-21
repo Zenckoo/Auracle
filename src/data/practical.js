@@ -3,7 +3,6 @@
 
 import { currentLang, localized } from '../core/i18n.js';
 import * as fr from '../texts/fr/data.js';
-import * as de from '../texts/de/data.js';
 
 // 24 time zones (Discord menus hold 25 choices, the 25th is "Not shown"). Only a broad zone, never a city.
 const EN_TIMEZONES = {
@@ -32,7 +31,7 @@ const EN_TIMEZONES = {
   auckland: { name: 'Auckland, Fiji', zone: 'Pacific/Auckland' },
   utc: { name: 'UTC (no daylight saving)', zone: 'UTC' },
 };
-export const TIMEZONES = localized({ en: EN_TIMEZONES, fr: fr.timezones, de: de.timezones });
+export const TIMEZONES = localized({ en: EN_TIMEZONES, fr: fr.timezones });
 
 // Languages, grouped by region so each menu stays under Discord's limit of 25 choices.
 const EN_LANG_REGIONS = {
@@ -69,7 +68,7 @@ const EN_LANG_REGIONS = {
     langs: { ase: 'American Sign Language', bfi: 'British Sign Language', fsl: 'French Sign Language', ils: 'International Sign', sgn: 'Another sign language', la: 'Latin', sa: 'Sanskrit', grc: 'Ancient Greek', yi: 'Yiddish', rom: 'Romani', eo: 'Esperanto', tok: 'Toki Pona' },
   },
 };
-export const LANG_REGIONS = localized({ en: EN_LANG_REGIONS, fr: fr.langRegions, de: de.langRegions });
+export const LANG_REGIONS = localized({ en: EN_LANG_REGIONS, fr: fr.langRegions });
 
 export const LANG_MAX = 6;
 

@@ -1,4 +1,4 @@
-// The main English texts (Help, the trial, results). Other languages: fr/main.js and de/main.js, same shape.
+// The main English texts (Help, the trial, results). French: fr/main.js, same shape.
 
 export const CHANGE_LATER = '-# You can change this anytime with 🔒 Privacy in `/auracle`.';
 

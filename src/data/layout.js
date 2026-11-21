@@ -4,7 +4,6 @@
 
 import { localized } from '../core/i18n.js';
 import * as fr from '../texts/fr/data.js';
-import * as de from '../texts/de/data.js';
 
 const EN_PARTS = {
   about: { emoji: '💬', name: 'About me' },
@@ -12,7 +11,7 @@ const EN_PARTS = {
   blessings: { emoji: '💌', name: 'Blessings' },
   traits: { emoji: '📊', name: 'Traits' },
 };
-export const PARTS = localized({ en: EN_PARTS, fr: fr.parts, de: de.parts });
+export const PARTS = localized({ en: EN_PARTS, fr: fr.parts });
 
 const DEFAULT_ORDER = ['about', 'tastes', 'blessings', 'traits'];
 

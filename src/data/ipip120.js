@@ -10,7 +10,6 @@
 
 import { localized } from '../core/i18n.js';
 import * as fr from '../texts/fr/names.js';
-import * as de from '../texts/de/names.js';
 
 export const IPIP120 = [
   ['Worry about things', 'N', 1, 1],
@@ -144,5 +143,5 @@ const EN_FACETS = {
   C: ['Self-Efficacy', 'Orderliness', 'Dutifulness', 'Achievement-Striving', 'Self-Discipline', 'Cautiousness'],
 };
 
-// Facet names follow the server's language (texts/fr/names.js, texts/de/names.js).
-export const FACETS = localized({ en: EN_FACETS, fr: fr.facets, de: de.facets });
+// Facet names follow the server's language (texts/fr/names.js).
+export const FACETS = localized({ en: EN_FACETS, fr: fr.facets });

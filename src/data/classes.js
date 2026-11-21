@@ -2,7 +2,6 @@
 
 import { localized } from '../core/i18n.js';
 import * as fr from '../texts/fr/classes.js';
-import * as de from '../texts/de/classes.js';
 
 const EN_GUILDS = {
   dreamers: { name: 'The Dreamers', emoji: '🌙', colorKey: 'dreamers' },
@@ -49,6 +48,6 @@ const EN_CLASSES = {
     description: "Like a Jester, you light up every room and turn any moment into a celebration. Fun, warm, and spontaneous... and 'just one more song' is never just one." },
 };
 
-// Names and texts follow the server's language (texts/fr/classes.js, texts/de/classes.js).
-export const GUILDS = localized({ en: EN_GUILDS, fr: fr.guilds, de: de.guilds });
-export const CLASSES = localized({ en: EN_CLASSES, fr: fr.classes, de: de.classes });
+// Names and texts follow the server's language (texts/fr/classes.js).
+export const GUILDS = localized({ en: EN_GUILDS, fr: fr.guilds });
+export const CLASSES = localized({ en: EN_CLASSES, fr: fr.classes });

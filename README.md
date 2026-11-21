@@ -23,7 +23,7 @@ Crafted with care by Zenckoo ✨ · Code et textes écrits avec l'aide de Claude
 - `src/core/` : base de données (`store.js`), calcul des résultats, rôles de guilde, messages Discord, liens vers le site
 - `src/core/i18n.js` : les langues, et la langue de chaque requête
 - `src/data/` : questions des épreuves (anglais, et français dans `src/data/fr/`), classes, données de référence
-- `src/texts/` : tous les textes, un fichier par fonction et par langue (`en/`, `fr/`, `de/`). Ce qui manque dans une langue s'affiche en anglais
+- `src/texts/` : tous les textes, un fichier par fonction et par langue (`en/`, `fr/`). Ce qui manque dans une langue s'affiche en anglais
 - `src/config.js` : réglages publics (identifiant du bot, liens du site, permission demandée)
 - `migrations/` : la structure de la base de données, dans l'ordre
 - `site/` : le site web (accueil, Codex, Privacy Policy, Terms of Service), en anglais et en français (`site/fr/`), mis en ligne par Cloudflare Pages

@@ -2,17 +2,17 @@
 // Without a choice, Auracle follows the language of the server on Discord, or English.
 //
 // How it works: every Discord request runs "inside" its language (runWithLang), and every text
-// object is wrapped with localized({ en, fr, de }). When code reads a text, it gets the version of
+// object is wrapped with localized({ en, fr }). When code reads a text, it gets the version of
 // the current language, or the English one when a translation is missing. So the commands never
 // need to know which language they speak.
 
 import { AsyncLocalStorage } from 'node:async_hooks';
 
 // ready: false = still being translated. Only the HQ server can pick it, to try it out.
+// To add a language: add it here with ready: false, then a texts/<code>/ folder and its imports.
 export const LANGS = {
   en: { name: 'English', flag: '🇬🇧', ready: true },
   fr: { name: 'Français', flag: '🇫🇷', ready: true },
-  de: { name: 'Deutsch', flag: '🇩🇪', ready: false },
 };
 export const DEFAULT_LANG = 'en';
 

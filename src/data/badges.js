@@ -4,7 +4,6 @@
 
 import { localized } from '../core/i18n.js';
 import * as fr from '../texts/fr/names.js';
-import * as de from '../texts/de/names.js';
 
 // 🌱 Early Traveler is given to everyone who takes the trial while this is true.
 // Set it to false when the public beta ends: the badge then becomes unique to beta travelers.
@@ -24,8 +23,8 @@ const EN_BADGES = {
   kindsoul: { emoji: '🕊️', name: 'Kind Soul', hint: `Have ${KIND_SOUL_GOAL} of your 💌 Blessings accepted by other travelers` },
 };
 
-// Names and hints follow the server's language (texts/fr/names.js, texts/de/names.js).
-export const BADGES = localized({ en: EN_BADGES, fr: fr.badges, de: de.badges });
+// Names and hints follow the server's language (texts/fr/names.js).
+export const BADGES = localized({ en: EN_BADGES, fr: fr.badges });
 
 function keys(text) {
   return (text ?? '').split(',').filter((k) => k in BADGES);

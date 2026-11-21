@@ -3,7 +3,6 @@
 
 import { localized } from '../core/i18n.js';
 import * as fr from '../texts/fr/data.js';
-import * as de from '../texts/de/data.js';
 
 const EN_TITLES = {
   starborn: 'Starborn',
@@ -22,7 +21,7 @@ const EN_TITLES = {
   mistwalker: 'Mistwalker',
   songs: 'Echo of the Old Songs',
 };
-export const TITLES = localized({ en: EN_TITLES, fr: fr.titles, de: de.titles });
+export const TITLES = localized({ en: EN_TITLES, fr: fr.titles });
 
 export function titleName(key) {
   return TITLES[key] ?? null;

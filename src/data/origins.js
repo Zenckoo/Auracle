@@ -5,7 +5,6 @@
 import { showText } from '../core/text.js';
 import { localized } from '../core/i18n.js';
 import * as fr from '../texts/fr/data.js';
-import * as de from '../texts/de/data.js';
 
 export const ORIGIN_MAX = 3;
 
@@ -71,7 +70,7 @@ const EN_ORIGIN_REGIONS = {
     countries: { AU: 'Australia', NZ: 'New Zealand', PG: 'Papua New Guinea', FJ: 'Fiji', SB: 'Solomon Islands', VU: 'Vanuatu', NC: 'New Caledonia', PF: 'French Polynesia', WS: 'Samoa', TO: 'Tonga', KI: 'Kiribati', TV: 'Tuvalu', NR: 'Nauru', FM: 'Micronesia', MH: 'Marshall Islands', PW: 'Palau' },
   },
 };
-export const ORIGIN_REGIONS = localized({ en: EN_ORIGIN_REGIONS, fr: fr.originRegions, de: de.originRegions });
+export const ORIGIN_REGIONS = localized({ en: EN_ORIGIN_REGIONS, fr: fr.originRegions });
 
 // Every country, in the language of the request (built each time, so it follows the server's language).
 const allCountries = () => Object.assign({}, ...Object.values(ORIGIN_REGIONS).map((r) => ({ ...r.countries })));

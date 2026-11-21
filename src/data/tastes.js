@@ -6,7 +6,6 @@ import { showText } from '../core/text.js';
 import { profileTexts } from '../texts/profile.js';
 import { localized } from '../core/i18n.js';
 import * as fr from '../texts/fr/data.js';
-import * as de from '../texts/de/data.js';
 
 export const TASTE_MAX = 60;
 
@@ -18,7 +17,7 @@ const EN_TASTE_FIELDS = [
   { key: 'characters', emoji: '⭐', label: 'Favorite people (real or fictional)', placeholder: 'Gandalf, Hayao Miyazaki, Totoro...' },
   { key: 'ask_about', emoji: '💡', label: 'Ask me about...', placeholder: 'Tea, drawing, space...' },
 ];
-export const TASTE_FIELDS = localized({ en: EN_TASTE_FIELDS, fr: fr.tasteFields, de: de.tasteFields });
+export const TASTE_FIELDS = localized({ en: EN_TASTE_FIELDS, fr: fr.tasteFields });
 
 const EN_LOOKING_FOR = {
   friends: { name: 'Friends', emoji: '🤝' },
@@ -28,14 +27,14 @@ const EN_LOOKING_FOR = {
   study: { name: 'Study buddies', emoji: '📚' },
   music: { name: 'Music buddies', emoji: '🎧' },
 };
-export const LOOKING_FOR = localized({ en: EN_LOOKING_FOR, fr: fr.lookingFor, de: de.lookingFor });
+export const LOOKING_FOR = localized({ en: EN_LOOKING_FOR, fr: fr.lookingFor });
 
 const EN_DMS = {
   open: { name: 'DMs open', emoji: '🟢' },
   ask: { name: 'Ask first', emoji: '🟡' },
   closed: { name: 'DMs closed', emoji: '🔴' },
 };
-export const DMS = localized({ en: EN_DMS, fr: fr.dms, de: de.dms });
+export const DMS = localized({ en: EN_DMS, fr: fr.dms });
 
 export function lookingList(profile) {
   return (profile.looking_for ?? '').split(',').filter((k) => k in LOOKING_FOR);
