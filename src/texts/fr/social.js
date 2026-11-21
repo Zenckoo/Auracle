@@ -30,5 +30,5 @@ export const guildsTexts = {
   title: (name) => `### 🏰 Le royaume de ${name}`,
   fallbackName: 'ce serveur',
   total: (n) => `-# ${n} ${n <= 1 ? 'carte publique' : 'cartes publiques'} dans ce royaume. Les cartes privées ne sont jamais comptées.`,
-  empty: 'Pas encore de carte publique dans ce royaume... Sois le premier ou la première avec `/eveil` !',
+  empty: 'Pas encore de carte publique dans ce royaume... Sois le premier ou la première avec `/awaken` !',
 };

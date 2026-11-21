@@ -3,7 +3,7 @@
 export const privacyTexts = {
   title: '### 🔒 Tes secrets, ton choix, voyageur·se.',
   current: (isPublic) => `Carte de profil : **${isPublic ? '🌍 Publique' : '🔒 Privée'}**`,
-  explain: '-# Les cartes publiques sont visibles par tout le monde avec /profil. Tes facettes restent toujours privées.',
+  explain: '-# Les cartes publiques sont visibles par tout le monde avec /profile. Tes facettes restent toujours privées.',
   public: 'Publique',
   private: 'Privée',
   sealed: '### ✨ Ton choix est scellé.',
@@ -30,7 +30,7 @@ export const forgetTexts = {
   keep: 'Garder mon voyage',
   erased:
     '### 🌫️ Ton voyage a été effacé\n' +
-    'Tes réponses, ta classe, ta carte et tes bénédictions ont disparu. Tu peux recommencer quand tu veux avec `/eveil`.',
+    'Tes réponses, ta classe, ta carte et tes bénédictions ont disparu. Tu peux recommencer quand tu veux avec `/awaken`.',
   kept: 'Ton voyage reste le tien, voyageur·se. 💜',
   nothing: "### 🌫️ Rien à oublier\nTu n'as aucune donnée enregistrée, voyageur·se.",
 };

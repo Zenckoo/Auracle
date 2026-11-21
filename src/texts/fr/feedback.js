@@ -24,5 +24,5 @@ export const banTexts = {
   blocked: (until) =>
     "### ⛔ Auracle se repose pour toi\n" +
     `Tu as envoyé trop de messages d'Avis, donc Auracle est bloqué pour toi jusqu'au <t:${Math.floor(until / 1000)}:D>.\n` +
-    "-# Tu peux toujours effacer tes données avec `/oublier`. Tu penses que c'est une erreur ? Écris à auracle.contact@gmail.com",
+    "-# Tu peux toujours effacer tes données avec `/forget`. Tu penses que c'est une erreur ? Écris à auracle.contact@gmail.com",
 };

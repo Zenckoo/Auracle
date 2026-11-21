@@ -9,7 +9,7 @@ export const blessingTexts = {
   },
   sent: (targetId) => `### 💌 Bénédiction envoyée !\nTes mots gentils sont en route vers <@${targetId}>. Ils apparaîtront sur sa carte si elle choisit de les afficher.\n-# Écrire une nouvelle bénédiction pour cette carte remplace la précédente.`,
   self: '### 🪞 Ta propre carte\nTu ne peux pas bénir ta propre carte, voyageur·se. Mais toi aussi, tu mérites des mots gentils. 💜',
-  noProfile: '### 🌫️ Pas encore, voyageur·se\nTermine ton épreuve avec `/eveil` avant de laisser des bénédictions sur les autres cartes.',
+  noProfile: '### 🌫️ Pas encore, voyageur·se\nTermine ton épreuve avec `/awaken` avant de laisser des bénédictions sur les autres cartes.',
   gone: "### 🌫️ Carte introuvable\nCette carte est privée ou n'existe plus.",
   closed: '### 🔕 Bénédictions fermées\nCette personne ne reçoit pas de bénédictions en ce moment.',
   limit: "### ⏳ Que de gentillesse !\nTu peux envoyer jusqu'à 5 bénédictions toutes les 24 heures. Réessaie plus tard.",

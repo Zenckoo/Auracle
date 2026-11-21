@@ -3,7 +3,7 @@
 export const profileTexts = {
   cardLabel: (name) => `-# Carte de voyageur·se de ${name}`,
   privateNote: '-# 🔒 Ta carte est privée. Toi seul·e peux la voir.',
-  notAwakenedSelf: "### 🌫️ Pas encore de classe\nTu n'as pas encore affronté l'épreuve, voyageur·se. Commence ton voyage avec `/eveil`.",
+  notAwakenedSelf: "### 🌫️ Pas encore de classe\nTu n'as pas encore affronté l'épreuve, voyageur·se. Commence ton voyage avec `/awaken`.",
   notAwakenedOther: () => "### 🌫️ Encore inconnu\nCette personne n'a pas encore affronté l'épreuve. Sa classe reste inconnue.",
   privateOther: () => '### 🔒 Un chemin caché\nLa classe de cette personne reste un mystère...',
   bot: "### 🤖 Pas d'âme à révéler\nLes bots ne peuvent pas passer l'épreuve... pour l'instant.",

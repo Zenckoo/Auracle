@@ -14,9 +14,9 @@ export const texts = {
     commandsTitle: '**Commandes**',
     commands: [
       { name: '`/auracle`', description: 'Ouvrir le menu : tout est dedans' },
-      { name: '`/eveil`', description: "Commencer ton épreuve et découvrir ta classe" },
-      { name: '`/profil`', description: "Voir ta carte de profil, ou celle d'un·e voyageur·se avec @membre" },
-      { name: '`/oublier`', description: 'Effacer toutes tes données' },
+      { name: '`/awaken`', description: "Commencer ton épreuve et découvrir ta classe" },
+      { name: '`/profile`', description: "Voir ta carte de profil, ou celle d'un·e voyageur·se avec @membre" },
+      { name: '`/forget`', description: 'Effacer toutes tes données' },
     ],
     menuTitle: '**Dans le menu `/auracle`**',
     menu: [
@@ -64,7 +64,7 @@ export const texts = {
       body:
         "🔮 **Pas un diagnostic.** Cette épreuve s'appuie sur le Big Five, mais ta classe et ton type à quatre lettres sont une estimation pour le plaisir, pas une étiquette ni une évaluation officielle.\n\n" +
         "💡 **Fais confiance à ton instinct.** Réponds avec ta première idée. Si un mot n'est pas clair, choisis *Entre les deux*.\n\n" +
-        "💾 **Tes données.** Les épreuves inachevées sont effacées au bout de 30 jours. Les profils terminés sont gardés jusqu'à ce que tu utilises `/oublier`. Change ce que les autres voient quand tu veux avec 🔒 Confidentialité dans `/auracle`.\n\n" +
+        "💾 **Tes données.** Les épreuves inachevées sont effacées au bout de 30 jours. Les profils terminés sont gardés jusqu'à ce que tu utilises `/forget`. Change ce que les autres voient quand tu veux avec 🔒 Confidentialité dans `/auracle`.\n\n" +
         "🤝 **Respect.** Les règles de ce serveur s'appliquent aussi à Auracle : pas de moqueries, pas de discrimination, et on n'utilise jamais les résultats de quelqu'un contre lui.\n\n" +
         "🤖 **Créé avec l'aide de l'IA.** Auracle vit avec les outils d'aujourd'hui : une partie de son code et de ses textes est créée avec l'aide de **Claude**, une IA d'Anthropic. Ses dessins et illustrations, eux, seront toujours faits par des mains humaines, jamais par une IA.\n\n" +
         "🔞 **Discrétion conseillée.** Si tu as moins de 18 ans, garde tes résultats privés et parle à un adulte de confiance si quelque chose te pèse.\n\n" +
@@ -88,7 +88,7 @@ export const texts = {
 
     pause:
       '### ⏸️ Repose-toi, voyageur·se\n' +
-      'Ta progression est gardée 30 jours. Reviens avec `/eveil` quand tu es prêt·e.',
+      'Ta progression est gardée 30 jours. Reviens avec `/awaken` quand tu es prêt·e.',
 
     resume: {
       text: (position, total) =>
@@ -118,7 +118,7 @@ export const texts = {
       kept: 'Ta classe reste la tienne, voyageur·se. 💜',
     },
 
-    lost: "Ton épreuve est introuvable, voyageur·se. Utilise `/eveil` pour recommencer.",
+    lost: "Ton épreuve est introuvable, voyageur·se. Utilise `/awaken` pour recommencer.",
   },
 
   results: {
@@ -175,7 +175,7 @@ export const texts = {
       question:
         '### 🪪 Ta carte de profil\n' +
         'Ta classe doit-elle être connue de tous, ou rester secrète ?\n' +
-        '-# Les cartes publiques sont visibles par tout le monde avec /profil. Tes facettes restent toujours privées.',
+        '-# Les cartes publiques sont visibles par tout le monde avec /profile. Tes facettes restent toujours privées.',
       public: 'Publique',
       private: 'Privée',
       changeLater: CHANGE_LATER,

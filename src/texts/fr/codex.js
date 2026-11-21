@@ -82,12 +82,12 @@ export const codexTexts = {
       name: 'Tes données',
       body:
         "Auracle ne garde que ce dont il a besoin :\n" +
-        "- Tes réponses et tes résultats, jusqu'à ce que tu utilises `/oublier`\n" +
+        "- Tes réponses et tes résultats, jusqu'à ce que tu utilises `/forget`\n" +
         "- Les épreuves inachevées, effacées 30 jours après ta dernière réponse\n" +
         "- Ce que tu ajoutes à ta carte : personnalisation, identité (seulement avec ton consentement), badges, bannière et bénédictions\n" +
         "- Les serveurs où tu as utilisé Auracle, seulement pour les 🏰 Guildes et les rôles de guilde\n\n" +
         "Ta carte, ton secret caché et ton identité sont **privés par défaut**. Tes facettes ne sont jamais montrées aux autres. Une bénédiction n'apparaît que si la personne concernée l'accepte, et chaque bannière est vérifiée automatiquement avant d'être enregistrée.\n\n" +
-        "`/oublier` efface tout, quand tu veux, et **📦 Mes données** dans 🔒 Confidentialité t'envoie une copie de tout ce qu'Auracle garde.\n\n" +
+        "`/forget` efface tout, quand tu veux, et **📦 Mes données** dans 🔒 Confidentialité t'envoie une copie de tout ce qu'Auracle garde.\n\n" +
         "-# Tous les détails sont dans la Politique de confidentialité.",
       links: [{ label: 'Politique de confidentialité', url: 'https://auracle-site.pages.dev/privacy' }],
     },
@@ -97,7 +97,7 @@ export const codexTexts = {
       body:
         "Tes résultats sont une photo, pas une sentence. La personnalité change doucement au fil de la vie, et ton humeur du jour peut aussi influencer tes réponses.\n\n" +
         "📉 **Un score bas n'est jamais un défaut.** Une Extraversion basse veut dire que tu te recharges dans le calme, pas que tu es moins doué·e avec les gens. Chaque niveau de chaque trait a ses forces.\n\n" +
-        "🔁 **Tu peux repasser l'épreuve** quand tu veux avec `/eveil`. Si ta nouvelle classe te semble différente, ça fait partie du voyage.\n\n" +
+        "🔁 **Tu peux repasser l'épreuve** quand tu veux avec `/awaken`. Si ta nouvelle classe te semble différente, ça fait partie du voyage.\n\n" +
         "🪞 **C'est toi qui te connais le mieux.** Si quelque chose ne te ressemble pas, fais-toi confiance plutôt qu'à l'épreuve.\n\n" +
         "-# Ta classe est une façon amusante de parler de qui tu es, jamais une case où rester.",
       links: [],
@@ -192,7 +192,7 @@ export const codexTexts = {
         "🌍 **Langue :** Auracle suit la langue de ton serveur sur Discord. Le staff peut la changer dans ⚙️ Réglages du serveur, dans `/auracle`.\n\n" +
         "🏰 **Rôles de guilde (facultatif) :** le staff peut les activer dans ⚙️ Réglages du serveur. Auracle crée alors les quatre rôles de guilde et donne à chaque membre avec une carte publique le rôle de sa guilde. Pour ça seulement, il demande **Gérer les rôles**, et il ne touche jamais aux autres rôles.\n\n" +
         "👀 **Ce que voient les membres :** la **Comparaison**, les **Guildes** et les cartes publiques sont postées dans le salon. Tout le reste reste privé pour le membre.\n\n" +
-        "🔒 **Ce qu'il garde :** les réponses et résultats d'un membre, et les serveurs où il a utilisé Auracle (seulement pour les Guildes et les rôles de guilde). Les membres peuvent tout effacer avec `/oublier`. Les cartes privées ne sont jamais montrées ni comptées.\n\n" +
+        "🔒 **Ce qu'il garde :** les réponses et résultats d'un membre, et les serveurs où il a utilisé Auracle (seulement pour les Guildes et les rôles de guilde). Les membres peuvent tout effacer avec `/forget`. Les cartes privées ne sont jamais montrées ni comptées.\n\n" +
         "🚫 **Ce que ce n'est pas :** un diagnostic, un outil de modération, ou un moyen de trier, classer ou sélectionner les membres. Ne vous servez jamais des résultats pour juger qui que ce soit.\n\n" +
         "💬 **Un problème ou une question ?** Utilise 📬 Avis dans `/auracle` : les messages arrivent directement à Zenckoo.",
       links: [
