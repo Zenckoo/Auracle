@@ -1,7 +1,11 @@
 // The 15 fantasy titles a traveler can show under their class (🎨 Customize).
 // Keys are saved in the database: never rename a key, only its text.
 
-export const TITLES = {
+import { localized } from '../core/i18n.js';
+import * as fr from '../texts/fr/data.js';
+import * as de from '../texts/de/data.js';
+
+const EN_TITLES = {
   starborn: 'Starborn',
   dawn: 'Keeper of Dawn',
   moonlit: 'Moonlit Wanderer',
@@ -18,6 +22,7 @@ export const TITLES = {
   mistwalker: 'Mistwalker',
   songs: 'Echo of the Old Songs',
 };
+export const TITLES = localized({ en: EN_TITLES, fr: fr.titles, de: de.titles });
 
 export function titleName(key) {
   return TITLES[key] ?? null;

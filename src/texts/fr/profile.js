@@ -10,7 +10,7 @@ export const profileTexts = {
 
   tastesTitle: '**🎮 Goûts**',
   tasteLabels: { games: 'Jeux', shows: 'Animés & séries', music: 'Musique', characters: 'Favoris' },
-  askAbout: (text) => `-# Parle-moi de ${text}`,
+  askAbout: (text) => `Parle-moi de ${text}`,
   localTime: (time, city) => `${time} à ${city}`,
   birthday: (date) => `Anniversaire le ${date}`,
   birthdayToday: "**🎂 C'est son anniversaire aujourd'hui !**",

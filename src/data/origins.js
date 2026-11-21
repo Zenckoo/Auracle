@@ -3,10 +3,13 @@
 // Countries are grouped by region (a Discord menu holds 25 choices at most).
 
 import { showText } from '../core/text.js';
+import { localized } from '../core/i18n.js';
+import * as fr from '../texts/fr/data.js';
+import * as de from '../texts/de/data.js';
 
 export const ORIGIN_MAX = 3;
 
-export const ORIGIN_REGIONS = {
+const EN_ORIGIN_REGIONS = {
   west_europe: {
     name: 'Western Europe',
     emoji: '🏰',
@@ -68,8 +71,10 @@ export const ORIGIN_REGIONS = {
     countries: { AU: 'Australia', NZ: 'New Zealand', PG: 'Papua New Guinea', FJ: 'Fiji', SB: 'Solomon Islands', VU: 'Vanuatu', NC: 'New Caledonia', PF: 'French Polynesia', WS: 'Samoa', TO: 'Tonga', KI: 'Kiribati', TV: 'Tuvalu', NR: 'Nauru', FM: 'Micronesia', MH: 'Marshall Islands', PW: 'Palau' },
   },
 };
+export const ORIGIN_REGIONS = localized({ en: EN_ORIGIN_REGIONS, fr: fr.originRegions, de: de.originRegions });
 
-const ALL_COUNTRIES = Object.assign({}, ...Object.values(ORIGIN_REGIONS).map((r) => r.countries));
+// Every country, in the language of the request (built each time, so it follows the server's language).
+const allCountries = () => Object.assign({}, ...Object.values(ORIGIN_REGIONS).map((r) => ({ ...r.countries })));
 
 // 'FR' -> 🇫🇷 (two regional indicator letters).
 export function flag(code) {
@@ -78,14 +83,15 @@ export function flag(code) {
 
 // The codes chosen ("own" included if the traveler wrote their own words).
 export function originKeys(profile) {
-  return (profile.origins ?? '').split(',').filter((c) => c in ALL_COUNTRIES || c === 'own');
+  return (profile.origins ?? '').split(',').filter((c) => c in allCountries() || c === 'own');
 }
 
 // 🇫🇷 France, 🇲🇦 Morocco, Kurdish
 export function originNames(profile, { escape = true } = {}) {
+  const names = allCountries();
   return originKeys(profile)
     .map((c) => {
-      if (c !== 'own') return `${flag(c)} ${ALL_COUNTRIES[c]}`;
+      if (c !== 'own') return `${flag(c)} ${names[c]}`;
       const own = profile.origins_text;
       return own ? (escape ? showText(own) : own) : null;
     })

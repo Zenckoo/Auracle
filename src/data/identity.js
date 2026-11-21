@@ -5,9 +5,13 @@
 import { showText } from '../core/text.js';
 import { originNames } from './origins.js';
 
+import { localized } from '../core/i18n.js';
+import * as fr from '../texts/fr/data.js';
+import * as de from '../texts/de/data.js';
+
 export const OWN_MAX = 30;
 
-export const IDENTITY_FIELDS = {
+const EN_IDENTITY_FIELDS = {
   pronouns: {
     emoji: '🏷️',
     max: 3,
@@ -65,6 +69,7 @@ export const IDENTITY_FIELDS = {
     },
   },
 };
+export const IDENTITY_FIELDS = localized({ en: EN_IDENTITY_FIELDS, fr: fr.identity, de: de.identity });
 
 // The keys chosen for a field ("own" included if the traveler wrote their own words).
 export function identityKeys(profile, field) {

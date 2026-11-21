@@ -2,12 +2,17 @@
 // The banner and the class header always stay on top, the badges and the date always at the bottom.
 // Saved as "about,tastes,-blessings,traits" ("-" = hidden). Never rename a key, only its text.
 
-export const PARTS = {
+import { localized } from '../core/i18n.js';
+import * as fr from '../texts/fr/data.js';
+import * as de from '../texts/de/data.js';
+
+const EN_PARTS = {
   about: { emoji: '💬', name: 'About me' },
   tastes: { emoji: '🎮', name: 'Tastes & practical' },
   blessings: { emoji: '💌', name: 'Blessings' },
   traits: { emoji: '📊', name: 'Traits' },
 };
+export const PARTS = localized({ en: EN_PARTS, fr: fr.parts, de: de.parts });
 
 const DEFAULT_ORDER = ['about', 'tastes', 'blessings', 'traits'];
 

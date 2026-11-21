@@ -11,7 +11,7 @@ export const profileTexts = {
   // The parts of the card: one title and one emoji per part, then simple "Name · value" lines.
   tastesTitle: '**🎮 Tastes**',
   tasteLabels: { games: 'Games', shows: 'Anime & series', music: 'Music', characters: 'Favorites' },
-  askAbout: (text) => `-# Ask me about ${text}`,
+  askAbout: (text) => `Ask me about ${text}`,
   localTime: (time, city) => `${time} in ${city}`,
   birthday: (date) => `Birthday ${date}`,
   birthdayToday: '**🎂 Birthday today!**',

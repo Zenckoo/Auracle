@@ -1,8 +1,12 @@
 // 🎨 Customize > 🕰️ Practical: time zone, languages and birthday (day and month, never the year).
 // Keys are saved in the database: never rename a key, only its text.
 
+import { currentLang, localized } from '../core/i18n.js';
+import * as fr from '../texts/fr/data.js';
+import * as de from '../texts/de/data.js';
+
 // 24 time zones (Discord menus hold 25 choices, the 25th is "Not shown"). Only a broad zone, never a city.
-export const TIMEZONES = {
+const EN_TIMEZONES = {
   honolulu: { name: 'Honolulu', zone: 'Pacific/Honolulu' },
   anchorage: { name: 'Anchorage', zone: 'America/Anchorage' },
   los_angeles: { name: 'Los Angeles', zone: 'America/Los_Angeles' },
@@ -28,9 +32,10 @@ export const TIMEZONES = {
   auckland: { name: 'Auckland, Fiji', zone: 'Pacific/Auckland' },
   utc: { name: 'UTC (no daylight saving)', zone: 'UTC' },
 };
+export const TIMEZONES = localized({ en: EN_TIMEZONES, fr: fr.timezones, de: de.timezones });
 
 // Languages, grouped by region so each menu stays under Discord's limit of 25 choices.
-export const LANG_REGIONS = {
+const EN_LANG_REGIONS = {
   west_europe: {
     name: 'Western Europe', emoji: '🏰',
     langs: { en: 'English', fr: 'French', es: 'Spanish', pt: 'Portuguese', de: 'German', it: 'Italian', nl: 'Dutch', ca: 'Catalan', eu: 'Basque', gl: 'Galician', ga: 'Irish', cy: 'Welsh', gd: 'Scottish Gaelic', br: 'Breton', lb: 'Luxembourgish', oc: 'Occitan', co: 'Corsican', mt: 'Maltese', fy: 'Frisian', rm: 'Romansh' },
@@ -64,20 +69,21 @@ export const LANG_REGIONS = {
     langs: { ase: 'American Sign Language', bfi: 'British Sign Language', fsl: 'French Sign Language', ils: 'International Sign', sgn: 'Another sign language', la: 'Latin', sa: 'Sanskrit', grc: 'Ancient Greek', yi: 'Yiddish', rom: 'Romani', eo: 'Esperanto', tok: 'Toki Pona' },
   },
 };
+export const LANG_REGIONS = localized({ en: EN_LANG_REGIONS, fr: fr.langRegions, de: de.langRegions });
 
 export const LANG_MAX = 6;
 
-const ALL_LANGS = Object.assign({}, ...Object.values(LANG_REGIONS).map((r) => r.langs));
+// Every language, in the language of the request (built each time, so it follows the server's language).
+const allLangs = () => Object.assign({}, ...Object.values(LANG_REGIONS).map((r) => ({ ...r.langs })));
 
 export function langName(code) {
-  return ALL_LANGS[code] ?? null;
+  return allLangs()[code] ?? null;
 }
 
 export function langList(profile) {
-  return (profile.languages ?? '').split(',').filter((c) => c in ALL_LANGS);
+  return (profile.languages ?? '').split(',').filter((c) => c in allLangs());
 }
 
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const DAYS_IN_MONTH = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 // "14" and "3" -> { day: 14, month: 3 }, or null if it is not a real date.
@@ -91,7 +97,9 @@ export function parseBirthday(dayText, monthText) {
 
 export function birthdayName(profile) {
   if (!profile.birth_day || !profile.birth_month) return null;
-  return `${MONTHS[profile.birth_month - 1]} ${profile.birth_day}`;
+  // "January 10", "10 janvier", "10. Januar": the date written the way each language writes it.
+  const date = new Date(Date.UTC(2000, profile.birth_month - 1, profile.birth_day));
+  return new Intl.DateTimeFormat(currentLang(), { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(date);
 }
 
 // Today's date where the traveler lives (their time zone, or UTC).

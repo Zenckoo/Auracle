@@ -71,7 +71,7 @@ function tasteBlock(profile) {
   const lines = TASTE_FIELDS.filter((f) => f.key !== 'ask_about' && profile[f.key]).map(
     (f) => `**${P.tasteLabels[f.key]}** · ${showText(profile[f.key])}`,
   );
-  if (profile.ask_about) lines.push(P.askAbout(showText(profile.ask_about)));
+  if (profile.ask_about) lines.push(`-# ${P.askAbout(showText(profile.ask_about))}`);
   return lines.length ? [P.tastesTitle, ...lines] : [];
 }
 
