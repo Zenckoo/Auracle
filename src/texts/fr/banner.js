@@ -9,7 +9,7 @@ export const bannerTexts = {
   none: '-# Pas encore de bannière.',
   rules:
     '**📏 Règles**\n' +
-    "-# PNG, JPG, WebP ou GIF · au moins 600 × 200 pixels · 10 Mo max. Les images larges rendent mieux (environ 3 fois plus larges que hautes).\n" +
+    "-# PNG, JPG, WebP ou GIF · au moins 600 × 200 pixels · 10 Mo max. Les images en largeur rendent mieux (environ 3 fois plus larges que hautes).\n" +
     "-# Chaque bannière est vérifiée automatiquement, et peut être retirée par la modération. Rien de choquant : pas de nudité, de gore, de haine ni rien de dangereux pour les plus jeunes. Seulement des images que tu as le droit d'utiliser.\n" +
     '-# ✂️ Déplacer et recadrer ta bannière arrivera avec le site web.',
   upload: 'Envoyer une bannière',

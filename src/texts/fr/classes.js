@@ -9,11 +9,11 @@ export const guilds = {
 
 export const classes = {
   INFP: { name: 'Barde', subtitle: 'le Pacificateur',
-    description: "Comme un Barde, tu transformes les émotions en histoires et tu cherches l'harmonie partout où tu vas. Plein de douceur, d'imagination et fidèle à tes valeurs... avec sûrement 47 onglets ouverts en ce moment." },
+    description: "Comme un Barde, tu transformes les émotions en histoires et tu cherches l'harmonie partout où tu vas. Douceur, imagination et fidélité à tes valeurs... avec sûrement 47 onglets ouverts en ce moment." },
   ENFP: { name: 'Enchanteur', subtitle: "l'Inspirateur",
     description: "Comme un Enchanteur, tu apportes magie et énergie partout où tu passes. Chaque nouvelle idée t'enflamme... pendant que ta liste de choses à faire grimpe en silence jusqu'à 200 tâches inachevées." },
   INFJ: { name: 'Oracle', subtitle: "l'Idéaliste",
-    description: "Comme un Oracle, tu lis les gens avant qu'ils ne parlent et tu rêves d'un monde meilleur. Une sagesse au-delà de ton âge... et tu juges secrètement l'énergie de tout le monde." },
+    description: "Comme un Oracle, tu lis les gens avant qu'ils ne parlent et tu rêves d'un monde meilleur. Une sagesse au-delà de ton âge... et tu passes secrètement tout le monde au crible." },
   ENFJ: { name: 'Paladin', subtitle: 'le Héros',
     description: "Comme un Paladin, tu avances avec le cœur et tu tires tout le monde vers le haut. Un mentor né... qui oublie de prendre soin de soi." },
 
@@ -24,7 +24,7 @@ export const classes = {
   INTJ: { name: 'Archimage', subtitle: 'le Stratège',
     description: "Comme un Archimage, tu vois dix coups d'avance et tu bâtis des plans sur des années. Brillant et indépendant... et tu as déjà un plan B pour ton plan B." },
   ENTJ: { name: 'Mage de bataille', subtitle: 'le Meneur',
-    description: "Comme un Mage de bataille, tu fonces et tu ouvres la voie vers la victoire. Audace et décision... et sans trop savoir comment, tu as aussi pris les commandes du groupe de discussion." },
+    description: "Comme un Mage de bataille, tu fonces et tu ouvres la voie vers la victoire. Audace et décision... et sans trop savoir comment, tu as aussi pris les rênes de la conversation de groupe." },
 
   ISTJ: { name: 'Moine', subtitle: "l'Organisateur",
     description: "Comme un Moine, tu vis avec discipline et tu gardes tout dans un ordre parfait. Calme, patience et fiabilité à toute épreuve... et ta routine du matin n'a pas bougé depuis cinq ans." },
@@ -42,5 +42,5 @@ export const classes = {
   ISFP: { name: 'Druide', subtitle: "l'Esprit libre",
     description: "Comme un Druide, tu suis ton cœur et tu trouves la beauté là où personne ne regarde. Douceur et âme d'artiste... et tu disparais dans la nature dès que les plans deviennent trop stricts." },
   ESFP: { name: 'Bouffon', subtitle: "l'Âme de la fête",
-    description: "Comme un Bouffon, tu illumines chaque pièce et tu transformes n'importe quel moment en fête. Drôle, chaleureux et spontané... et « juste une dernière chanson » n'est jamais la dernière." },
+    description: "Comme un Bouffon, tu illumines chaque endroit où tu passes et tu transformes n'importe quel moment en fête. Drôle, chaleureux et spontané... et « juste une dernière chanson » n'est jamais la dernière." },
 };

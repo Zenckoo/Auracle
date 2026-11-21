@@ -1,11 +1,11 @@
-// names (fr): facet and badge names. Facets follow Thiry & Piolti (2023), with a few easier words.
+// names (fr): facet and badge names. Facets follow Thiry & Piolti (2023) and the usual French names of the NEO PI-R, with a few easier words.
 
 export const facets = {
-  N: ['Anxiété', 'Colère', 'Dépression', 'Timidité', 'Immodération', 'Vulnérabilité'],
-  E: ['Sympathie', 'Sociabilité', 'Assertivité', 'Activité', 'Recherche de sensations', 'Enthousiasme'],
-  O: ['Imagination', "Intérêt pour l'art", 'Émotivité', "Goût de l'aventure", 'Intellect', 'Progressisme'],
-  A: ['Confiance', 'Moralité', 'Altruisme', 'Coopération', 'Modestie', 'Compassion'],
-  C: ['Auto-efficacité', 'Ordre', 'Sens du devoir', 'Recherche de succès', 'Autodiscipline', 'Prudence'],
+  N: ['Anxiété', 'Colère', 'Dépression', 'Timidité', 'Excès', 'Vulnérabilité'],
+  E: ['Chaleur', 'Sociabilité', 'Assertivité', 'Dynamisme', 'Recherche de sensations', 'Enthousiasme'],
+  O: ['Imagination', "Intérêt pour l'art", 'Émotivité', "Goût de l'aventure", 'Curiosité intellectuelle', 'Progressisme'],
+  A: ['Confiance', 'Droiture', 'Altruisme', 'Coopération', 'Modestie', 'Compassion'],
+  C: ['Compétence', 'Ordre', 'Sens du devoir', 'Soif de réussite', 'Autodiscipline', 'Prudence'],
 };
 
 export const badges = {

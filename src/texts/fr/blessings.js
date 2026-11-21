@@ -41,5 +41,5 @@ export const blessingTexts = {
   unblock: 'Débloquer tout le monde',
   saved: '### ✨ Tes bénédictions ont été mises à jour.',
   blocked: '### 🚫 Bloqué\nCette personne ne peut plus t\'envoyer de bénédictions. Tu peux annuler ça avec Débloquer tout le monde.',
-  rules: "-# 💜 Les bénédictions suivent les règles du serveur et les Conditions d'utilisation d'Auracle. Tu en vois une méchante sur une carte ? Utilise 🚩 Signaler.",
+  rules: "-# 💜 Les bénédictions suivent les règles du serveur et les Conditions d'utilisation d'Auracle. Tu en vois une blessante sur une carte ? Utilise 🚩 Signaler.",
 };

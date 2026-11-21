@@ -3,7 +3,7 @@
 export const compareTexts = {
   title: '### 🤝 Compatibilité',
   score: (pct) => `## ${pct} %`,
-  alike: '**Pareils :**',
+  alike: '**Points communs :**',
   opposite: '**Opposés :**',
   none: 'aucun',
   footer: '-# Une estimation pour le plaisir basée sur vos cinq traits, jamais un verdict.',
@@ -19,7 +19,7 @@ export const compareTexts = {
     'dreamers+wanderers': "Émotions et aventure : l'un écrit l'histoire, l'autre la vit... en général sans carte.",
     'scholars+scholars': 'Deux Érudits ensemble ? Des théories brillantes, des débats sans fin... et personne ne pense à manger.',
     'scholars+guardians': "Le penseur et le gardien : l'un remet chaque règle en question, l'autre les a écrites.",
-    'scholars+wanderers': "Plan contre instinct : l'un calcule chaque mouvement, l'autre a déjà sauté.",
+    'scholars+wanderers': "Plan contre instinct : l'un calcule chaque coup, l'autre a déjà sauté.",
     'guardians+guardians': 'Deux Gardiens ensemble ? Rien ne sera jamais en retard, perdu ou mal rangé. Jamais.',
     'guardians+wanderers': "L'ordre face au chaos : l'un prépare son sac pour tous les dangers possibles, l'autre a oublié le sien.",
     'wanderers+wanderers': 'Deux Vagabonds ensemble ? Des aventures inoubliables... et absolument aucun plan B.',
@@ -30,5 +30,5 @@ export const guildsTexts = {
   title: (name) => `### 🏰 Le royaume de ${name}`,
   fallbackName: 'ce serveur',
   total: (n) => `-# ${n} ${n <= 1 ? 'carte publique' : 'cartes publiques'} dans ce royaume. Les cartes privées ne sont jamais comptées.`,
-  empty: 'Pas encore de carte publique dans ce royaume... Sois le premier ou la première avec `/awaken` !',
+  empty: 'Pas encore de carte publique dans ce royaume... Lance-toi en premier avec `/awaken` !',
 };

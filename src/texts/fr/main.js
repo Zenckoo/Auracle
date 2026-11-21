@@ -4,13 +4,24 @@
 export const CHANGE_LATER = '-# Tu peux changer ça quand tu veux avec 🔒 Confidentialité dans `/auracle`.';
 
 export const texts = {
+  a11y: {
+    words: {
+      '🎮': 'Jeux :', '📺': 'Animés et séries :', '🎧': 'Musique :', '⭐': 'Personnes préférées :',
+      '🕰️': 'Heure locale :', '🗣️': 'Parle :', '🎂': 'Anniversaire :', '🏷️': 'Pronoms :', '🌈': 'Genre :',
+      '💞': 'Orientation :', '🌍': 'Origines :', '🏅': 'Badges :', '💌': 'Bénédiction :',
+    },
+    trait: (name, pct) => `${name} : environ ${pct} %`,
+    about: (pct) => `environ ${pct} %`,
+    done: (pct) => `${pct} fait`,
+  },
+
   common: {
     unknownCommand: "Ce sort m'est encore inconnu, voyageur·se.",
     links: { home: 'Site web', privacy: 'Politique de confidentialité', terms: "Conditions d'utilisation" },
   },
 
   help: {
-    title: '### 📜 Le guide du voyageur·se',
+    title: '### 📜 Le guide des voyageur·ses',
     commandsTitle: '**Commandes**',
     commands: [
       { name: '`/auracle`', description: 'Ouvrir le menu : tout est dedans' },
@@ -52,7 +63,7 @@ export const texts = {
         "Tes réponses dévoilent tes cinq grands traits, et avec eux ta **classe de héros** : une parmi 16, réparties en quatre guildes.\n\n" +
         '🔒 Tes résultats restent privés, sauf si tu choisis de les partager.\n\n' +
         "🌱 Auracle commence par cette épreuve, mais c'est bien plus qu'un test : " +
-        "un compagnon social pour Discord, inclusif, sûr, et vraiment à personnaliser à ton image.\n\n" +
+        "un compagnon social pour Discord, inclusif, sûr, et que tu peux vraiment personnaliser à ton image.\n\n" +
         "🛠️ Auracle est en **bêta publique** : ouvert à tous les serveurs, et toujours en train de grandir. " +
         "Un bug ou une idée ? Utilise **📬 Avis** dans `/auracle`. Perdu·e ? `/auracle` rassemble tout, et le **📖 Codex** explique comment tout fonctionne, avec des ressources de soutien si tu en as besoin un jour.\n\n" +
         '-# Créé avec soin par Zenckoo ✨',
@@ -66,7 +77,7 @@ export const texts = {
         "💡 **Fais confiance à ton instinct.** Réponds avec ta première idée. Si un mot n'est pas clair, choisis *Entre les deux*.\n\n" +
         "💾 **Tes données.** Les épreuves inachevées sont effacées au bout de 30 jours. Les profils terminés sont gardés jusqu'à ce que tu utilises `/forget`. Change ce que les autres voient quand tu veux avec 🔒 Confidentialité dans `/auracle`.\n\n" +
         "🤝 **Respect.** Les règles de ce serveur s'appliquent aussi à Auracle : pas de moqueries, pas de discrimination, et on n'utilise jamais les résultats de quelqu'un contre lui.\n\n" +
-        "🤖 **Créé avec l'aide de l'IA.** Auracle vit avec les outils d'aujourd'hui : une partie de son code et de ses textes est créée avec l'aide de **Claude**, une IA d'Anthropic. Ses dessins et illustrations, eux, seront toujours faits par des mains humaines, jamais par une IA.\n\n" +
+        "🤖 **Créé avec l'aide de l'IA.** Auracle vit avec son temps : une partie de son code et de ses textes est créée avec l'aide de **Claude**, une IA d'Anthropic. Ses dessins et illustrations, eux, seront toujours faits par des mains humaines, jamais par une IA.\n\n" +
         "🔞 **Discrétion conseillée.** Si tu as moins de 18 ans, garde tes résultats privés et parle à un adulte de confiance si quelque chose te pèse.\n\n" +
         "-# Tu es toujours bien plus qu'un résultat de test. 💜",
       agree: "📜 En continuant, tu acceptes les **Conditions d'utilisation** et la **Politique de confidentialité** d'Auracle.",
@@ -137,7 +148,7 @@ export const texts = {
     higherThan: (pct) => `Plus haut que ${pct} % des voyageur·ses`,
 
     gentleWord:
-      "🌙 **Un mot doux, voyageur·se.** Tes réponses laissent penser que tu portes peut-être beaucoup d'inquiétude ou de lourdeur en ce moment. " +
+      "🌙 **Un petit mot, voyageur·se.** Tes réponses laissent penser que tu portes peut-être beaucoup d'inquiétudes ou un poids sur le cœur en ce moment. " +
       "Ce n'est pas un diagnostic, juste le reflet de tes réponses. Si c'est lourd, en parler à quelqu'un de confiance, " +
       "ou à un·e professionnel·le, peut vraiment aider. Tu n'as pas à porter ça seul·e.",
     helpButton: "Trouver une ligne d'écoute",
@@ -145,24 +156,24 @@ export const texts = {
     traitNames: { O: 'Ouverture', C: 'Conscienciosité', E: 'Extraversion', A: 'Agréabilité', N: 'Névrosisme' },
     traitPhrases: {
       O: {
-        low: "Les pieds sur terre : tu fais confiance à ce qui marche et tu ne cours pas après chaque nouvelle idée brillante.",
+        low: "Les pieds sur terre : tu fais confiance à ce qui marche et tu ne cours pas après chaque nouveauté qui brille.",
         average: 'Curieux·se mais pratique : les nouvelles idées sont les bienvenues, tant qu\'elles ont du sens.',
         high: "La tête dans les étoiles : des idées sans fin, des questions sans fin... et peut-être trop de projets inachevés.",
       },
       C: {
         low: "Au gré du vent : tes plans, c'est plutôt des idées en l'air... et les dates limites, de lointaines rumeurs.",
-        average: "Aventurier·e équilibré·e : organisé·e quand ça compte, souple quand ça ne compte pas.",
+        average: "Aventurier·e équilibré·e : organisé·e quand ça compte, souple le reste du temps.",
         high: "Maître de l'ordre : listes, plans et objectifs... tu as sûrement une liste de tes listes.",
       },
       E: {
-        low: 'Flamme tranquille : tu te recharges dans le calme et la solitude... et un plan annulé ressemble à un cadeau.',
+        low: "Flamme tranquille : tu te recharges dans le calme et la solitude... et un plan annulé, c'est un cadeau.",
         average: 'Caméléon social : heureux·se en soirée, tout aussi heureux·se chez toi avec un bon livre.',
-        high: "Étincelle de la fête : les gens te donnent de l'énergie... et le silence te rend un peu nerveux·se.",
+        high: "Étincelle de la soirée : les gens te donnent de l'énergie... et le silence te rend un peu nerveux·se.",
       },
       A: {
-        low: "Lame honnête : tu dis ce que tu penses sans enrober la vérité... la diplomatie est facultative.",
+        low: "Franc-parler : tu dis ce que tu penses sans prendre de gants... la diplomatie, c'est en option.",
         average: 'Compagnon juste : gentil·le quand ça compte, ferme quand il le faut.',
-        high: "Cœur d'or : tu tiens profondément aux autres et tu aides toujours... même quand tu devrais dire non.",
+        high: "Cœur d'or : les autres comptent énormément pour toi et tu aides toujours... même quand tu devrais dire non.",
       },
       N: {
         low: 'Eaux calmes : tu restes stable quand les tempêtes arrivent.',

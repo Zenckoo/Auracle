@@ -3,6 +3,18 @@
 export const CHANGE_LATER = '-# You can change this anytime with 🔒 Privacy in `/auracle`.';
 
 export const texts = {
+  // ♿ Accessibility mode: the words that replace bars and emojis for screen readers.
+  a11y: {
+    words: {
+      '🎮': 'Games:', '📺': 'Anime and series:', '🎧': 'Music:', '⭐': 'Favorite people:',
+      '🕰️': 'Local time:', '🗣️': 'Speaks:', '🎂': 'Birthday:', '🏷️': 'Pronouns:', '🌈': 'Gender:',
+      '💞': 'Orientation:', '🌍': 'Origins:', '🏅': 'Badges:', '💌': 'Blessing:',
+    },
+    trait: (name, pct) => `${name}: about ${pct}%`,
+    about: (pct) => `about ${pct}%`,
+    done: (pct) => `${pct} done`,
+  },
+
   common: {
     unknownCommand: 'This spell is not known yet, traveler.',
     links: { home: 'Website', privacy: 'Privacy Policy', terms: 'Terms of Service' },

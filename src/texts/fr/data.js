@@ -5,11 +5,11 @@ export const vibes = {
   cozy: { name: 'Mode cocooning' },
   chat: { name: 'Dispo pour papoter' },
   exams: { name: 'En plein exams' },
-  gaming: { name: "C'est l'heure du jeu" },
-  night: { name: 'Mode oiseau de nuit' },
+  gaming: { name: 'En pleine partie' },
+  night: { name: 'Mode couche-tard' },
   battery: { name: 'Batterie faible' },
   creative: { name: 'Humeur créative' },
-  away: { name: 'Absent pour un moment' },
+  away: { name: 'Absent·e quelque temps' },
 };
 
 export const tasteFields = [
@@ -120,7 +120,7 @@ export const titles = {
   tides: 'Enfant des marées',
   frostbloom: 'Fleur de givre',
   small: 'Gardien·ne des petites choses',
-  mistwalker: 'Marche-brume',
+  mistwalker: 'Arpenteur·se de brume',
   songs: 'Écho des chants anciens',
 };
 

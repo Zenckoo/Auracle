@@ -3,7 +3,7 @@
 export const customizeTexts = {
   hubButton: 'Personnaliser',
   title: '### 🎨 Personnalise ta carte',
-  intro: "-# Rends ta carte vraiment à toi. Tout est facultatif, et suit ta carte : privé si ta carte est privée.",
+  intro: "-# Fais de ta carte un vrai reflet de toi. Tout est facultatif, et suit ta carte : si elle est privée, tout reste privé.",
   sealed: '### ✨ Ta carte a été mise à jour.',
   titleLine: (name) => `**✨ Titre fantasy** : ${name ? `*${name}*` : 'Aucun'}\n-# Affiché sous ta classe.`,
   titlePlaceholder: 'Choisis un titre fantasy',
@@ -52,8 +52,8 @@ export const customizeTexts = {
   dmsNone: 'Pas affiché',
 
   practicalTitle: '### 🕰️ Infos pratiques',
-  practicalIntro: '-# Des petites choses qui aident les autres à te joindre. Tout est facultatif.',
-  timeLine: (name) => `**🕰️ Heure locale** : ${name ?? 'Pas affichée'}\n-# Ta carte montre ton heure actuelle. Juste un grand fuseau horaire, jamais ta ville.`,
+  practicalIntro: '-# Des petits détails pour aider les autres à te contacter. Tout est facultatif.',
+  timeLine: (name) => `**🕰️ Heure locale** : ${name ?? 'Pas affichée'}\n-# Ta carte montre ton heure actuelle. Juste un fuseau horaire général, jamais ta ville.`,
   timePlaceholder: 'Choisis ton fuseau horaire',
   timeNone: 'Pas affichée',
   langLine: (names, max) => `**🗣️ Langues** : ${names.length ? names.join(', ') : 'Aucune'}\n-# Jusqu'à ${max}. Choisis une région, puis tes langues.`,
@@ -105,7 +105,7 @@ export const customizeTexts = {
     pronouns: { title: 'Tes pronoms', label: 'Avec tes propres mots (30 caractères)', placeholder: 'iel, ael, ul...' },
     gender: { title: 'Ton genre', label: 'Avec tes propres mots (30 caractères)', placeholder: 'Tes propres mots' },
     orientation: { title: 'Ton orientation', label: 'Avec tes propres mots (30 caractères)', placeholder: 'Tes propres mots' },
-    origins: { title: 'Tes origines', label: 'Un héritage avec tes propres mots (30 caractères)', placeholder: 'Kurde, Rom, Mapuche...' },
+    origins: { title: 'Tes origines', label: 'Un héritage, avec tes propres mots (30 caractères)', placeholder: 'Kurde, Rom, Mapuche...' },
   },
   originRegionPlaceholder: 'Choisis une région pour tes origines',
   originPlaceholder: (region) => `Tes origines : ${region}`,
