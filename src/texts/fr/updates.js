@@ -10,6 +10,16 @@ export const updatesTexts = {
   page: (n, total) => `Page ${n} / ${total}`,
   versions: [
     {
+      name: 'v0.8 · Auracle parle français 🇫🇷',
+      items: [
+        '🇫🇷 Auracle parle maintenant **français** : menus, épreuve, cartes, Codex et Nouveautés',
+        "🌍 Chaque serveur a sa propre langue. Auracle suit la langue de ton serveur sur Discord, et le staff peut en choisir une autre dans ⚙️ Réglages du serveur, dans `/auracle`",
+        "📜 En français, les questions viennent de la traduction publiée de l'IPIP-NEO-300 par **Thiry et Piolti (2023)**",
+        '🌐 Le site web est aussi en français, avec un bouton **EN · FR** en haut de chaque page. Les boutons du bot l\'ouvrent dans la langue de ton serveur',
+        '⌨️ Les commandes gardent le même nom dans toutes les langues : `/auracle`, `/awaken`, `/profile` et `/forget`',
+      ],
+    },
+    {
       name: 'v0.7 · Bêta publique 🌍',
       items: [
         '🌍 Auracle est maintenant ouvert à tous les serveurs, en bêta publique',
@@ -94,7 +104,7 @@ export const updatesTexts = {
   soon: [
     '🔑 **Connexion avec Discord** sur le site web',
     '🎨 **Personnaliser ta carte sur le site web**, avec encore plus d\'options, comme déplacer et recadrer ta bannière',
-    "🗣️ D'autres langues : français, allemand et japonais",
+    "🗣️ D'autres langues : allemand et japonais",
   ],
   footer: '-# Une idée ? Partage-la avec 📬 Avis dans `/auracle`.',
 };

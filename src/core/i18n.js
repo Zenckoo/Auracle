@@ -11,7 +11,7 @@ import { AsyncLocalStorage } from 'node:async_hooks';
 // ready: false = still being translated. Only the HQ server can pick it, to try it out.
 export const LANGS = {
   en: { name: 'English', flag: '🇬🇧', ready: true },
-  fr: { name: 'Français', flag: '🇫🇷', ready: false },
+  fr: { name: 'Français', flag: '🇫🇷', ready: true },
   de: { name: 'Deutsch', flag: '🇩🇪', ready: false },
 };
 export const DEFAULT_LANG = 'en';
