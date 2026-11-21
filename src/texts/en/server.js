@@ -2,7 +2,7 @@
 
 export const serverTexts = {
   hubButton: 'Server settings',
-  helpLine: '⚙️ **Server settings**: guild roles, for server staff only',
+  helpLine: '⚙️ **Server settings**: guild roles and language, for server staff only',
   title: '### ⚙️ Server settings',
   intro: '-# Only members who can manage this server see these settings.',
   notStaff: '### 🔒 Staff only\nOnly members who can manage this server can open these settings.',
